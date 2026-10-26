@@ -1,0 +1,15 @@
+exit: 0
+--- stdout ---
+────────────────────────────────────────
+World Order Position — The Tallow Ledger
+────────────────────────────────────────
+Position : 1
+Unit     : Full Story
+Status   : Complete
+Date     : Autumn, the year the harbor-master died
+
+Before   : (none — this is the first entry)
+After  (Position 2): [[Salt and Signal]] | Full Story | Complete
+────────────────────────────────────────
+
+--- stderr ---

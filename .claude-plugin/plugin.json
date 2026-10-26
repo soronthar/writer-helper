@@ -1,0 +1,18 @@
+{
+  "name": "writing-room",
+  "version": "0.1.0",
+  "description": "A structured fiction-writing pipeline: world bible, story concepts, outlines, chapter planning, drafting, review and continuity tracking, as skills.",
+  "author": {
+    "name": "Soronthar"
+  },
+  "homepage": "https://github.com/soronthar/writer-helper",
+  "repository": "https://github.com/soronthar/writer-helper",
+  "keywords": [
+    "writing",
+    "fiction",
+    "worldbuilding",
+    "novel",
+    "skills"
+  ],
+  "license": "MIT"
+}

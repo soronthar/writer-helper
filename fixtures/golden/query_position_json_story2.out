@@ -1,0 +1,21 @@
+exit: 0
+--- stdout ---
+{
+  "found": true,
+  "world": "worlds/Harrowmere",
+  "story": "Salt and Signal",
+  "position": 2,
+  "unit": "Full Story",
+  "status": "Complete",
+  "in_world_date": "Early winter, the same year",
+  "before": {
+    "position": 1,
+    "story": "The Tallow Ledger",
+    "unit": "Full Story",
+    "status": "Complete"
+  },
+  "after": null,
+  "concurrent": []
+}
+
+--- stderr ---

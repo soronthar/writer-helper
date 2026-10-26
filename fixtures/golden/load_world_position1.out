@@ -1,0 +1,1217 @@
+exit: 0
+--- stdout ---
+
+════════════════════════════════════════════════════════════
+FILE: DESCRIPTION.md
+════════════════════════════════════════════════════════════
+# Harrowmere
+
+## Overview
+Harrowmere is a fenland port-republic of brackish canals, stilt-houses and guild charters, grounded and slightly damp, where accounts matter more than swords. There is no magic; power is held by whoever keeps the records.
+
+## Geography
+- **Major regions:** The Marrowfen Reach (the inhabited coast), the Drowned Flats (reed and tidal marsh to the east), the harbor at Harrowmere
+- **Climate:** Cool, wet, windy. Fog most mornings, salt on everything.
+- **Notable natural features:** The canal network, the salt-pans, the half-sunk bell-tower in the Flats.
+
+## History
+
+| Era / Period | Key Events |
+|-------------|-----------|
+| The Reed Years | Scattered reed-cutters settle the Reach. |
+| The Charter | The Charter of Three Seals divides the harbor between guild, union and wardens. |
+| The Long Audit | Two centuries of quiet, in which the ledgers are trusted and rarely read. |
+
+## Population
+- **Total (approximate):** Moderate; about forty thousand in the Reach
+- **Major species / peoples:** Humans only; reed-cutters, guild families, Union merchants
+- **Major factions / nations:** Harbor Guild (governs the quays), Tidewright Union (tallow and rope trade), Fen Wardens (militia)
+
+## Economy
+Tallow, rope, salt and lamp-oil, carried on barges and taxed at the quay. The tallow-tax ledger is the republic's main revenue record.
+
+## Religion / Belief Systems
+No organised religion. The Drowned Bell is a folk belief; the Charter is treated with something close to reverence.
+
+## Current State
+The last harbor-master died without an heir and Hesk Varrow holds the seal as acting head until the Guild votes. The Union is buying influence in the Guild offices, and a replaced page in the tallow ledger has made every record suspect.
+
+## Notes
+Tone: quiet, procedural, morally grey. Avoid swashbuckling; conflict is paper and consequence.
+
+════════════════════════════════════════════════════════════
+FILE: SUMMARY.md
+════════════════════════════════════════════════════════════
+# SUMMARY — Harrowmere
+
+> **Last synchronized:** 2026-02-20 — after consolidating [[Salt and Signal]] (Position 2)
+> This file is auto-maintained by the Writing Assistant. Do not edit manually.
+
+---
+
+## World Overview
+
+Harrowmere is a damp fenland port-republic where accounts matter more than swords, with no magic and power held by whoever keeps the records. Three bodies share the harbor under the Charter of Three Seals.
+
+## Active Tensions
+
+The last harbor-master died without an heir and Hesk Varrow holds the seal as acting head until the Guild votes. A replaced page in the tallow ledger has made every record suspect, and the Union is buying influence in the Guild offices. Mara Quill has seen the sealed original, and Hesk Varrow knows it.
+
+---
+
+## Characters
+
+| Name | Role | Description | Location / Status |
+|------|------|-------------|-------------------|
+| [[Mara Quill]] | Ledger-keeper at the Tally House | Methodical and dry-humoured | Harrowmere, lower quay · Alive |
+| [[Doran Pike]] | Senior archivist, Tally House | Principled to a fault and quietly stubborn | The Tally House, records room · Alive |
+| [[Hesk Varrow]] | Acting harbor-master | Measured and controlled | Harrowmere, harbor-master's office · Alive |
+| [[Ilsa Brandt]] | Factor for the Tidewright Union | Patient and observant | Harrowmere, Union counting-house · Alive |
+| [[Tamsin O'Rook]] | Clerk, harbor-master's office | Eager to be useful and slow to ask why | Harrowmere, harbor-master's office · Alive |
+
+---
+
+## Factions
+
+| Name | Type | Current Standing |
+|------|------|-----------------|
+| [[Harbor Guild]] | Guild | Nominally dominant on the quays |
+| [[Tidewright Union]] | Merchant union | Gaining ground |
+| [[Fen Wardens]] | Militia | Neutral, watching |
+
+---
+
+## Locations
+
+| Name | Type | Description |
+|------|------|-------------|
+| [[Harrowmere]] | City | A city of brackish canals and stilt-houses where every bridge has a toll and every quay a clerk |
+| [[The Tally House]] | Building | A long brick hall with narrow windows, built so that no ledger ever sits in direct sun |
+| [[The Drowned Flats]] | Region | Mile on mile of reed and standing water that floods twice a day |
+| [[The Marrowfen Reach]] | Region | A low coast of fen and salt-pan, cut by canals, with a single deep harbor at Harrowmere |
+
+---
+
+## Active Mythology / Beliefs
+
+| Name | Type | Relevance |
+|------|------|-----------|
+| [[The Charter of Three Seals]] | Foundation document | Three founding seals, held by guild, union and wardens, must all agree before the harbor's law can change |
+| [[The Tithe Ledger Clause]] | Legal clause | Any entry in the tithe ledger, once sealed, may only be corrected by a visible strike-through, never by replacement |
+| [[The Drowned Bell]] | Cautionary tale | A bell that rang itself under the water the night the tower sank, warning boats off the shallows |
+| [[The Ink-Debt Rumor]] | Institutional rumor | Clerks whisper that anyone who falsifies a sealed entry owes the ledger a debt that outlives them |
+
+════════════════════════════════════════════════════════════
+FILE: HOOKS.md
+════════════════════════════════════════════════════════════
+# Story Hooks — Harrowmere
+
+Story hooks are narrative seeds: situations, tensions, questions, or character dynamics that could grow into a story. They are collected here so the Story Ideator can browse them.
+
+**Who adds hooks:** The user (at any time) and the Story Analyzer (after a chapter is completed, if events reveal new possibilities).
+**Status values:** `Open` · `In Use` · `Archived`
+
+---
+
+### The Replaced Page
+- **Source:** User-defined
+- **Status:** `In Use (The Tallow Ledger)`
+- **Hook:** A ledger page is replaced rather than corrected, and the one clerk who notices refuses to sign.
+- **Related:** [[Mara Quill]], [[The Tally House]], [[The Tithe Ledger Clause]]
+
+### The Sealed Room
+- **Source:** Story Analyzer — The Tallow Ledger, Chapter 3
+- **Status:** `In Use (Salt and Signal)`
+- **Hook:** The Tally House keeps a sealed room that only the archivist has opened in thirty years. What else is in it?
+- **Related:** [[Doran Pike]], [[The Tally House]]
+
+### The Third Seal
+- **Source:** Story Analyzer — Salt and Signal, Chapter 4
+- **Status:** `Open`
+- **Hook:** If the third seal of the Charter was forged, every law passed under it is open to challenge. Who knows, and who profits?
+- **Related:** [[The Charter of Three Seals]], [[Tidewright Union]]
+
+### The Bell Under the Water
+- **Source:** User-defined
+- **Status:** `Archived`
+- **Hook:** Boatmen swear the Drowned Bell still rings. Retired: the sound was explained as reeds.
+- **Related:** [[The Drowned Bell]], [[The Drowned Flats]]
+
+════════════════════════════════════════════════════════════
+FILE: WORLD_ORDER.md
+════════════════════════════════════════════════════════════
+# World Order — Harrowmere
+
+> **Last synchronized:** 2026-02-20 — after Salt and Signal Chapter 4 analyzed (story complete)
+> Maintained by the World Archivist and updated by Story Ideator and Story Analyzer.
+> Do not reorder rows manually — invoke World Archivist to renumber positions.
+
+**What this records:** The chronological sequence of all stories and chapters set in this world, at chapter-level granularity.
+
+**Concurrency:** Units with the same Position number happen at the same in-world time. Table sorted by Position ascending.
+
+**Status:** `Not Started` · `In Progress` · `Complete`
+
+**Unit:** `Full Story` (Short Story / Novelette) · `Ch. N` (Book) · `Bk. N Ch. M` (Book Series) · `TBD` (pre-outline placeholder)
+
+---
+
+## Story Order
+
+| Position | Story | Unit | In-World Date | Status | Notes |
+|----------|-------|------|---------------|--------|-------|
+| 1 | [[The Tallow Ledger]] | Full Story | Autumn, the year the harbor-master died | Complete | The replaced page |
+| 2 | [[Salt and Signal]] | Full Story | Early winter, the same year | Complete | The sealed room |
+
+---
+
+## Notes
+
+No in-world calendar is established; dates are prose descriptions relative to world events.
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/Dan Harmon's Story Circle.md
+════════════════════════════════════════════════════════════
+# Dan Harmon's Story Circle
+
+## Overview
+Dan Harmon's Story Circle is an 8-step circular structure developed by TV writer and showrunner Dan Harmon (*Community*, *Rick and Morty*) and grounded in Jungian psychology and Campbell's monomyth. It frames the story as a circle — a descent from comfort into the unknown and an ascent back, with the character returning changed. Unlike the Hero's Journey, it strips away mythic and genre-specific trappings and focuses entirely on the psychological transformation at the core of all character-driven narrative.
+
+The circle's underlying philosophy: stories exist because communities need members who can go out, adapt, and return with something new. The transformation is not just personal — it serves the group. This is what gives the return its weight.
+
+**Best suited for:** Character-driven stories where inner transformation is the central subject. Contemporary fiction, literary fiction, TV drama, short stories, and any story where what happens externally matters less than what happens internally. Particularly effective for stories with morally ambiguous conclusions or where the "victory" costs the protagonist something permanent.
+
+**Less suited for:** Tightly plotted genre fiction where external plot mechanics are primary. Stories with ensemble casts and no clear protagonist.
+
+**Relationship to other structures:** A direct psychological simplification of the Hero's Journey — the same arc, with the mythic scaffold removed and the character psychology foregrounded. Maps onto Three-Act Structure (steps 1–3 = Act One; steps 4–6 = Act Two; steps 7–8 = Act Three). Its 8-step symmetry makes it more concise than the Hero's Journey's 12 stages and more character-focused than the Seven-Point Structure.
+
+---
+
+## Quick Reference
+
+The circle has two halves. The **descent** (steps 1–4) takes the character from comfort into the unknown. The **ascent** (steps 5–8) returns them — changed. Each step in the descent has a mirror step in the ascent.
+
+| # | Step | Half | Position | Purpose |
+|---|------|------|----------|---------|
+| 1 | Zone of Comfort | Descent | 0–5% | Establish who the character is in their normal state |
+| 2 | Want Something | Descent | ~10% | The desire that will drive them out of comfort |
+| 3 | Enter Unfamiliar Situation | Descent | ~20% | Cross the threshold into the unknown |
+| 4 | Adapt to It | Descent | 20–50% | Acquire the skills, relationships, or knowledge needed to survive |
+| 5 | Get What They Wanted | Ascent | ~55% | Goal achieved — but at a cost not yet fully understood |
+| 6 | Pay Heavy Price | Ascent | ~65% | The true cost of the achievement becomes clear |
+| 7 | Return to Familiar Situation | Ascent | ~80% | Back to the starting world — but it looks different now |
+| 8 | Having Changed | Ascent | ~95–100% | The character is demonstrably not who they were in step 1 |
+
+**Mirror pairs:** 1↔8 (who they are before/after), 2↔7 (want vs. reality of return), 3↔6 (entering the unknown vs. paying for it), 4↔5 (adapting vs. the false victory that adaptation produced).
+
+---
+
+## The Descent
+
+### Step 1 — Zone of Comfort
+- **Narrative beat:** Introduce the character in their ordinary, familiar circumstances. Establish their baseline — how they see themselves, how they relate to their world, what they have and what they lack. This is the state the reader will measure all future change against.
+- **Story position:** 0–5%.
+- **Questions to answer:**
+  - What does this character's comfortable life look like — and what makes it feel safe or stagnant?
+  - What do they believe about themselves and the world at this point?
+  - What are they missing or avoiding that the story will eventually force them to confront?
+  - Who do they need to be by step 8, and how far is that from who they are now?
+- **Notes:** The Zone of Comfort must feel genuinely livable. If the character's starting state is only misery or dissatisfaction, the circle loses its tension — there must be something worth protecting, even if it is also limiting. The contrast between step 1 and step 8 is the story's central emotional event; make the starting point specific and real. Mirror of step 8.
+
+---
+
+### Step 2 — Want Something
+- **Narrative beat:** A desire surfaces — something the character needs, hopes for, or is driven toward. This want is what will pull them out of their comfort zone. It may be conscious or unconscious, articulated or intuited.
+- **Story position:** ~10%.
+- **Questions to answer:**
+  - What does the character want? (Be specific — vague wants produce vague stories.)
+  - Is this what they *need*, or is the want a surface expression of a deeper need they haven't yet identified?
+  - What makes this want feel urgent or irresistible now, when it wasn't before?
+  - What would it cost them to pursue it — and are they willing to pay that?
+- **Notes:** The want in step 2 is often not what the character actually gets in step 5 — the circle's power comes from the gap between what was desired and what was achieved. The want should be something specific enough that the reader can hold it clearly in mind for the entire descent. Mirror of step 7.
+
+---
+
+### Step 3 — Enter Unfamiliar Situation
+- **Narrative beat:** The character crosses a threshold into a world, situation, or set of circumstances that operates by different rules than the Zone of Comfort. There is no immediate path back.
+- **Story position:** ~20%.
+- **Questions to answer:**
+  - What is the specific unfamiliar situation — where, with whom, under what conditions?
+  - What makes it genuinely unfamiliar? What rules of the character's normal life no longer apply?
+  - Is the crossing voluntary, forced, or accidental? How does that affect the character's relationship to the journey?
+  - What does the character bring from their Zone of Comfort that will help or hinder them here?
+- **Notes:** The threshold crossing should feel irreversible in the moment — even if the character could technically go back, they can't un-know what they've encountered. Mirror of step 6: entering the unfamiliar is what ultimately produces the price the character pays.
+
+---
+
+### Step 4 — Adapt to It
+- **Narrative beat:** The character learns to survive and operate in the unfamiliar situation. They acquire new skills, form new relationships, develop new beliefs, or find unexpected capabilities. This is the longest section of the story.
+- **Story position:** 20–50%.
+- **Questions to answer:**
+  - What specific skills, knowledge, or relationships does the character develop to navigate this world?
+  - What do they have to let go of from their Zone of Comfort in order to adapt?
+  - What does adaptation cost them — what part of their old self do they lose or compromise?
+  - What false conclusion do they draw from their adaptation that step 5 will test?
+- **Notes:** Adaptation is not simply competence-building — it involves the character changing who they are, not just what they can do. The changes here must be visible and specific; vague growth produces an unconvincing step 5 victory and a hollow step 6 price. Mirror of step 5: what the character does to adapt is exactly what produces the consequence of getting what they wanted.
+
+---
+
+## The Ascent
+
+### Step 5 — Get What They Wanted
+- **Narrative beat:** The character achieves the goal they set out for in step 2. But this is a false victory — they have what they wanted, but at a cost that is not yet fully apparent, or the achievement reveals that what they wanted was not what they needed.
+- **Story position:** ~55%.
+- **Questions to answer:**
+  - What does the character get — specifically? Does it match what they wanted in step 2?
+  - What has their adaptation (step 4) made possible that also makes this victory costly?
+  - What do they *not* yet realize about the price they've paid or will pay?
+  - Is this the moment of maximum external success and minimum internal understanding?
+- **Notes:** Step 5 is the circle's most misunderstood beat. It is not a true victory — it is the moment before the true cost becomes visible. The character should feel, briefly, that they have succeeded. The reader should feel the same thing, then the unease. This distinction is what separates the Story Circle from simpler structures where the midpoint is straightforwardly a crisis. Mirror of step 4.
+
+---
+
+### Step 6 — Pay Heavy Price
+- **Narrative beat:** The true cost of the achievement and the adaptation becomes clear. Something is lost — a relationship, an aspect of identity, a belief, a person. The character cannot have both the thing they got and what they used to be.
+- **Story position:** ~65%.
+- **Questions to answer:**
+  - What specifically is the price? What does the character lose that they cannot get back?
+  - How does the price connect directly to the adaptation in step 4 — what did they do or become that made this loss inevitable?
+  - Who or what bears the cost alongside the character? (The price often falls partly on others.)
+  - Does the character understand, at this point, the full weight of what they've lost?
+- **Notes:** The price must be real and specific — a vague "things are harder now" is not a price. The most powerful step 6 prices are ones where the character can clearly see the causal chain: I wanted this, I became this to get it, and becoming this cost me that. Mirror of step 3: the unfamiliar situation they entered is what ultimately extracted this price.
+
+---
+
+### Step 7 — Return to Familiar Situation
+- **Narrative beat:** The character re-enters the world they left — physically, socially, or emotionally. But the Zone of Comfort looks different now, because they are different. They cannot fully return to who they were.
+- **Story position:** ~80%.
+- **Questions to answer:**
+  - What does the return look like — is it a physical homecoming, a resumption of old relationships, or a re-encounter with the beliefs and circumstances of step 1?
+  - What is the same about the Zone of Comfort, and what is different — or what does the character perceive differently?
+  - What does the character now want, compared to what they wanted in step 2?
+  - Who has the character become — and is the Zone of Comfort still a place they belong?
+- **Notes:** The return is not a happy homecoming — it is a test of whether the transformation is real. If the character can slip back into exactly who they were, the circle didn't work. The familiar situation should feel both recognizable and subtly wrong — the same room, seen through different eyes. Mirror of step 2: the want that drove the character out is now answered, complicated, or replaced.
+
+---
+
+### Step 8 — Having Changed
+- **Narrative beat:** The story confirms, explicitly or implicitly, who the character has become. They are demonstrably not who they were in step 1. The change should be visible in their actions, choices, or relationships — not just stated.
+- **Story position:** ~95–100%.
+- **Questions to answer:**
+  - What specific action, choice, or moment demonstrates that the character has changed?
+  - How does this contrast directly with who they were in step 1? (The mirror should be clear.)
+  - What do they carry back to their community — literally or metaphorically — from the journey?
+  - Is the change a gain, a loss, or both? Does the story ask the reader to judge it?
+- **Notes:** Step 8 is not an epilogue or a summary — it is the story's final beat, and it should show rather than tell. The contrast with step 1 must be visible in behavior, not just stated in narration. The Story Circle's underlying claim is that change earned through the descent is always worth something, even when it is painful — step 8 is where that claim is either made or questioned. Mirror of step 1.
+
+---
+
+## Flexibility
+
+**The circle can run at multiple scales:** A full novel follows the circle across the whole book; individual chapters or episodes can each run their own smaller circle, with the character in a different zone of comfort at the start of each.
+
+**Steps that can be compressed:**
+- Steps 1–2 (Comfort + Want) can be combined in a fast-opening story — establish comfort and desire in the same scene
+- Steps 7–8 (Return + Changed) often flow together without a clear break
+
+**Steps that should not be collapsed:**
+- Steps 5 and 6 (Get What They Wanted + Pay Heavy Price) — the distinction between false victory and true cost is the structure's most important beat; collapsing them produces a flat emotional resolution
+- Steps 1 and 8 — the mirror between who the character was and who they are must be legible to the reader; if both ends look the same, the circle hasn't turned
+
+**On ambiguity:** The Story Circle does not require a positive transformation. The character can return having changed for the worse, or having changed in ways the story refuses to judge as good or bad. What matters is that they have *genuinely* changed — that the circle has turned.
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/Fichtean Curve.md
+════════════════════════════════════════════════════════════
+# Fichtean Curve
+
+## Overview
+The Fichtean Curve, outlined in John Gardner's *The Art of Fiction*, is a structure built around a series of escalating crises rather than a single rising arc toward one climax. It discards the traditional exposition phase entirely — the story opens in the middle of action, and background context is delivered organically through the crises themselves. The protagonist is never shown in a comfortable ordinary world; they are tested from the first page.
+
+The underlying theory is that stories feel most alive when the protagonist is always under pressure. Rather than building toward a single breaking point, the Fichtean Curve uses multiple crises of escalating intensity, each one revealing character through decision and consequence, until the final major crisis resolves the central conflict.
+
+**Best suited for:** Literary fiction where character is revealed through accumulating pressure rather than a single transformative event. Episodic narratives. Mystery and thriller, where sustained tension is more important than a clean three-act rhythm. Stories where the protagonist does not undergo a clean redemption arc — the Fichtean Curve accommodates characters who change, fail to change, or change ambiguously. Writers who find traditional exposition-first structures stiff or slow.
+
+**Less suited for:** Stories that require careful world-building setup before the conflict can be understood. Narratives where the protagonist's ordinary world is itself a meaningful part of the story's argument. Writers who need clear structural signposts for the major turns.
+
+**Relationship to other structures:** The Fichtean Curve inverts the Three-Act Structure's opening: where Three-Act spends 25% on setup before the conflict begins, the Fichtean Curve drops the reader into crisis immediately. It is less concerned with the reactive→proactive shift central to the Seven-Point Structure and more interested in accumulative character revelation. The crises serve a similar function to the Hero's Journey's Tests, Allies, Enemies — but in the Fichtean Curve, they run from the opening line, not from the midpoint.
+
+---
+
+## Quick Reference
+
+| Phase | Position | Purpose |
+|-------|----------|---------|
+| Opening Crisis | 0–5% | Drop the protagonist into conflict immediately; no prior exposition |
+| Escalating Crises | 5–65% | A series of increasingly serious crises, each revealing character and advancing plot |
+| Major Crisis / Climax | ~65–80% | The largest, most consequential crisis; the story's turning point |
+| Falling Action | 80–100% | Earlier crises resolve; the protagonist's arc concludes; moral stakes land |
+
+**Note on the crisis sequence:** Unlike structures with fixed numbered beats, the Fichtean Curve does not specify how many crises occur or exactly where each falls. The crises should escalate in weight — each one more consequential than the last — but the number and spacing are determined by the story's needs, not by a formula. Three to six crises across the rising action is typical.
+
+---
+
+## Phases
+
+### Phase 1 — Opening Crisis
+- **Narrative beat:** The story begins in the middle of a conflict, problem, or tense situation. There is no ordinary world shown before this moment. The reader meets the protagonist under pressure and learns who they are through how they respond. Context and backstory are woven in through action, not delivered upfront.
+- **Story position:** 0–5% — the opening scene or chapter.
+- **Questions to answer:**
+  - What crisis is the protagonist already in when the story begins?
+  - What does this crisis immediately reveal about who they are — their assumptions, habits, values, or flaws?
+  - What essential context does the reader need, and how can it be delivered through the crisis itself rather than before it?
+  - What is the central conflict of the story, and how does this opening crisis connect to it?
+- **Notes:** The opening crisis does not have to be the most dramatic moment in the book — it has to be engaging enough to pull the reader forward without the safety net of an established ordinary world. Resist the urge to stop and explain; the reader will piece together the protagonist's situation from their behavior under pressure. Every detail of backstory that must be delivered should cost something — work it into the crisis rather than pausing for it.
+
+---
+
+### Phase 2 — Escalating Crises
+- **Narrative beat:** A series of crises of increasing severity tests the protagonist repeatedly. Each crisis demands a decision; each decision has consequences; the consequences feed into the next crisis. Background information, relationships, and character are all revealed through this accumulating pressure rather than through exposition.
+- **Story position:** ~5–65% — the bulk of the story.
+- **Questions to answer (for each crisis in the sequence):**
+  - What specific problem or conflict does the protagonist face in this crisis?
+  - What decision do they make, and what does that decision reveal about who they are?
+  - What consequences follow from their decision — and how do those consequences raise the stakes for the next crisis?
+  - Is this crisis more serious than the previous one? If not, why not — and is that a structural problem?
+  - What does the reader learn about the protagonist's flaw, wound, or central conflict through this crisis that they could not have learned another way?
+- **Notes:** The escalation must be genuine — each crisis should feel more costly or consequential than the last, not just different. The most common failure mode is a series of crises that feel equally weighted, producing a flat episodic rhythm rather than a building curve. "Escalation" does not always mean bigger or more dramatic; it can mean more personally costly, more morally complex, or closer to the protagonist's core wound. Track what each crisis reveals: if two crises reveal the same thing about the protagonist, one is redundant.
+
+---
+
+### Phase 3 — Major Crisis / Climax
+- **Narrative beat:** The final and most consequential crisis — potentially catastrophic, revelatory, or transformative. Everything the escalating crises have been building toward arrives here. The protagonist faces the central conflict at its fullest expression, and the story's outcome is determined.
+- **Story position:** ~65–80%.
+- **Questions to answer:**
+  - How is this crisis qualitatively different from all the preceding ones — larger in scale, more personally costly, or more morally inescapable?
+  - What do all the preceding crises have in common that makes this the inevitable culmination?
+  - What does the protagonist do that they could not have done — or would not have done — at the start of the story?
+  - Does the protagonist change here, fail to change, or change in an unexpected direction? Is the outcome redemptive, tragic, or ambiguous?
+- **Notes:** Unlike the Three-Act Structure's Climax, the Fichtean Curve's major crisis does not require the protagonist to "win" in any conventional sense. A protagonist who escapes their situation without genuinely changing (as in *A Confederacy of Dunces*) can produce a satirically or tragically resonant climax. The key requirement is that this crisis feels like the culmination of everything that came before it — the reader should be able to look back and see how each earlier crisis was pointing here.
+
+---
+
+### Phase 4 — Falling Action
+- **Narrative beat:** The major crisis resolves and the story descends toward its conclusion. Earlier crises find resolution — directly or by implication. The protagonist's arc concludes: they have changed, failed to change, or changed in ways the story now asks the reader to evaluate. The moral stakes of the story become clear.
+- **Story position:** ~80–100%.
+- **Questions to answer:**
+  - Which earlier crises need explicit resolution, and which can be resolved by implication?
+  - What is the protagonist's final state — and how does it contrast (or uncomfortably echo) their opening crisis?
+  - What is the story's moral or thematic argument, and how does the falling action make it legible without stating it?
+  - What does the reader take away — not in terms of plot, but in terms of understanding the protagonist's world?
+- **Notes:** The falling action should be brief. Once the major crisis has resolved, the story's job is to let the emotional resonance land, not to extend the narrative. The Fichtean Curve earns a short falling action precisely because it has been delivering character revelation and consequence throughout — there is little that needs to be explained now that was not shown during the crises.
+
+---
+
+## Flexibility
+
+**The number of crises is not fixed.** Three crises produce a lean, compressed arc; six or seven can sustain a long novel. What matters is that each crisis is genuinely escalating and genuinely revealing.
+
+**Exposition can be woven in at any point.** The Fichtean Curve has no exposition phase, but it is not an exposition-free structure — background information is simply delivered through and between crises rather than before them. Any moment of crisis can carry backstory, as long as it is embedded in action or decision, not delivered as a pause.
+
+**The climax can be anti-climactic by design.** Stories where the protagonist escapes rather than transforms, or collapses rather than triumphs, fit this structure well — the moral weight comes from the accumulated crises, not from a dramatic final victory.
+
+**Crisis definition is flexible.** A crisis in the Fichtean Curve does not have to be a physical confrontation or a spectacular event. A difficult conversation, an unwanted realization, a relationship breaking point, a professional failure — all qualify, as long as they demand a decision with consequences.
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/Format Reference.md
+════════════════════════════════════════════════════════════
+# Format Reference
+
+This file defines the four story formats used in the Writing Room framework. Use it when selecting a format for a concept, deciding how many chapters to plan, choosing a compatible story structure, or calibrating scope for subplots, characters, and pacing.
+
+---
+
+## Quick Reference Table
+
+| Attribute | Short Story | Novelette | Book | Book Series |
+|-----------|-------------|-----------|------|-------------|
+| **Word count** | 1,500–7,500 | 7,500–17,500 | 50,000–100,000 | 50,000–100,000 per book |
+| **Recommended chapters** | 1–3 | 3–8 | 15–30 | 15–30 per book |
+| **Typical chapter length** | 1,000–3,500 words | 1,500–3,500 words | 2,000–5,000 words | 2,000–5,000 words |
+| **Chaptered?** | Often unchaptered — one continuous piece or 1–3 titled sections | Yes | Yes | Yes |
+| **Subplots** | 0–1 | 1 | 2–4 | 2–4 per book + ongoing series arc thread |
+| **Named characters** | 2–5 | 4–10 | 8–20 | Shared cast across books; varies per book |
+| **POV** | Single | Single preferred; multiple is risky at this length | Single or dual | Multiple POVs possible |
+| **Recommended structures** | Fichtean Curve, Three-Act (compressed), Freytag's Pyramid | Three-Act, Fichtean Curve, Seven-Point | Hero's Journey, Three-Act, Seven-Point, Dan Harmon's Story Circle | Hero's Journey, Three-Act (per book + series arc) |
+
+---
+
+## Short Story
+
+**Word count:** 1,500–7,500 words · **Chapters:** 1–3 (or unchaptered)
+
+### Structural fit
+The [[Fichtean Curve]] is the most natural fit: it starts in conflict with no setup phase, which is essential when word count is limited. The [[Three-Act Structure]] works when compressed aggressively — Act One can be a single scene. [[Freytag's Pyramid]] suits tragic shorts where the fall is the point.
+
+[[The Hero's Journey]], [[Dan Harmon's Story Circle]], and the [[Seven-Point Story Structure]] are generally too expansive for short fiction — their stage counts create pacing problems at this length.
+
+### Arc requirements
+One central conflict. One emotional turn. No room for subplot development — any secondary thread must resolve within the main arc or be implied offscreen. The protagonist's internal state at the end must differ from the beginning, even if only slightly.
+
+### Pacing
+Conflict must be present or implied in the first paragraph. There is no space for an establishing ordinary world. Background is delivered through the conflict, not before it.
+
+### Notes for the Outliner
+Map the full chosen structure to 1–3 chapters. Adjacent stages (e.g., Call to Adventure + Refusal in the Hero's Journey) compress into a single scene. An unchaptered short story should still be outlined by stage, treating the whole piece as one long chapter.
+
+---
+
+## Novelette
+
+**Word count:** 7,500–17,500 words · **Chapters:** 3–8
+
+### Structural fit
+[[Three-Act Structure]] is the cleanest fit: the word count aligns naturally with its three-phase shape. The [[Fichtean Curve]] works well for character-driven novelettes where the accumulating crises are the point. [[Seven-Point Story Structure]]'s seven beats map well onto 5–7 chapters.
+
+[[The Hero's Journey]] is tight but possible at the high end of the word count range (15,000+). [[Dan Harmon's Story Circle]] is a compact variant of the Hero's Journey and slightly more manageable. [[Freytag's Pyramid]] suits tragic novelettes.
+
+### Arc requirements
+One main conflict with room for one subplot thread. The subplot must connect to the main arc — it cannot be self-contained. The protagonist's character arc must be visible, though it can be slight. Every named character should have a clear function.
+
+### Pacing
+Setup may occupy at most one chapter before the central conflict is established. The reader needs to understand the stakes by the end of Chapter 1.
+
+### Notes for the Outliner
+3–8 chapters; one structure stage per chapter is typical at this length. Avoid running the Hero's Journey unless you are at the upper end of the word count — it needs more room than most novelettes can give it.
+
+---
+
+## Book
+
+**Word count:** 50,000–100,000 words · **Chapters:** 15–30
+
+### Structural fit
+All six named structures are viable at book length. Choose based on story type:
+
+| Structure | Best for |
+|-----------|----------|
+| [[The Hero's Journey]] | Adventure, fantasy, coming-of-age, transformation arcs |
+| [[Three-Act Structure]] | Genre fiction, thrillers, romance, any plot-driven narrative |
+| [[Seven-Point Story Structure]] | Plot-focused stories where each beat needs a chapter-level payoff |
+| [[Dan Harmon's Story Circle]] | Character-driven books; stories where returning changed is the point |
+| [[Fichtean Curve]] | Literary fiction; books where character is revealed through sustained pressure |
+| [[Freytag's Pyramid]] | Tragedies; books with downbeat or ambiguous endings |
+
+### Arc requirements
+A full protagonist arc. 2–4 subplots, each with its own mini-arc or at minimum a resolution beat. Every subplot should connect to the main arc thematically or causally — avoid subplots that exist only as variety. Secondary characters need enough presence to matter when they resolve.
+
+### Pacing
+1–2 chapters of setup is acceptable. The inciting incident must land by Chapter 3 at the latest. The midpoint (whatever the chosen structure places there) must represent a genuine, irreversible shift.
+
+### Notes for the Outliner
+15–30 chapters. Group structure stages into chapter clusters rather than assigning one stage per chapter — the Hero's Journey's 12 stages across 20 chapters means most stages span 1–3 chapters, with the long middle section (Tests, Allies, Enemies) spanning many. Annotate each chapter in the outline with its stage label so the Planner and Reviewer-Consistency have a shared reference.
+
+---
+
+## Book Series
+
+**Word count:** 50,000–100,000 words per book · **Chapters:** 15–30 per book · **Books:** 2–7 typical
+
+### Structural fit
+Per-book structure follows the same guidance as Book above. At the series level, [[The Hero's Journey]] and [[Three-Act Structure]] are the most commonly used frameworks for planning the overarching arc — both scale well to multi-book scope.
+
+### Two arcs required
+A Book Series concept must capture two distinct arcs:
+
+1. **Per-book arc** — each book has its own satisfying central conflict that resolves by the end. A reader should be able to finish Book 2 without feeling cheated, even if the series arc is unresolved.
+2. **Series arc** — a longer-running conflict, question, or transformation that advances each book but resolves only at the series end. This is what makes the series feel like one work rather than a collection.
+
+The `CONCEPT.md` for a Book Series must address both. The **Premise** section should describe the series-level premise; the **Notes** section should describe the first book's specific arc and how it fits the series.
+
+### Arc requirements
+Same as Book for each individual volume. Additionally: the series arc must advance in every book — a book that leaves the series arc completely static feels like filler. Subplots may carry across book boundaries if they serve the series arc; subplots that are purely per-book should resolve within that book.
+
+### Character roster
+The shared cast grows across books. Early books should introduce only as many characters as the plot requires; resist the urge to populate the full roster in Book 1. Characters introduced in later books need establishment time the earlier books did not need.
+
+### Pacing
+Series-level pacing is as important as per-book pacing. Map the major series arc beats across the planned number of books before outlining any individual book. A 4-book series running [[Three-Act Structure]] at the series level places the series midpoint at the end of Book 2 — the irreversible shift that changes everything going forward.
+
+### Notes for the Outliner
+Outline one book at a time, but always with the series arc visible. Maintain a separate series-level outline document tracking: which series arc beats are hit each book, which characters are introduced and when, and which threads carry across book boundaries. Do not resolve the series arc's central question until the final book.
+
+---
+
+## Notes for the Story Ideator
+
+When a format decision affects the concept:
+- Cite the format's recommended chapter range in the concept's **Notes** section so the Outliner has a target
+- For Book Series, ensure the **Premise** captures the series-level story and the **Notes** section identifies what the first book specifically covers
+- If the user requests a format that conflicts with their other constraints (e.g., Hero's Journey for a short story), flag the tension and suggest either adjusting the format or the structure
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/Freytag's Pyramid.md
+════════════════════════════════════════════════════════════
+# Freytag's Pyramid
+
+## Overview
+Freytag's Pyramid was developed by 19th-century German writer and critic Gustav Freytag through his analysis of classical Greek tragedy and Shakespearean drama. It describes a five-stage arc that rises to a climax and then descends — a symmetrical pyramid shape — toward a catastrophic conclusion. It is the foundational structure of tragic narrative.
+
+The critical distinction from modern story structures: **the protagonist typically loses**. Freytag's Pyramid is not designed for redemption arcs or satisfying victories. Its Catastrophe — death, ruin, or total loss — is the promised endpoint, not a failure of the story. The structure's power lies in making that Catastrophe feel both inevitable and deeply felt.
+
+**Best suited for:** Tragic narratives where the protagonist's flaw, not an external antagonist, drives their destruction. Character-driven literary fiction with downbeat or ambiguous endings. Stories that examine human self-deception, hubris, or the cost of a particular worldview. Drama and theatre. Stories where the reader's awareness of the coming disaster creates dramatic irony.
+
+**Less suited for:** Redemption arcs, commercial genre fiction with satisfying victories, stories where the protagonist meaningfully transforms and survives intact. Any narrative where the reader is meant to feel hope at the end.
+
+**Relationship to other structures:** Freytag's Pyramid shares the shape of Three-Act Structure but inverts its emotional arc — where Three-Act ends with the protagonist transformed and victorious (or at least changed for the better), Freytag ends with catastrophe. The Climax in Freytag is not the final confrontation; it is the turning point of no return, which arrives earlier (~50%) than most modern structures place their climax. The Fall (Act Four) is unique to Freytag — a sustained descent that other structures compress or skip entirely.
+
+---
+
+## Quick Reference
+
+| # | Stage | Position | Purpose |
+|---|-------|----------|---------|
+| 1 | Introduction | 0–20% | Establish characters, world, stakes, and the flaw that will cause destruction |
+| 2 | Rising Action | 20–50% | Escalating tension; false hope; the protagonist moves toward what they want — and toward their undoing |
+| 3 | Climax | ~50% | The turning point of no return; the moment control is lost |
+| 4 | Fall / Return | 50–80% | Accelerating descent; consequences compound; disaster becomes inevitable |
+| 5 | Catastrophe | 80–100% | The protagonist reaches their lowest point — ruin, death, or total loss |
+
+---
+
+## Stages
+
+### Stage 1 — Introduction
+- **Narrative beat:** Introduce the protagonist, their world, the key relationships, and the central conflict's seeds. Establish what the protagonist wants, who they are, and — crucially — what flaw or blind spot will eventually destroy them. The reader should be able to identify the seed of the catastrophe in the introduction, even if they cannot yet see how it will grow.
+- **Story position:** 0–20%.
+- **Questions to answer:**
+  - Who is the protagonist, and what do they want?
+  - What is the flaw, hubris, or false belief that will drive their destruction? (This is the story's engine — it must be present from the start.)
+  - What relationships, obligations, or circumstances will be destroyed by the Catastrophe?
+  - What does the protagonist's world look like before the fall — and what is worth mourning about it?
+- **Notes:** In tragedy, the Introduction must make the protagonist genuinely sympathetic or at least comprehensible — the reader must care about what will be lost. A protagonist who is merely contemptible produces a hollow catastrophe. The flaw that destroys them should also be a recognizable human quality: pride, loyalty carried too far, self-deception, a conviction that outpaces the evidence. The reader should be able to understand, even partially, how this person came to be who they are.
+
+---
+
+### Stage 2 — Rising Action
+- **Narrative beat:** The central conflict intensifies through escalating events. The protagonist pursues their goal with increasing commitment, and the tension between their ambition and their flaw grows. False hope may appear — moments where success seems possible — but each step forward contains the seeds of the coming fall. Allies, antagonists, and complications accumulate.
+- **Story position:** 20–50%.
+- **Questions to answer:**
+  - What events escalate the central conflict during this period?
+  - Where does false hope appear — what makes the protagonist (and possibly the reader) believe success is possible?
+  - How does the protagonist's flaw deepen or become more entrenched during this period, rather than being corrected?
+  - What do the protagonist's choices during the Rising Action make inevitable?
+- **Notes:** In tragedy, the Rising Action's false hope is not optional — it is structurally essential. The reader must believe, at some point, that the protagonist could succeed. Without false hope, the fall produces only dread, not catharsis. The protagonist's flaw should be visibly driving their decisions during this period, even if they are unaware of it. Avoid making the antagonist — if there is one — the primary cause of the coming catastrophe; in great tragedy, the protagonist destroys themselves.
+
+---
+
+### Stage 3 — Climax
+- **Narrative beat:** The story's turning point — the moment where control is lost and the direction of the arc shifts irrevocably downward. This is not the final confrontation; it is the point of no return. The Climax may be a dramatic external event, an irreversible decision, or an internal realization. After it, disaster is inevitable — the only question is its exact shape.
+- **Story position:** ~50% — the midpoint of the story.
+- **Questions to answer:**
+  - What specific event or decision marks the point of no return?
+  - How does it directly result from the protagonist's flaw — not from bad luck alone, but from who they are?
+  - Does the protagonist understand, in this moment, what they have done? Or does full understanding come later?
+  - What was the last moment before the Climax where a different choice could have changed the outcome?
+- **Notes:** Freytag's Climax is often placed earlier than writers expect — at the story's midpoint, not near the end. This is counterintuitive to writers trained on modern three-act structures, where the climax is the penultimate scene. The reason: Freytag's Fall (Stage 4) requires substantial space to develop, and it cannot do so if the Climax is near the end. A Climax too late collapses the Fall into an unsatisfying rush. Think of the Climax as the apex of the pyramid — it is the pivot, not the finale.
+
+---
+
+### Stage 4 — Fall / Return
+- **Narrative beat:** The story descends from the Climax toward the Catastrophe. The protagonist experiences the consequences of the turning point, and events compound toward disaster. Tension in this phase operates differently from the Rising Action: the reader understands what is coming, and dramatic irony replaces suspense. The question is no longer "will things go wrong?" but "how bad will it be?"
+- **Story position:** 50–80%.
+- **Questions to answer:**
+  - What specific consequences of the Climax play out during the Fall?
+  - How do the protagonist's continued choices during the Fall accelerate their destruction rather than slow it?
+  - Who else is destroyed or damaged alongside the protagonist? (Tragedy rarely claims only one victim.)
+  - What moments of recognition — where the protagonist sees clearly what they have done — are possible here, and what do they do with that recognition?
+- **Notes:** The Fall is Freytag's most distinctive feature — the stage that other structures either compress or omit. It is not passive waiting for the catastrophe; it is an active, accumulating descent in which every scene tightens the grip. The protagonist may attempt to reverse course during the Fall, but those attempts should fail or backfire — in tragedy, the flaw that caused the Climax also prevents recovery. Dramatic irony is the primary source of tension here: the reader sees the abyss approaching while the protagonist still partly believes escape is possible.
+
+---
+
+### Stage 5 — Catastrophe
+- **Narrative beat:** The protagonist reaches their lowest point. In classical tragedy this is death; in modern tragedy it may be ruin, disgrace, total loss, or a state from which no meaningful recovery is possible. Everything that was feared in the Introduction materializes. The flaw has produced its final consequence.
+- **Story position:** 80–100%.
+- **Questions to answer:**
+  - What is the specific form of the catastrophe — what does the protagonist lose or become?
+  - How does it connect directly to the flaw established in the Introduction? The reader should be able to trace the causal line from character to catastrophe without difficulty.
+  - Is the catastrophe deserved, undeserved, or ambiguous — and what does the story's answer say about its moral vision?
+  - What is the reader left with? Catharsis, grief, recognition, warning — what emotion or understanding is the story designed to produce?
+- **Notes:** Aristotle described tragedy's goal as *catharsis* — the emotional purging produced by witnessing suffering. The Catastrophe achieves this only if the preceding stages have made the protagonist real and the outcome feel both inevitable and wasteful. A catastrophe that feels purely deserved produces satisfaction, not catharsis; a catastrophe that feels purely arbitrary produces frustration, not catharsis. The most powerful tragic catastrophes feel both earned and unnecessary — the reader can see exactly how it happened and also exactly where it could have been prevented.
+
+---
+
+## Flexibility
+
+**On the tragic requirement:** Freytag's Pyramid does not require literal death. Modern literary fiction uses it for financial ruin, the destruction of a relationship, the loss of integrity, or a permanent psychological break. The catastrophe must be irrecoverable — something the protagonist cannot meaningfully come back from — but its form is flexible.
+
+**On the Climax placement:** The ~50% position of the Climax is not a rule, but moving it significantly later collapses the Fall into a rushed descent. If your story's Climax falls at 70–75%, you are closer to Three-Act Structure than Freytag — neither is wrong, but call it what it is and plan the fall accordingly.
+
+**Stages that can be compressed:**
+- Stage 1 (Introduction) can be shortened if the story opens near the inciting incident, with backstory woven into the Rising Action
+- Stage 5 (Catastrophe) can be very brief — the fall does the heavy work; the catastrophe itself can be a single scene or even a single moment
+
+**Stages that should not be skipped:**
+- Stage 4 (Fall) — without a sustained descent, the catastrophe arrives without weight
+- The flaw in Stage 1 — the catastrophe must be traceable to character, not to circumstance alone; if the flaw is not established, the tragedy becomes a misfortune story
+
+**On using Freytag in non-tragic stories:** The pyramid shape can be applied to stories without catastrophic endings by treating Stage 5 as a resolution rather than a ruin — but doing so produces a structure very close to Three-Act. Use Freytag specifically when the descending second half and the protagonist's self-destruction are central to the story's purpose.
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/GUIDE.md
+════════════════════════════════════════════════════════════
+# Story Structure — How to Use This Directory
+
+This directory contains one file per named story structure. Each file is a planning reference — a framework that describes how stories of a certain shape tend to be built. They are not prescriptions.
+
+---
+
+## Files in This Directory
+
+- **[[Format Reference]]** — Start here when a format decision is needed. Defines chapter counts, word counts, subplot capacity, POV guidance, and structural fit for Short Story, Novelette, Book, and Book Series.
+- **[[The Hero's Journey]]**, **[[Three-Act Structure]]**, **[[Dan Harmon's Story Circle]]**, **[[Seven-Point Story Structure]]**, **[[Fichtean Curve]]**, **[[Freytag's Pyramid]]** — one file per named structure.
+
+---
+
+## What Each Structure File Contains
+
+Every structure file has the same format:
+
+- **Overview** — what the framework is, where it comes from, what genres or story types it suits best
+- **Quick Reference table** — all stages at a glance with story position (as a percentage of the total) and one-line purpose
+- **Per-stage entries**, each with:
+  - `Narrative beat` — what the story does at this stage
+  - `Story position` — approximate location in a full story
+  - `Questions to answer` — what the Planner or Outliner must figure out for this stage before moving on
+  - `Notes` — flexibility, common variations, pitfalls, and when to deviate
+- **Flexibility** — which stages can be skipped, compressed, merged, or reordered
+
+---
+
+## How Each Agent Uses This Directory
+
+### Outliner
+When the user specifies (or you choose) a story structure:
+1. Read this GUIDE.md.
+2. Read the chosen structure file.
+3. Map the structure's stages across your planned chapter count. Not every stage needs its own chapter — long middle sections (e.g. Tests, Allies, Enemies in the Hero's Journey) can span several chapters; short adjacent stages (e.g. Call to Adventure + Refusal) can compress into one.
+4. Annotate your outline with the stage name each chapter covers. This gives the Planner and Reviewer-Consistency a shared reference point.
+
+### Planner
+When planning an individual chapter:
+1. Read this GUIDE.md.
+2. Read the structure file the Outliner used (check the outline for the stage label).
+3. Identify which stage(s) the chapter covers.
+4. Use the `Questions to answer` for those stages as a checklist — ensure your chapter plan resolves each question before handing off to the Draft Writer.
+
+### Ideator
+When generating story ideas:
+1. Read this GUIDE.md.
+2. Read the structure file you are using as a scaffold.
+3. Use the stage list to generate one concrete event or scene idea per stage. This ensures the idea has a complete arc, not just a premise.
+4. If the user asks you to avoid certain tropes or apply specific archetypes, use the stage list to identify *where* in the arc those elements would naturally appear.
+
+---
+
+## General Principle
+
+Structure is guidance, not formula. Stages can be compressed, reordered, subverted, or skipped entirely if the story demands it. The frameworks here describe what tends to work — they do not mandate what must happen. A writer who understands the structure well enough to break it intentionally produces more interesting work than one who follows it mechanically.
+
+When in doubt: structure serves character and theme, not the other way around.
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/Seven-Point Story Structure.md
+════════════════════════════════════════════════════════════
+# Seven-Point Story Structure
+
+## Overview
+The Seven-Point Story Structure, developed by author Dan Wells, organizes a narrative around seven named plot points with a defining planning philosophy: **design from the end backward**. Determine your Resolution first, then establish a Hook that contrasts sharply with it. The transformation between Hook and Resolution is the story's promise to the reader. The Midpoint divides the story into two phases — reactive and proactive — and the two Pinch Points apply pressure between the major turning points.
+
+**Best suited for:** Writers who have a character or world but not yet a plot — the backwards-planning method forces clarity about where the story is going before the middle is designed. Tightly plotted genre fiction (thriller, mystery, fantasy, romance), where logical plot progression and clear cause-and-effect are central. Stories where the protagonist's agency is the primary vehicle of the plot.
+
+**Less suited for:** Stories built around ambiguity, mood, or character study where transformation is gradual and resists neat turning points. Non-linear structures.
+
+**Relationship to other structures:** A more plot-specific refinement of Three-Act Structure — both share the beginning-middle-end framework, but Seven-Point provides precise mechanics for the transitions. Less character-psychological than Dan Harmon's Story Circle; more granular than Three-Act alone. The Midpoint's reactive→proactive pivot mirrors Three-Act's Plot Point Two, but placed and named more explicitly. The symmetrical structure (Hook↔Resolution, Plot Turn 1↔Plot Turn 2, Pinch 1↔Pinch 2) makes the design logic unusually legible.
+
+---
+
+## Quick Reference
+
+| # | Point | Position | Purpose |
+|---|-------|----------|---------|
+| 1 | Hook | 0–5% | Establish protagonist's starting state — the inverse of where they'll end |
+| 2 | Plot Turn 1 | ~20–25% | Inciting incident; protagonist is pulled into the adventure |
+| 3 | Pinch 1 | ~37% | Antagonist/conflict introduced at full force; stakes made concrete |
+| 4 | Midpoint | ~50% | False victory or revelation; protagonist shifts from reactive to proactive |
+| 5 | Pinch 2 | ~62% | All seems lost; protagonist's resolve tested at its lowest point |
+| 6 | Plot Turn 2 | ~75% | Protagonist uses accumulated knowledge to create their own circumstances |
+| 7 | Resolution | ~90–100% | Conflict resolved; transformation promised by the Hook delivered |
+
+**Symmetrical pairs:** Hook↔Resolution (starting state vs. ending state), Plot Turn 1↔Plot Turn 2 (pulled in vs. taking charge), Pinch 1↔Pinch 2 (antagonist's power shown vs. antagonist's power at maximum).
+
+---
+
+## Planning Note: Work Backwards
+
+Before filling in the points in order, answer these two questions first:
+1. **What is the Resolution?** — Where does the protagonist end up? What transformation has occurred?
+2. **What is the Hook?** — What is the opposite or inverse of the Resolution? What starting state makes the final transformation meaningful by contrast?
+
+Everything between them is the mechanism that moves the protagonist from one to the other. This approach prevents the most common story problem: a vivid opening and a planned ending, with a middle that drifts because neither anchor was designed to require the other.
+
+---
+
+## Plot Points
+
+### Point 1 — Hook
+- **Narrative beat:** Introduce the protagonist in their ordinary state. This state should contrast sharply with who they will be at the Resolution — the Hook establishes the story's starting conditions, and the gap between Hook and Resolution is the transformation the story promises.
+- **Story position:** 0–5%.
+- **Questions to answer:**
+  - What is the Resolution? (Answer this first — the Hook is designed in relation to it.)
+  - What is the protagonist's starting state that makes the Resolution feel like genuine change?
+  - What does the protagonist believe, lack, or fear at the Hook that the story will challenge?
+  - What is compelling enough about this starting state to make the reader want to follow the journey?
+- **Notes:** The Hook and Resolution form the story's core promise. A strong Hook immediately implies what the story is about — not through exposition, but through the specificity of the protagonist's starting conditions. The contrast between Hook and Resolution should be visible in concrete terms: who the protagonist is, what they have, what they believe, how they relate to others.
+
+---
+
+### Point 2 — Plot Turn 1
+- **Narrative beat:** An event, discovery, or encounter pulls the protagonist into the story's central conflict. This is the inciting incident — the moment the story truly begins and the protagonist can no longer remain in the world of the Hook.
+- **Story position:** ~20–25%.
+- **Questions to answer:**
+  - What specific event forces the protagonist into the adventure?
+  - Is the protagonist pulled in (external force) or does the protagonist step in (internal choice)? What are the implications of each?
+  - What does the protagonist stand to gain by engaging — and what do they risk?
+  - How does Plot Turn 1 connect to the transformation the Resolution requires?
+- **Notes:** Plot Turn 1 is the mirror of Plot Turn 2. In Plot Turn 1, circumstances act on the protagonist — they respond to something beyond their control. In Plot Turn 2, the protagonist acts on circumstances — they create their own conditions. The contrast between these two points is the story's reactive→proactive shift, made structural. When planning Plot Turn 1, ask: what is the proactive equivalent of this event that will appear at Plot Turn 2?
+
+---
+
+### Point 3 — Pinch 1
+- **Narrative beat:** The antagonist or central conflict is introduced at significant force, making the stakes concrete and the obstacles real. This is the first major pressure point — a reminder that the protagonist's goal will not be easily achieved.
+- **Story position:** ~37%.
+- **Questions to answer:**
+  - What does the antagonist (or the central conflict's full scope) look like when revealed at force?
+  - What specific threat or obstacle does Pinch 1 put in the protagonist's path?
+  - What does the protagonist now understand about the challenge that they didn't before?
+  - How does Pinch 1 raise the cost of pursuing the goal?
+- **Notes:** Pinch 1 and Pinch 2 are symmetrical pressure events: Pinch 1 introduces the antagonist's power; Pinch 2 shows it at maximum. Both exist to prevent the story from relaxing into complacency between its major turning points. Pinch 1 should feel like a credible preview of what the protagonist is actually up against — if it underrepresents the antagonist's threat, the Midpoint false victory will ring hollow.
+
+---
+
+### Point 4 — Midpoint
+- **Narrative beat:** A false victory, revelation, or crisis at the story's center that marks the hard transition from reactive to proactive protagonist. The protagonist appears to win, or gains critical information — but the conditions of that "victory" contain the seeds of the Pinch 2 crisis.
+- **Story position:** ~50%.
+- **Questions to answer:**
+  - What does the protagonist appear to win or learn at the Midpoint?
+  - Why is this a false victory? What cost or complication is embedded in it that is not yet visible?
+  - What does the Midpoint teach the protagonist that enables the proactive action at Plot Turn 2?
+  - After the Midpoint, what does the protagonist now *choose* to pursue, rather than simply react to?
+- **Notes:** The reactive→proactive shift at the Midpoint is the Seven-Point Structure's most important mechanical feature. Before the Midpoint, the protagonist responds to events; after it, they drive events. This shift should be visible in behavior — the protagonist starts making decisions rather than just surviving. The false victory is critical: a clean success here would deflate the story; the hidden cost is what fuels Pinch 2.
+
+---
+
+### Point 5 — Pinch 2
+- **Narrative beat:** The antagonist or central conflict reaches maximum pressure. Everything seems lost — the protagonist's plans have failed, their resources are depleted, and success appears impossible. This is the story's emotional nadir.
+- **Story position:** ~62%.
+- **Questions to answer:**
+  - What specifically goes wrong? What does the protagonist lose, fail at, or have taken from them?
+  - How does this connect directly to the false victory of the Midpoint — what cost is now being collected?
+  - What is the protagonist's lowest point emotionally and practically?
+  - What does the protagonist still have — some resource, relationship, or quality — that will enable Plot Turn 2?
+- **Notes:** Pinch 2 is the despair moment, not the transformation moment. This distinguishes it from the Hero's Journey's Ordeal, which is where transformation occurs. In the Seven-Point Structure, the protagonist has already made their proactive commitment at the Midpoint; Pinch 2 tests whether they can follow through despite maximum adversity. The protagonist should appear to have nothing left — but Plot Turn 2 is earned by showing they do.
+
+---
+
+### Point 6 — Plot Turn 2
+- **Narrative beat:** The protagonist, using knowledge, relationships, or capabilities accumulated throughout the story, takes decisive action to create the conditions for the final confrontation. This is not reactive survival — it is the protagonist engineering their own path to the Resolution.
+- **Story position:** ~75%.
+- **Questions to answer:**
+  - What specific knowledge, skill, or resource does the protagonist use that they did not have at Plot Turn 1?
+  - How does this action contrast with Plot Turn 1 — how is the protagonist now driving events rather than responding to them?
+  - What does the protagonist do that makes the Resolution possible?
+  - What does this action cost, and is the protagonist willing to pay?
+- **Notes:** Plot Turn 2 is the structural mirror of Plot Turn 1. The transformation between them is the story's argument: this person, who was pulled into events they couldn't control, has become someone who creates the circumstances of their own resolution. The protagonist's action here must feel earned — it should be possible *only because* of what they experienced and lost between Plot Turn 1 and now.
+
+---
+
+### Point 7 — Resolution
+- **Narrative beat:** The central conflict is resolved. The protagonist's transformation — promised by the contrast between the Hook and this moment — is delivered. What the story set out to do is done.
+- **Story position:** ~90–100%.
+- **Questions to answer:**
+  - How does the Resolution contrast with the Hook? What is different about the protagonist now?
+  - Is the transformation a gain, a loss, or both — and is that ambiguity intentional?
+  - What happens to the antagonist or central conflict?
+  - What does the world look like in the story's new equilibrium?
+- **Notes:** The Resolution is designed first, in this structure — which means by the time it is written, every prior plot point should have been designed to make this specific ending feel inevitable. If the Resolution surprises the writer, some earlier point was probably designed without sufficient connection to the ending. The Resolution does not need to be happy — it needs to be true to the transformation the story promised.
+
+---
+
+## Flexibility
+
+**The backwards-planning method is a design tool, not a writing order:** Plan from the Resolution backward; write from the Hook forward. The planning sequence (Resolution → Hook → Midpoint → Plot Turns → Pinches) does not need to match the drafting sequence.
+
+**Points that can be compressed:**
+- Pinch 1 and Plot Turn 1 can be combined in shorter works — the inciting incident that pulls the protagonist in can simultaneously reveal the antagonist's scope
+- Resolution and the final beats of Plot Turn 2 can flow together without a distinct break
+
+**Points that should not be skipped:**
+- The Midpoint's reactive→proactive shift — without it, the protagonist is passive throughout, and the Resolution feels unearned
+- Pinch 2 — without genuine despair before the Resolution, the final success costs nothing
+- The Hook/Resolution contrast — if the protagonist ends where they began, the story has no arc
+
+**On symmetry:** The structure's symmetrical design (Hook↔Resolution, Plot Turn 1↔Plot Turn 2, Pinch 1↔Pinch 2) is a planning tool as much as a structural description. When drafting, ask: how does this plot point echo or contrast with its mirror? The symmetry creates the sense of a story that knows where it is going.
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/The Hero's Journey.md
+════════════════════════════════════════════════════════════
+# The Hero's Journey
+
+## Overview
+The Hero's Journey (also called the Monomyth) is a story structure identified by mythologist Joseph Campbell and later adapted for screenwriting and fiction by Christopher Vogler. It describes the pattern underlying hero-centric stories across cultures and genres: a protagonist is called away from their ordinary life, undergoes a transformative ordeal in a strange world, and returns changed.
+
+**Best suited for:** Stories centered on a single protagonist's transformation; quest narratives; coming-of-age; redemption arcs; adventure, fantasy, science fiction, and literary fiction with an inward journey at their core.
+
+**Less suited for:** Ensemble stories without a clear protagonist; stories where change is resisted rather than achieved; strictly slice-of-life or character-study fiction with no external quest.
+
+**Source:** Adapted from Joseph Campbell's *The Hero with a Thousand Faces* (1949) and Christopher Vogler's *The Writer's Journey* (1992).
+
+---
+
+## Quick Reference
+
+| #   | Stage                        | Position | Purpose                                                                |
+| --- | ---------------------------- | -------- | ---------------------------------------------------------------------- |
+| 1   | The Ordinary World           | 0–5%     | Establish the hero's baseline life and what they stand to lose         |
+| 2   | Call to Adventure            | ~10%     | A disruption forces the hero out of their comfort zone                 |
+| 3   | Refusal of the Call          | ~12%     | The hero hesitates — establishes stakes and internal resistance        |
+| 4   | Meeting the Mentor           | ~15%     | A guide provides tools, wisdom, or confidence for the journey          |
+| 5   | Crossing the First Threshold | ~20%     | The hero commits — the world of adventure begins                       |
+| 6   | Tests, Allies, Enemies       | 20–50%   | The hero learns the rules of the new world through trial               |
+| 7   | Approach to the Inmost Cave  | ~50%     | Preparation for the central ordeal — the point of no return            |
+| 8   | Ordeal                       | ~55%     | The hero's greatest test; rock bottom and potential transformation     |
+| 9   | Reward (Seizing the Sword)   | ~60%     | The hero obtains what they've fought for                               |
+| 10  | The Road Back                | 60–80%   | New obstacles arise on the return; the antagonist resurges             |
+| 11  | Resurrection                 | ~85%     | The final climactic test — proving the transformation is real          |
+| 12  | Return with the Elixir       | ~95–100% | The hero returns home changed, with something of value for their world |
+
+---
+
+## Stages
+
+### Stage 1 — The Ordinary World
+- **Narrative beat:** Introduce the hero in their everyday life, before the adventure begins. Establish who they are, what they value, and what they lack or long for. This is the baseline the reader will measure all future change against.
+- **Story position:** Opening 5% — typically the first scene or chapter.
+- **Questions to answer:**
+  - What is the hero's normal life? What is comfortable and familiar to them?
+  - What are they missing, yearning for, or unaware they need?
+  - What will they have to leave behind — or risk losing — when the adventure calls?
+  - What flaw, wound, or belief will the journey eventually force them to confront?
+- **Notes:** The Ordinary World should feel genuinely livable, not miserable — if the hero's life is only suffering, there is nothing to anchor them or the reader. The contrast between this world and the Special World (stages 5–11) is one of the story's primary sources of meaning.
+
+---
+
+### Stage 2 — Call to Adventure
+- **Narrative beat:** A problem, opportunity, or revelation disrupts the hero's ordinary life and demands a response. It can arrive as an external event (a threat, an invitation, a discovery), a personal crisis, or a chance encounter.
+- **Story position:** ~10% — end of the opening act.
+- **Questions to answer:**
+  - What is the specific event or piece of information that disrupts the hero's world?
+  - What does it demand of them?
+  - Is the call external (someone needs them), internal (they choose to seek something), or accidental (they stumble into it)?
+  - What is at stake if they answer? What is at stake if they don't?
+- **Notes:** The Call doesn't have to be dramatic. A quiet letter, an overheard conversation, or a stranger arriving in town can function as a Call if it presents an unavoidable choice. What matters is that the hero can no longer pretend the world is as it was.
+
+---
+
+### Stage 3 — Refusal of the Call
+- **Narrative beat:** The hero hesitates, refuses, or tries to avoid the Call. They acknowledge the stakes and flinch. This is not weakness — it is human. The Refusal tells the reader what the hero fears and how much the journey will cost them.
+- **Story position:** ~12% — brief, often a scene or two.
+- **Questions to answer:**
+  - What specific fear or obligation makes the hero resist?
+  - What does refusal cost them — or someone they care about?
+  - Is the Refusal internal (the hero talks themselves out of it), external (someone or something blocks them), or both?
+  - What finally breaks the Refusal and forces commitment?
+- **Notes:** This stage can be skipped if the hero is eager from the start — but removing it often flattens the story. Even a single moment of hesitation increases stakes and reveals character. The Refusal should be specific: "I can't leave my family" is stronger than vague reluctance.
+
+---
+
+### Stage 4 — Meeting the Mentor
+- **Narrative beat:** A guide appears who provides the hero with what they need to begin the journey — practical tools, knowledge, encouragement, or a challenge that awakens their confidence.
+- **Story position:** ~15% — between Refusal and Crossing the Threshold.
+- **Questions to answer:**
+  - Who (or what) is the Mentor? Why do they help the hero?
+  - What specific thing does the Mentor give the hero — an object, a skill, a piece of information, or simply belief?
+  - What does the Mentor withhold, and why?
+  - What is the Mentor's own wound or limitation, and how does it shape what they can give?
+- **Notes:** The Mentor does not have to be a person — a book, a memory, a dream, or a deceased loved one can fill this role. The Mentor rarely accompanies the hero through the entire journey; their departure (or absence) is often what forces the hero to act independently. See also: [[The Mentor]] archetype.
+
+---
+
+### Stage 5 — Crossing the First Threshold
+- **Narrative beat:** The hero leaves the Ordinary World and fully commits to the adventure. There is no turning back. The stakes are now real.
+- **Story position:** ~20% — end of Act One.
+- **Questions to answer:**
+  - What is the physical or symbolic threshold the hero crosses?
+  - What makes crossing it irreversible?
+  - What does the hero leave behind — permanently or temporarily?
+  - How does the world on the other side look and feel different from the Ordinary World?
+- **Notes:** The threshold can be literal (a city gate, a ship departing, a door closing) or metaphorical (a decision that cannot be undone, a truth that cannot be unfelt). The key is commitment — the reader must feel that the hero's life will never be exactly the same again.
+
+---
+
+### Stage 6 — Tests, Allies, Enemies
+- **Narrative beat:** The hero navigates the Special World, encountering new challenges, potential allies, and antagonists. They begin learning the rules of this new world — what works and what doesn't, who can be trusted and who cannot.
+- **Story position:** 20–50% — the bulk of Act Two, first half.
+- **Questions to answer:**
+  - What are the three or four most significant obstacles the hero faces in this period?
+  - Who becomes an ally, and what does each ally contribute?
+  - Who becomes an enemy, and what does each enemy reveal about the world or the hero?
+  - What new skill, piece of knowledge, or quality does the hero develop?
+  - What false belief does the hero hold during this section that will be shattered later?
+- **Notes:** This is the longest section of the journey and the most prone to sagging. Keep momentum by raising stakes progressively — each test should be harder than the last. Subplots, ally relationships, and enemy conflicts can all be developed here. Avoid making this section feel like a series of unconnected episodes; each test should push the hero toward or away from the central goal.
+
+---
+
+### Stage 7 — Approach to the Inmost Cave
+- **Narrative beat:** The hero moves toward the central ordeal — the villain's stronghold, the source of the danger, or the place where their deepest fear must be confronted. This is a period of preparation, planning, and gathering of resolve.
+- **Story position:** ~50% — the midpoint transition.
+- **Questions to answer:**
+  - What is the "inmost cave" — the specific place, situation, or confrontation the hero is approaching?
+  - What obstacles or guardians must be passed to reach it?
+  - What must the hero sacrifice, confess, or resolve before they can enter?
+  - What is the hero's greatest fear about what they will find there?
+- **Notes:** The Approach is about anticipation and preparation, not action. It slows the pace deliberately to let both hero and reader understand what is at stake. This is often where a midpoint revelation, a false victory, or a first major setback occurs.
+
+---
+
+### Stage 8 — Ordeal
+- **Narrative beat:** The hero faces their greatest test. This is the story's crisis point — the moment of maximum danger, defeat, or despair. The hero may appear to fail, die symbolically, or lose everything. Out of this darkness comes transformation.
+- **Story position:** ~55% — the emotional center of the story.
+- **Questions to answer:**
+  - What is the specific, concrete form of the Ordeal? What does the hero face?
+  - What do they lose, or risk losing, in this confrontation?
+  - What must they surrender — a belief, a relationship, a part of themselves — to survive or emerge changed?
+  - What version of the hero dies here, and what version emerges?
+- **Notes:** The Ordeal is not necessarily a physical fight. It can be a moral choice, a confession, a confrontation with the truth, or a moment of complete isolation. The key element is genuine risk of failure — if the outcome feels guaranteed, the Ordeal loses its power. This is also often where the central theme of the story becomes explicit.
+
+---
+
+### Stage 9 — Reward (Seizing the Sword)
+- **Narrative beat:** The hero survives the Ordeal and claims what they came for — an object, knowledge, reconciliation, freedom, or an internal quality like confidence or self-acceptance.
+- **Story position:** ~60% — immediately after the Ordeal.
+- **Questions to answer:**
+  - What is the specific reward? Is it physical, emotional, informational, or relational?
+  - How has the hero changed in order to be able to claim it?
+  - What does the reward cost them, even in the moment of claiming it?
+  - Is the reward what they thought they were seeking, or has the goal shifted?
+- **Notes:** The Reward should feel earned, not given. The connection between the Ordeal and the Reward must be clear: the hero could not have taken this without having survived what came before. This stage is often brief but emotionally charged.
+
+---
+
+### Stage 10 — The Road Back
+- **Narrative beat:** The hero begins the journey home, but new obstacles arise. The antagonist may resurge; the hero may be pursued; the stakes escalate in a new direction. The Reward creates new dangers.
+- **Story position:** 60–80% — Act Two, second half.
+- **Questions to answer:**
+  - What new threat or complication emerges now that the hero has the Reward?
+  - Why can't the hero simply return home? What pursues or delays them?
+  - What does the hero risk losing if they don't complete the return?
+  - How does the hero's transformation from the Ordeal show up in how they handle this new threat?
+- **Notes:** The Road Back prevents the story from deflating after the Ordeal. It signals to the reader that the final confrontation is still ahead. The hero should not solve this section using the same approach they used before the Ordeal — their transformation must be visible in their actions.
+
+---
+
+### Stage 11 — Resurrection
+- **Narrative beat:** The final, climactic test. The hero must prove that their transformation is genuine and complete — they face a version of their greatest fear one last time, and this time they meet it with everything they have learned.
+- **Story position:** ~85% — the climax.
+- **Questions to answer:**
+  - What is the specific form of the final test? How does it echo the Ordeal?
+  - What has the hero learned that allows them to succeed now when they could not have succeeded before?
+  - What does the hero have to give up or risk at this final moment?
+  - Who or what is transformed alongside the hero in this climax?
+- **Notes:** The Resurrection should feel like a true test, not a foregone conclusion. The reader must genuinely believe the hero could fail. The most powerful Resurrections require the hero to apply not just new skills but new values — proving that their inner transformation is real, not just their outer capability.
+
+---
+
+### Stage 12 — Return with the Elixir
+- **Narrative beat:** The hero returns to the Ordinary World — changed. They bring back something of value: an object, knowledge, healing, wisdom, or simply themselves transformed. The world is not quite as it was, and neither is the hero.
+- **Story position:** ~95–100% — the resolution and closing.
+- **Questions to answer:**
+  - What is the "elixir" — the specific thing the hero brings back?
+  - How is the Ordinary World different because of what the hero has done?
+  - How has the hero's relationship to the Ordinary World changed?
+  - What has been resolved? What, intentionally, has not?
+- **Notes:** The Return should feel like a genuine homecoming, not just an ending. The contrast with the Ordinary World established in Stage 1 should be visible — either the world has changed, or the hero's relationship to it has. If the hero cannot return (exile, death, transformation beyond return), the "elixir" is passed to someone else or left in the world as a legacy.
+
+---
+
+## Flexibility
+
+**Stages that can be compressed or merged:**
+- Stages 2–4 (Call, Refusal, Mentor) can be compressed into a single chapter or scene sequence, especially in shorter works
+- Stages 9–10 (Reward, Road Back) often flow together without a clear break
+
+**Stages that can be skipped:**
+- Stage 3 (Refusal) can be omitted if the hero is naturally eager — but consider what is lost
+- Stage 4 (Mentor) can be omitted if the hero is self-sufficient, or the Mentor role is distributed across multiple characters
+
+**Stages that should not be skipped:**
+- Stage 8 (Ordeal) — without genuine crisis, there is no transformation
+- Stage 11 (Resurrection) — without a final test, the climax lacks weight
+- Stage 1 (Ordinary World) — without a baseline, the change has nothing to measure against
+
+**Reordering:**
+The Call can precede full establishment of the Ordinary World (in medias res openings). The Mentor can appear after the Threshold rather than before it. Stages 6–10 can be restructured significantly in non-linear narratives. The underlying requirement is that the hero begins in one state and ends in another, and that the Ordeal is the turning point.
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/Three-Act Structure.md
+════════════════════════════════════════════════════════════
+# Three-Act Structure
+
+## Overview
+The Three-Act Structure is the most fundamental and widely used framework in Western storytelling. It divides a narrative into Setup (Act One), Confrontation (Act Two), and Resolution (Act Three), with named plot points marking the transitions between them. Its origins trace to Aristotle's *Poetics* and were formalized for modern screenwriting by Syd Field in *Screenplay* (1979).
+
+**Best suited for:** Nearly any genre or form — this is the baseline structure most readers unconsciously expect. Particularly useful for troubleshooting pacing problems in a draft, or for writers who need a flexible but reliable scaffold. Commercial fiction, genre fiction, drama, and literary fiction all use it in some form.
+
+**Less suited for:** Non-linear narratives, fragmented or experimental structures, or stories deliberately built around subverting dramatic expectation.
+
+**Relationship to other structures:** The Hero's Journey maps almost exactly onto Three-Act; the Journey's value is its granularity (12 stages vs. 3 acts). The Seven-Point Story Structure is a more plot-specific refinement of Three-Act. Dan Harmon's Story Circle is a character-psychology reinterpretation of the same arc.
+
+---
+
+## Quick Reference
+
+| #   | Stage             | Act                 | Position | Purpose                                                            |
+| --- | ----------------- | ------------------- | -------- | ------------------------------------------------------------------ |
+| 1   | Exposition        | One — Setup         | 0–10%    | Introduce protagonist, world, and what they want                   |
+| 2   | Inciting Incident | One                 | ~12%     | The catalyst that forces the protagonist beyond their comfort zone |
+| 3   | Plot Point One    | One                 | ~25%     | Protagonist commits to the journey; Act One ends                   |
+| 4   | Rising Action     | Two — Confrontation | 25–50%   | Obstacles, allies, antagonists; protagonist learns the new world   |
+| 5   | Midpoint          | Two                 | ~50%     | Stakes escalate; a crisis shifts the story's direction             |
+| 6   | Plot Point Two    | Two                 | ~75%     | Protagonist pivots from reactive to proactive; Act Two ends        |
+| 7   | Pre-Climax        | Three — Resolution  | 75–85%   | Antagonist's full strength revealed; doubt peaks                   |
+| 8   | Climax            | Three               | ~85–90%  | Final confrontation; central conflict resolved                     |
+| 9   | Denouement        | Three               | 90–100%  | Loose ends resolved; new status quo established                    |
+
+---
+
+## Act One — The Setup
+
+### Stage 1 — Exposition
+- **Narrative beat:** Introduce the protagonist in their ordinary world. Establish who they are, what they want, what they lack, and what their world looks like before the story's events change it. Ground the reader in character and setting before the disruption arrives.
+- **Story position:** 0–10% — the opening.
+- **Questions to answer:**
+  - Who is the protagonist and what do they want at the start of the story?
+  - What is their ordinary world — and what is comfortable or valuable about it?
+  - What flaw, wound, or false belief do they carry that the story will eventually challenge?
+  - What tone and genre contract does the opening establish for the reader?
+- **Notes:** Exposition is not backstory dumping — it is active scene-setting. Every detail shown in the Exposition should either establish character, set up a later payoff, or establish the contrast with how things will be at the end. Modern pacing tends to keep this short; the Inciting Incident should arrive quickly.
+
+---
+
+### Stage 2 — Inciting Incident
+- **Narrative beat:** An event, discovery, or arrival disrupts the protagonist's ordinary world and forces a response. This is the story's ignition point — everything that follows traces back to it.
+- **Story position:** ~12% — late in the opening sequence.
+- **Questions to answer:**
+  - What specific event triggers the story? Is it external (something happens to the protagonist) or internal (the protagonist makes a discovery or choice)?
+  - What does it demand of the protagonist — what must they now do, decide, or confront?
+  - What would happen if they did nothing? (This establishes stakes.)
+  - How does it connect to the protagonist's established want or flaw?
+- **Notes:** The Inciting Incident should feel both surprising and inevitable — unexpected, but something the reader can see the seeds of in the Exposition. It is not the same as Plot Point One; the Incident disrupts the world, while Plot Point One is when the protagonist commits to responding to that disruption.
+
+---
+
+### Stage 3 — Plot Point One
+- **Narrative beat:** The protagonist makes a definitive commitment to engage with the story's central conflict. This is the point of no return — Act One ends, and the story's world of active confrontation begins.
+- **Story position:** ~25% — the Act One/Act Two boundary.
+- **Questions to answer:**
+  - What decision or action makes the protagonist's engagement with the conflict irreversible?
+  - What do they leave behind — literally or symbolically — when they cross this threshold?
+  - What is the protagonist's goal as they enter Act Two? (It may differ from what they ultimately need.)
+  - What does the reader now expect the story to be about?
+- **Notes:** Plot Point One should feel like a door closing. Even if the protagonist didn't choose it consciously, the story must make clear that retreat is no longer possible. This is one of the most important structural joints in the story — if it's weak, Act Two has no momentum.
+
+---
+
+## Act Two — The Confrontation
+
+### Stage 4 — Rising Action
+- **Narrative beat:** The protagonist pursues their goal in an unfamiliar world, encountering escalating obstacles, potential allies, and antagonists. Each challenge should be harder than the last. The protagonist develops new capabilities but also makes mistakes and accumulates costs.
+- **Story position:** 25–50% — Act Two, first half.
+- **Questions to answer:**
+  - What are the three or four main obstacles the protagonist faces in this section?
+  - Who becomes an ally, and what does each ally contribute to the protagonist's ability to achieve the goal?
+  - Who or what is the primary antagonist, and what makes them a genuine threat?
+  - What new skill, knowledge, or quality does the protagonist develop?
+  - What does the protagonist still misunderstand about the situation or about themselves?
+- **Notes:** The Rising Action is where most "saggy middle" problems originate. Keep momentum by ensuring each obstacle escalates meaningfully — not just physically harder, but more personally costly. Subplots and secondary character arcs can be developed here, but they should all connect to the main conflict thematically or causally.
+
+---
+
+### Stage 5 — Midpoint
+- **Narrative beat:** A major development at the story's center raises the stakes significantly and shifts the story's direction. This is often a false victory (the protagonist appears to succeed but doesn't fully), a revelation that recontextualizes everything, or a crisis that forces a new approach.
+- **Story position:** ~50% — the exact center.
+- **Questions to answer:**
+  - What specific event or revelation occurs at the midpoint?
+  - How does it raise the stakes — what is now at risk that wasn't before?
+  - What does the protagonist now know, or think they know, that changes their approach?
+  - How does it shift the story from its first-half direction to a new second-half direction?
+- **Notes:** The Midpoint is not simply the middle of the story — it is an active turning point with real consequences. A story without a strong Midpoint often feels like it has a flat, structureless Act Two. The Midpoint and the Climax should mirror each other: the Midpoint presents the problem in its full scope; the Climax resolves it.
+
+---
+
+### Stage 6 — Plot Point Two
+- **Narrative beat:** The protagonist, after a period of reactive struggle, makes a decisive choice to take direct, proactive action against the antagonist. This is the transition from being driven by events to driving them. Act Two ends here.
+- **Story position:** ~75% — the Act Two/Act Three boundary.
+- **Questions to answer:**
+  - What specific realization or event triggers the protagonist's shift from reactive to proactive?
+  - What do they decide to do, and why is this decision different from everything they've tried before?
+  - What do they risk by taking this action? What do they stand to lose?
+  - How does this decision reflect their transformation from who they were in the Exposition?
+- **Notes:** Plot Point Two is often the story's "lowest point" just before the turn — the protagonist has lost something, failed, or been forced to confront their flaw directly. The decision to act despite this is what makes it meaningful. If Plot Point Two is missing or weak, the Climax will feel unearned.
+
+---
+
+## Act Three — The Resolution
+
+### Stage 7 — Pre-Climax
+- **Narrative beat:** The protagonist moves toward the final confrontation, but the antagonist's full strength is revealed and doubt reaches its peak. The protagonist may appear overmatched, isolated, or still carrying an unresolved flaw.
+- **Story position:** 75–85%.
+- **Questions to answer:**
+  - What does the protagonist face in the lead-up to the Climax that makes success seem doubtful?
+  - What is the antagonist's maximum power or threat level here?
+  - Has the protagonist fully completed their inner transformation? If not, what is the final obstacle?
+  - What must the protagonist accept, sacrifice, or resolve before they can face the Climax?
+- **Notes:** The Pre-Climax is about building dread and anticipation, not action. Slow the pace deliberately to let both protagonist and reader confront the weight of the final confrontation. This is the last moment where failure feels genuinely possible.
+
+---
+
+### Stage 8 — Climax
+- **Narrative beat:** The central conflict reaches its decisive confrontation. The protagonist faces the antagonist — or the final manifestation of the story's core conflict — and the outcome is determined. The story's main dramatic question is answered here.
+- **Story position:** ~85–90%.
+- **Questions to answer:**
+  - What is the specific form of the final confrontation? Who or what does the protagonist face?
+  - How does the protagonist's transformation over the course of the story make it possible for them to win (or lose, or choose differently) now?
+  - What does the protagonist have to risk or give up in this moment?
+  - What is the outcome — and what does it mean for the story's themes?
+- **Notes:** The Climax should be the story's most intense scene, but "intense" does not always mean physical. A quiet scene where the protagonist makes a definitive moral choice can be a more powerful Climax than a battle. The key requirement: the outcome must feel both surprising and inevitable, earned by everything that came before.
+
+---
+
+### Stage 9 — Denouement
+- **Narrative beat:** The story settles into its new equilibrium. Loose ends are resolved, secondary characters get closure, and the reader sees what the world looks like after the Climax's events. The protagonist's transformation is confirmed.
+- **Story position:** 90–100%.
+- **Questions to answer:**
+  - What has changed in the world as a result of the story's events?
+  - How is the protagonist different from who they were in the Exposition — and how is that difference visible?
+  - Which secondary character threads need closure, and what does each resolution say?
+  - What, intentionally, is left unresolved — and is that ambiguity meaningful?
+- **Notes:** The Denouement should feel like earned rest, not a rushed ending or a prolonged one. It confirms the transformation the story promised. Short is often better; once the Climax has resolved the central conflict, linger only long enough to let the emotional resonance land.
+
+---
+
+## Flexibility
+
+**On Act Two length:** Act Two is deliberately the longest act (50% of the story) because confrontation and development require space. Some writers find it easier to treat Act Two as two separate halves split at the Midpoint — creating a de facto four-act structure with acts at 25% / 25% / 25% / 25%.
+
+**Stages that can be compressed:**
+- Stages 1–2 (Exposition + Inciting Incident) can merge in fast-opening stories or in medias res beginnings
+- Stage 7 (Pre-Climax) can be minimal in shorter works
+
+**Stages that should not be skipped:**
+- Stage 3 (Plot Point One) — without it, Act Two has no launch point
+- Stage 6 (Plot Point Two) — without it, the Climax is not earned
+- Stage 8 (Climax) — without it, there is no story
+
+**On the reactive→proactive shift:** The shift from reactive (stages 1–5) to proactive (stages 6–8) is the structure's defining feature and its most important through-line. Every stage should be evaluated against this arc: is the protagonist still being driven by events, or beginning to drive them?
+
+--- stderr ---

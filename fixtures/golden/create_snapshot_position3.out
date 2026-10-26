@@ -1,0 +1,80 @@
+exit: 0
+--- stdout ---
+
+════════════════════════════════════════════════════════════
+Creating snapshot — Position 3 — [[Golden Test Story]] | Full Story
+════════════════════════════════════════════════════════════
+  characters/         — 5 file(s)
+  factions/           — 3 file(s)
+  points_of_interest/ — 4 file(s)
+  mythology/          — 4 file(s)
+  DESCRIPTION.md — copied
+  manifest.md — written
+  snapshots/manifest.md — appended (position 3)
+
+════════════════════════════════════════════════════════════
+Snapshot complete
+  Location  : worlds/Harrowmere/snapshots/3
+  Position  : 3
+  Story     : [[Golden Test Story]] | Full Story
+  Entities  : 16 total
+════════════════════════════════════════════════════════════
+
+Stories at position 4+ can now load baseline from:
+  worlds/Harrowmere/snapshots/3
+
+--- stderr ---
+
+--- files ---
+worlds/Harrowmere/snapshots/1/characters/Doran Pike.md 450b759e202cc94f
+worlds/Harrowmere/snapshots/1/characters/Hesk Varrow.md 01bfea20c26c74fe
+worlds/Harrowmere/snapshots/1/characters/Ilsa Brandt.md 5280a81bae93aec8
+worlds/Harrowmere/snapshots/1/characters/Mara Quill.md bc309c0cfc6583a4
+worlds/Harrowmere/snapshots/1/DESCRIPTION.md 1d5ba7572fd6748d
+worlds/Harrowmere/snapshots/1/factions/Fen Wardens.md 9f372514b8a8b38b
+worlds/Harrowmere/snapshots/1/factions/Harbor Guild.md 649623f889498209
+worlds/Harrowmere/snapshots/1/factions/Tidewright Union.md 1766595e16d8d714
+worlds/Harrowmere/snapshots/1/manifest.md e0cf8a3e6b37ac85
+worlds/Harrowmere/snapshots/1/mythology/The Charter of Three Seals.md 10e7e25cbab1791d
+worlds/Harrowmere/snapshots/1/mythology/The Drowned Bell.md 017a5bc3ead90d1a
+worlds/Harrowmere/snapshots/1/mythology/The Tithe Ledger Clause.md 944c8605f039d2f7
+worlds/Harrowmere/snapshots/1/points_of_interest/Harrowmere.md 47bfd528fdbd8aec
+worlds/Harrowmere/snapshots/1/points_of_interest/The Marrowfen Reach.md 8c654582de297b11
+worlds/Harrowmere/snapshots/1/points_of_interest/The Tally House.md 7a498f05935fa7bf
+worlds/Harrowmere/snapshots/2/characters/Doran Pike.md 580f3b268cdb7542
+worlds/Harrowmere/snapshots/2/characters/Hesk Varrow.md 33da90260cce0091
+worlds/Harrowmere/snapshots/2/characters/Ilsa Brandt.md 1248250e879aff8d
+worlds/Harrowmere/snapshots/2/characters/Mara Quill.md 8b7c94afac2aa485
+worlds/Harrowmere/snapshots/2/characters/Tamsin O'Rook.md af88488e4f1e5a08
+worlds/Harrowmere/snapshots/2/DESCRIPTION.md 1d5ba7572fd6748d
+worlds/Harrowmere/snapshots/2/factions/Fen Wardens.md 4662a700ec61e6ba
+worlds/Harrowmere/snapshots/2/factions/Harbor Guild.md 545ef238f6cb5e48
+worlds/Harrowmere/snapshots/2/factions/Tidewright Union.md da9e62057f2caa92
+worlds/Harrowmere/snapshots/2/manifest.md 224fb68ff00de79c
+worlds/Harrowmere/snapshots/2/mythology/The Charter of Three Seals.md 10e7e25cbab1791d
+worlds/Harrowmere/snapshots/2/mythology/The Drowned Bell.md 017a5bc3ead90d1a
+worlds/Harrowmere/snapshots/2/mythology/The Ink-Debt Rumor.md e52082f19c5a8b9b
+worlds/Harrowmere/snapshots/2/mythology/The Tithe Ledger Clause.md 944c8605f039d2f7
+worlds/Harrowmere/snapshots/2/points_of_interest/Harrowmere.md 38cb7a28ca1994dc
+worlds/Harrowmere/snapshots/2/points_of_interest/The Drowned Flats.md 370edc2210c6416b
+worlds/Harrowmere/snapshots/2/points_of_interest/The Marrowfen Reach.md a32e5eee4e1a51af
+worlds/Harrowmere/snapshots/2/points_of_interest/The Tally House.md ce4ca6c08b067c30
+worlds/Harrowmere/snapshots/3/characters/Doran Pike.md 580f3b268cdb7542
+worlds/Harrowmere/snapshots/3/characters/Hesk Varrow.md 33da90260cce0091
+worlds/Harrowmere/snapshots/3/characters/Ilsa Brandt.md 1248250e879aff8d
+worlds/Harrowmere/snapshots/3/characters/Mara Quill.md 8b7c94afac2aa485
+worlds/Harrowmere/snapshots/3/characters/Tamsin O'Rook.md af88488e4f1e5a08
+worlds/Harrowmere/snapshots/3/DESCRIPTION.md 1d5ba7572fd6748d
+worlds/Harrowmere/snapshots/3/factions/Fen Wardens.md 4662a700ec61e6ba
+worlds/Harrowmere/snapshots/3/factions/Harbor Guild.md 545ef238f6cb5e48
+worlds/Harrowmere/snapshots/3/factions/Tidewright Union.md da9e62057f2caa92
+worlds/Harrowmere/snapshots/3/manifest.md 1eb5fb26438e8918
+worlds/Harrowmere/snapshots/3/mythology/The Charter of Three Seals.md 10e7e25cbab1791d
+worlds/Harrowmere/snapshots/3/mythology/The Drowned Bell.md 017a5bc3ead90d1a
+worlds/Harrowmere/snapshots/3/mythology/The Ink-Debt Rumor.md e52082f19c5a8b9b
+worlds/Harrowmere/snapshots/3/mythology/The Tithe Ledger Clause.md 944c8605f039d2f7
+worlds/Harrowmere/snapshots/3/points_of_interest/Harrowmere.md 38cb7a28ca1994dc
+worlds/Harrowmere/snapshots/3/points_of_interest/The Drowned Flats.md 370edc2210c6416b
+worlds/Harrowmere/snapshots/3/points_of_interest/The Marrowfen Reach.md a32e5eee4e1a51af
+worlds/Harrowmere/snapshots/3/points_of_interest/The Tally House.md ce4ca6c08b067c30
+worlds/Harrowmere/snapshots/manifest.md 51198248f4a4f986

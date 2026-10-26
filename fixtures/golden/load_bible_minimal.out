@@ -1,0 +1,108 @@
+exit: 0
+--- stdout ---
+
+════════════════════════════════════════════════════════════
+FILE: state/ACTIVE_SCHEMES.md
+════════════════════════════════════════════════════════════
+# Active Schemes — Salt and Signal
+
+> **What this is:** a live registry of deceptions in flight within this story.
+>
+> **Maintained by:** Story Analyzer (updates after each chapter).
+
+---
+
+## Active Ledger
+
+| ID | Owner | Target(s) | Nature | Status | Origin | Last touched |
+| --- | --- | --- | --- | --- | --- | --- |
+| S1 | [[Hesk Varrow]] | [[Tamsin O'Rook]] | Errand worded so she does not know what she fetches | Resolved | Chapter 1 | Chapter 2 |
+| S2 | [[Ilsa Brandt]] | [[Mara Quill]] | Union money keeps the acting harbor-master in post | Active | Chapter 3 | Chapter 4 |
+
+---
+
+## Detail
+
+### S2 — The quiet money
+
+- **Owner:** [[Ilsa Brandt]]
+- **Target(s):** [[Mara Quill]], [[Doran Pike]]
+- **Nature:** Union money keeps the acting harbor-master in post
+- **Status:** Active
+- **Origin:** Chapter 3
+- **Last touched:** Chapter 4
+- **Specifics:** Paid as "lamp-oil subsidy" in the Guild's own books.
+- **Knowledge gaps:** Everyone in the Guild except Hesk Varrow.
+- **Notes:** Fragile after the audit.
+
+---
+
+## Resolution Log
+
+### S1 — The worded errand
+→ Resolved at Chapter 2: Tamsin returned empty-handed and unaware.
+
+- **Owner:** [[Hesk Varrow]]
+- **Target(s):** [[Tamsin O'Rook]]
+- **Nature:** Errand worded so she does not know what she fetches
+- **Status:** Resolved
+- **Origin:** Chapter 1
+- **Last touched:** Chapter 2
+- **Specifics:** "Fetch the folio and do not read it."
+- **Knowledge gaps:** Tamsin O'Rook.
+
+════════════════════════════════════════════════════════════
+FILE: state/STORY_FACTS.md
+════════════════════════════════════════════════════════════
+# Story Facts — Salt and Signal
+
+> **What this is:** a live ledger of plot-consequential facts.
+>
+> **Maintained by:** Story Analyzer (updates after each chapter).
+
+---
+
+## Ledger
+
+| ID | Category | Fact | Status | Origin | Last touched |
+| -- | -------- | ---- | ------ | ------ | ------------ |
+| F1 | Logistics | The sealed room has one key, kept by Doran Pike on a cord | Current | Chapter 2 | Chapter 4 |
+| F2 | Fingerprint | The replaced page is newer than the binding | Superseded | Chapter 1 | Chapter 4 |
+| F3 | Fingerprint | The original entry survives in the sealed room under a bell-jar | Current | Chapter 4 | Chapter 4 |
+
+---
+
+## Detail
+
+### F1 — The only key
+
+- **Category:** Logistics
+- **Fact:** The sealed room has one key, kept by Doran Pike on a cord.
+- **Specifics:** It is warm because he wears it.
+- **Status:** Current
+- **Origin:** Chapter 2
+- **Last touched:** Chapter 4
+- **Related:** [[Doran Pike]], [[The Tally House]]
+
+### F3 — The surviving original
+
+- **Category:** Fingerprint
+- **Fact:** The original entry survives in the sealed room under a bell-jar.
+- **Specifics:** Forty-seven casks, in the original hand.
+- **Status:** Current
+- **Origin:** Chapter 4
+- **Last touched:** Chapter 4
+- **Related:** [[Mara Quill]]
+
+---
+
+## Superseded Log
+
+### F2 — The replaced page
+→ Superseded at Chapter 4; see F3 for updated value.
+
+- **Category:** Fingerprint
+- **Fact:** The replaced page is newer than the binding.
+- **Status:** Superseded
+
+--- stderr ---

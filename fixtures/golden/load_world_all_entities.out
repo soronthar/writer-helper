@@ -1,0 +1,565 @@
+exit: 0
+--- stdout ---
+
+════════════════════════════════════════════════════════════
+FILE: characters/Doran Pike  [world bible]
+════════════════════════════════════════════════════════════
+# Doran Pike
+
+## Identity
+- **Full Name:** Doran Pike
+- **Age:** 61
+- **Gender:** Male
+- **Occupation / Role:** Senior archivist, Tally House
+
+## Appearance
+Tall, stooped, with a clerk's permanent squint and a habit of straightening whatever is nearest.
+
+## Personality
+Principled to a fault and quietly stubborn. Indispensable to every faction because he refuses to take a side.
+
+## Background
+Thirty years among the Tally House records; the last person who can read the pre-Charter shorthand.
+
+## Relationships
+| Person | Relationship | Notes |
+|--------|-------------|-------|
+| [[Mara Quill]] | Protege | The best tallier he has trained |
+
+## Current Status
+- **Location:** The Tally House, records room
+- **Physical condition:** Healthy
+- **Story state:** Alive
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+**Knows (as of The Tallow Ledger — Chapter 3):** The ledger page was replaced, not corrected.
+
+════════════════════════════════════════════════════════════
+FILE: characters/Hesk Varrow  [world bible]
+════════════════════════════════════════════════════════════
+# Hesk Varrow
+
+## Identity
+- **Full Name:** Hesk Varrow
+- **Age:** 52
+- **Gender:** Male
+- **Occupation / Role:** Acting harbor-master
+
+## Appearance
+Broad and unhurried, with a seal-ring he turns when listening.
+
+## Personality
+Measured and controlled. Manages trouble through paperwork and deniable wording. Believes every problem is a document problem.
+
+## Background
+A purser who rose when the last harbor-master died without an heir. Holds the post only until the Guild votes.
+
+## Relationships
+| Person | Relationship | Notes |
+|--------|-------------|-------|
+| [[Mara Quill]] | Subordinate | He needs her signature and fears her care |
+| [[Ilsa Brandt]] | Patron | Her Union money keeps him in post |
+
+## Current Status
+- **Location:** Harrowmere, harbor-master's office
+- **Physical condition:** Healthy
+- **Story state:** Alive
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+Has asked Mara Quill to sign an amended tallow ledger.
+**Knows (as of Salt and Signal — Chapter 4):** Mara Quill has seen the sealed original.
+
+════════════════════════════════════════════════════════════
+FILE: characters/Ilsa Brandt  [world bible]
+════════════════════════════════════════════════════════════
+# Ilsa Brandt
+
+## Identity
+- **Full Name:** Ilsa Brandt
+- **Age:** 40
+- **Gender:** Female
+- **Occupation / Role:** Factor for the Tidewright Union
+
+## Appearance
+Always dressed for rain; carries a folding rule she uses as a pointer.
+
+## Personality
+Patient and observant. Asks questions she already knows the answers to. Deniable by design.
+
+## Background
+Came to Harrowmere eight years ago to buy tallow and stayed to buy the people who count it.
+
+## Relationships
+| Person | Relationship | Notes |
+|--------|-------------|-------|
+| [[Hesk Varrow]] | Client | Pays for his quiet |
+
+## Current Status
+- **Location:** Harrowmere, Union counting-house
+- **Physical condition:** Healthy
+- **Story state:** Alive
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+Wants to learn what Mara Quill knows.
+
+════════════════════════════════════════════════════════════
+FILE: characters/Mara Quill  [world bible]
+════════════════════════════════════════════════════════════
+# Mara Quill
+
+## Identity
+- **Full Name:** Mara Quill
+- **Age:** 34
+- **Gender:** Female
+- **Occupation / Role:** Ledger-keeper at the Tally House
+
+## Appearance
+Narrow, ink-stained hands; a grey wool coat she never takes off in the Tally House; hair pinned with a pencil.
+
+## Personality
+Methodical and dry-humoured. Cannot leave an unanswered question alone. Distrusts anything that adds up too neatly. Afraid of being the person who looked away.
+
+## Background
+Born in the Flats to a family of reed-cutters. Trained as a tallier at fourteen and has kept the Guild's tallow-tax ledger for eleven years.
+
+## Relationships
+| Person | Relationship | Notes |
+|--------|-------------|-------|
+| [[Doran Pike]] | Mentor | Taught her to read a ledger for what is missing |
+| [[Hesk Varrow]] | Superior | Acting harbor-master; signs everything she keeps |
+
+## Current Status
+- **Location:** Harrowmere, lower quay
+- **Physical condition:** Healthy, under-slept
+- **Story state:** Alive
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+**Knows (as of The Tallow Ledger — Chapter 3):** Forty-seven tallow casks were entered in the ledger and never landed.
+**Knows (as of Salt and Signal — Chapter 4):** The original entry survives in the Tally House sealed room, and Hesk Varrow knows she knows.
+
+════════════════════════════════════════════════════════════
+FILE: characters/Tamsin O'Rook  [world bible]
+════════════════════════════════════════════════════════════
+# Tamsin O'Rook
+
+## Identity
+- **Full Name:** Tamsin O'Rook
+- **Age:** 23
+- **Gender:** Female
+- **Occupation / Role:** Clerk, harbor-master's office
+
+## Appearance
+Small and quick, copper hair cut short, ink on both cuffs.
+
+## Personality
+Eager to be useful and slow to ask why. Loyal to whoever gave her the post.
+
+## Background
+Hired by Hesk Varrow the winter the tallow casks went missing.
+
+## Relationships
+| Person | Relationship | Notes |
+|--------|-------------|-------|
+| [[Hesk Varrow]] | Employer | Does what the wording of an errand implies |
+
+## Current Status
+- **Location:** Harrowmere, harbor-master's office
+- **Physical condition:** Healthy
+- **Story state:** Alive
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+Sent to the Tally House to retrieve a document she was not told the contents of.
+
+════════════════════════════════════════════════════════════
+FILE: factions/Fen Wardens  [world bible]
+════════════════════════════════════════════════════════════
+# Fen Wardens
+
+## Identity
+- **Type:** Militia
+- **Headquarters:** The Marrowfen Reach
+- **Sphere of Influence:** The canals beyond the quays and the Flats
+- **Founded:** After the Drowned Bell
+
+## Goals
+- **Public position:** Keeps the roads and channels open.
+- **Actual agenda:** Keeps whichever faction pays its muster.
+
+## Power Base
+Control of the offices and records it staffs.
+
+## Structure
+A small council with one acting head.
+
+## Key Members
+| Person | Role | Notes |
+|--------|------|-------|
+| — | — | — |
+
+## Relationships
+| Faction / Entity | Relationship | Notes |
+|-----------------|-------------|-------|
+| [[Harbor Guild]] | Client | Escorts convoys |
+
+## Current Status
+- **Standing:** Neutral, watching
+- **Internal condition:** Stretched thin
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: factions/Harbor Guild  [world bible]
+════════════════════════════════════════════════════════════
+# Harbor Guild
+
+## Identity
+- **Type:** Guild
+- **Headquarters:** The Tally House
+- **Sphere of Influence:** Harrowmere's quays and the lower canals
+- **Founded:** Under the Charter of Three Seals
+
+## Goals
+- **Public position:** Keeps honest weights, honest ledgers and open water.
+- **Actual agenda:** Keeps the Guild's own members solvent first.
+
+## Power Base
+Control of the offices and records it staffs.
+
+## Structure
+A small council with one acting head.
+
+## Key Members
+| Person | Role | Notes |
+|--------|------|-------|
+| [[Hesk Varrow]] | Acting harbor-master | — |
+| [[Mara Quill]] | Ledger-keeper | — |
+| [[Doran Pike]] | Archivist | — |
+
+## Relationships
+| Faction / Entity | Relationship | Notes |
+|-----------------|-------------|-------|
+| [[Tidewright Union]] | Rival | Competes for the tallow trade |
+| [[Fen Wardens]] | Neutral | Escorts the Guild's convoys |
+
+## Current Status
+- **Standing:** Nominally dominant on the quays
+- **Internal condition:** Openly divided; the vote has been postponed
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: factions/Tidewright Union  [world bible]
+════════════════════════════════════════════════════════════
+# Tidewright Union
+
+## Identity
+- **Type:** Merchant union
+- **Headquarters:** The Union counting-house
+- **Sphere of Influence:** Tallow, rope and lamp-oil trade
+- **Founded:** Forty years ago by dissident Guild members
+
+## Goals
+- **Public position:** Free trade and fair prices.
+- **Actual agenda:** Control of the tallow supply.
+
+## Power Base
+Control of the offices and records it staffs.
+
+## Structure
+A small council with one acting head.
+
+## Key Members
+| Person | Role | Notes |
+|--------|------|-------|
+| [[Ilsa Brandt]] | Factor | — |
+
+## Relationships
+| Faction / Entity | Relationship | Notes |
+|-----------------|-------------|-------|
+| [[Harbor Guild]] | Rival | Buys its way into Guild offices |
+
+## Current Status
+- **Standing:** Gaining ground
+- **Internal condition:** Unified
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: points_of_interest/Harrowmere  [world bible]
+════════════════════════════════════════════════════════════
+# Harrowmere
+
+## Overview
+- **Type:** City
+- **Located in:** The Marrowfen Reach
+- **Size / Scale:** Major port
+- **Controlled by:** Harbor Guild
+
+## Description
+A city of brackish canals and stilt-houses where every bridge has a toll and every quay a clerk. The air smells of tallow smoke and wet rope.
+
+## History
+Founded on the Charter of Three Seals, which divided the harbor between guild, union and wardens.
+
+## Notable Features
+- The lower quay
+- The Warden's Stair
+- The harbor-master's office
+
+## Key Inhabitants / Factions
+| Name | Role | Notes |
+|------|------|-------|
+| [[Harbor Guild]] | Governing guild | Holds the harbor-master's seal |
+
+## Current Status
+- **Condition:** Thriving
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: points_of_interest/The Drowned Flats  [world bible]
+════════════════════════════════════════════════════════════
+# The Drowned Flats
+
+## Overview
+- **Type:** Region
+- **Located in:** The Marrowfen Reach
+- **Size / Scale:** Vast wetland
+- **Controlled by:** None
+
+## Description
+Mile on mile of reed and standing water that floods twice a day. Fishers know the paths; nobody else should.
+
+## History
+Where the old bell-tower stands half sunk. See the Drowned Bell.
+
+## Notable Features
+- The bell-tower
+- Reed-cutters' paths
+
+## Key Inhabitants / Factions
+| Name | Role | Notes |
+|------|------|-------|
+| [[Fen Wardens]] | Patrol | Rarely seen |
+
+## Current Status
+- **Condition:** Flooded
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: points_of_interest/The Marrowfen Reach  [world bible]
+════════════════════════════════════════════════════════════
+# The Marrowfen Reach
+
+## Overview
+- **Type:** Region
+- **Located in:** The coast
+- **Size / Scale:** A province
+- **Controlled by:** Harbor Guild (nominally)
+
+## Description
+A low coast of fen and salt-pan, cut by canals, with a single deep harbor at Harrowmere.
+
+## History
+Settled by reed-cutters, then chartered.
+
+## Notable Features
+- Salt-pans
+- The canal network
+
+## Key Inhabitants / Factions
+| Name | Role | Notes |
+|------|------|-------|
+| [[Harbor Guild]] | Chartered authority | Holds the charter |
+
+## Current Status
+- **Condition:** Quiet
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: points_of_interest/The Tally House  [world bible]
+════════════════════════════════════════════════════════════
+# The Tally House
+
+## Overview
+- **Type:** Building
+- **Located in:** Harrowmere
+- **Size / Scale:** Large
+- **Controlled by:** Harbor Guild
+
+## Description
+A long brick hall with narrow windows, built so that no ledger ever sits in direct sun. Corridors of shelved volumes lead to a sealed room at the back.
+
+## History
+Raised in the first year of the Charter to hold the three seals' accounts.
+
+## Notable Features
+- The records room
+- The sealed room
+- The ledger desk
+
+## Key Inhabitants / Factions
+| Name | Role | Notes |
+|------|------|-------|
+| [[Doran Pike]] | Archivist | Keeps the keys |
+| [[Mara Quill]] | Ledger-keeper | Works at the long desk |
+
+## Current Status
+- **Condition:** Orderly; the sealed room has been opened once
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: mythology/The Charter of Three Seals  [world bible]
+════════════════════════════════════════════════════════════
+# The Charter of Three Seals
+
+## Overview
+- **Type:** Foundation document
+- **Origin culture:** Harrowmere
+- **Age:** Two centuries
+
+## Summary
+Three founding seals, held by guild, union and wardens, must all agree before the harbor's law can change.
+
+## Full Text
+> Three founding seals, held by guild, union and wardens, must all agree before the harbor's law can change.
+
+## Characters Involved
+| Name | Role in Myth | Notes |
+|------|-------------|-------|
+| — | — | — |
+
+## Truth Level
+- **Classification:** Partially True
+- **Explanation:** Only two of the three seals ever agreed; the third was forged.
+
+## Connections
+- **Related locations:** None
+- **Related characters:** None
+- **Related myths:** None
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: mythology/The Drowned Bell  [world bible]
+════════════════════════════════════════════════════════════
+# The Drowned Bell
+
+## Overview
+- **Type:** Cautionary tale
+- **Origin culture:** The Flats
+- **Age:** Ancient
+
+## Summary
+A bell that rang itself under the water the night the tower sank, warning boats off the shallows.
+
+## Full Text
+> A bell that rang itself under the water the night the tower sank, warning boats off the shallows.
+
+## Characters Involved
+| Name | Role in Myth | Notes |
+|------|-------------|-------|
+| — | — | — |
+
+## Truth Level
+- **Classification:** Symbolic
+- **Explanation:** The sound is a hollow reed-bed in the wind.
+
+## Connections
+- **Related locations:** None
+- **Related characters:** None
+- **Related myths:** None
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: mythology/The Ink-Debt Rumor  [world bible]
+════════════════════════════════════════════════════════════
+# The Ink-Debt Rumor
+
+## Overview
+- **Type:** Institutional rumor
+- **Origin culture:** Tally House
+- **Age:** Recent
+
+## Summary
+Clerks whisper that anyone who falsifies a sealed entry owes the ledger a debt that outlives them.
+
+## Full Text
+> Clerks whisper that anyone who falsifies a sealed entry owes the ledger a debt that outlives them.
+
+## Characters Involved
+| Name | Role in Myth | Notes |
+|------|-------------|-------|
+| — | — | — |
+
+## Truth Level
+- **Classification:** Fabricated
+- **Explanation:** Started by Doran Pike to keep young clerks honest.
+
+## Connections
+- **Related locations:** None
+- **Related characters:** None
+- **Related myths:** None
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: mythology/The Tithe Ledger Clause  [world bible]
+════════════════════════════════════════════════════════════
+# The Tithe Ledger Clause
+
+## Overview
+- **Type:** Legal clause
+- **Origin culture:** Harbor Guild
+- **Age:** Centuries old
+
+## Summary
+Any entry in the tithe ledger, once sealed, may only be corrected by a visible strike-through, never by replacement.
+
+## Full Text
+> Any entry in the tithe ledger, once sealed, may only be corrected by a visible strike-through, never by replacement.
+
+## Characters Involved
+| Name | Role in Myth | Notes |
+|------|-------------|-------|
+| — | — | — |
+
+## Truth Level
+- **Classification:** Literally True
+- **Explanation:** It is why a replaced page is a crime and a corrected one is not.
+
+## Connections
+- **Related locations:** None
+- **Related characters:** None
+- **Related myths:** None
+
+## Notes
+None at this time.
+
+--- stderr ---

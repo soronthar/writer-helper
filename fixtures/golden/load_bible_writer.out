@@ -1,0 +1,424 @@
+exit: 0
+--- stdout ---
+
+════════════════════════════════════════════════════════════
+FILE: Style: writing_concepts/styles/Default Style.md
+════════════════════════════════════════════════════════════
+# Default Style
+
+Default style of the Writing Room.
+
+---
+
+## 1. Narrative Voice
+
+- **Point of View:** Third person omniscient
+- **Tense:** Present
+- **Narrator Distance:** Moderate — balanced interiority and external observation
+- **Narrator Reliability:** Reliable
+- **Narrator Presence:** Transparent — narrator is invisible, no personality
+- **Free Indirect Discourse:** No — interiority is always clearly marked (italics, "she thought", etc.)
+
+---
+
+## 2. Vocabulary
+
+- **Register:** Conversational
+- **Complexity:** Moderate — varied but not ostentatious
+- **Domain / Period Language:** None — contemporary neutral
+- **Consistency Across POVs:** All POVs share the same vocabulary register
+- **Common Expressions:** <List recurring phrases, affirmations, oaths, or idioms that are part of this style's world or voice. Examples: "Sure thing", "Yes, ma'am", "By the Compact", "Right enough". These should appear naturally and consistently in both dialogue and narration where appropriate.>
+- **Prohibited Words / Phrases:** <List specific words, filler phrases, or register violations to avoid. Examples: "very", "suddenly", "moist", anachronistic slang in a historical setting>
+
+---
+
+## 3. Sentence Structure
+
+- **Typical Length:** Medium — 12–20 words average
+- **Dominant Syntax:** Subject-verb-object (direct, declarative)
+- **Subordinate Clauses:** Moderate — used for nuance and pacing
+- **Parallelism and Lists:** Use sparingly for emphasis
+- **Sentence Fragments:** Permitted in action sequences only
+- **Rhetorical Patterns:** <List any recurring syntactic devices that define this style. Examples: anaphora ("She had not eaten. She had not slept. She had not stopped."), chiasmus, deliberate repetition for rhythm.>
+
+---
+
+## 4. Paragraph Structure
+
+- **Typical Length:** Medium — 5–8 sentences
+- **Single-Sentence Paragraphs:** Permitted for emphasis only — use sparingly
+- **Scene vs. Summary Balance:** Balanced — mix of scene and narrative summary
+- **Paragraph Openings:** Avoid starting consecutive paragraphs with the same word or construction
+- **Transitions Between Paragraphs:** Soft transitions — light connective tissue between paragraphs
+- **White Space / Section Breaks:** No section breaks within chapters
+
+---
+
+## 5. Chapter Structure
+
+- **Typical Length:** 1,500–3,000 words
+- **POV per Chapter:** Single POV — one character per chapter, shifts permitted at section breaks
+- **Chapter Titles:** None — numbered only
+- **Chapter Opening (default):** Establishing beat — brief grounding in place and character before action begins
+- **Chapter Ending (default):** Resolution — chapter completes its own mini-arc before the story continues
+- **Pacing Within a Chapter (default):** Even — consistent pacing throughout
+
+> **Note for the Planner:** `Chapter Opening`, `Chapter Ending`, and `Pacing Within a Chapter` are style defaults. Individual chapter plans may override any of these three fields for that chapter. The Draft Writer always defers to the chapter plan if an override is present; otherwise falls back to the defaults above.
+
+---
+
+## 6. Dialogue
+
+- **Dialogue Tags:** "said" and "asked" only — no other attribution verbs
+- **Adverbs on Tags:** Sparingly — only when manner cannot be shown otherwise
+- **Dialect and Accent:** Light phonetic marking permitted — dropped g's, contractions
+- **Subtext:** Mixed — subtext is character-dependent
+- **Conversation Rhythm:** Mixed — alternates short exchanges with longer turns; speeches permitted when the scene requires it, but must not become exposition dumps
+- **Internal Monologue:** Italics with attribution — *She was lying*, she thought
+- **Punctuation Conventions:** Standard — comma before tag, period for action beat
+
+---
+
+## 7. Description
+
+- **Descriptive Density:** Moderate — key details selected for atmosphere and grounding
+- **Sensory Priority:** Visual-dominant
+- **Metaphor and Simile:** Moderate — woven throughout
+- **Metaphor Source:** Grounded in the POV character's world and experience — a farmer's metaphors come from farming, a soldier's from war
+- **Character Description:** Gradual — physical details emerge over several scenes
+- **Setting Description:** Establishing — dedicated description block when entering a new location
+- **Describing Other Characters Through POV:** Objective — POV character describes others neutrally
+
+---
+
+## 8. Tone / Mood
+
+- **Overall Register:** Neutral (primary), Hopeful (secondary)
+- **Consistency:** Character-dependent — each POV has its own tonal register
+- **Emotional Distance:** Neutral — narrator observes without editorialising
+- **Humour:** Dry wit — understated, situational
+- **Tension:** <How is tension built in this style? Examples: "withholding information from the reader", "short clipped sentences in action beats", "dramatic irony — reader knows more than the character", "dread through mundane detail">
+- **Tension Release:** Quiet character moments
+
+---
+
+## 9. Forbidden Elements
+
+This section is a hard checklist. The Draft Writer and Draft Fixer treat every item here as a prohibition, not a preference — fixes must comply with the style as strictly as original prose. The Reviewer-Quality agent uses this list when evaluating drafts.
+
+### Prose Patterns to Avoid
+- Throat-clearing openings — do not begin a chapter or scene with weather, waking up, or looking in a mirror
+- Passive constructions used to avoid agency — "mistakes were made", "the door was opened"
+- Over-explained emotion — do not state what a character feels immediately after showing it ("She clenched her fists. She was furious.")
+- Simultaneous actions that are physically impossible — "Nodding, she stood up and crossed the room while turning to face him"
+
+### Words and Phrases to Avoid
+- Adverbs on dialogue tags: "whispered softly", "said quietly", "muttered darkly"
+- Filler intensifiers: "very", "really", "quite", "rather", "just", "so"
+- AI-slop abstractions: "a mix of emotions", "a wave of relief", "a pang of guilt", "something shifted inside her"
+- Melodramatic standbys: "little did she know", "that was when everything changed", "nothing would ever be the same"
+
+### Structural Patterns to Avoid
+- Dream sequences used to deliver exposition or foreshadowing
+- Flashbacks longer than one paragraph without a clear narrative reason
+- Characters explaining things they both already know purely for the reader's benefit
+- Chain of "and" phrases. For example: "He was tall, and handsome, and slim, and smart". Only use for strong emphasis (e.g, "The party was boring, and crowded, and noisy" to express discomfort). Otherwise use simple commas (e.g, "He was tall, handsome, slim and smart").
+
+### Tonal Registers to Avoid
+- Sentimentality — earned emotion only; do not reach for feeling the prose has not justified
+- Ironic detachment applied to moments that require sincerity
+
+### Tropes to Avoid
+<List specific story tropes or character clichés that must not appear in this style. Cross-reference writing_concepts/tropes/ if applicable.>
+
+---
+
+## 10. Examples
+
+### Reference Authors / Works
+<List authors or works whose prose this style resembles or draws from. Be specific about what aspect is being referenced — not just the author's name but what quality of their writing applies here. Examples:>
+- Cormac McCarthy — *The Road*: sentence rhythm, sparse punctuation, no quotation marks in dialogue, refusal to explain emotion
+- Ursula K. Le Guin — *The Left Hand of Darkness*: measured pace, anthropological distance, precise vocabulary
+- Raymond Carver: short declarative sentences, working-class register, subtext-heavy dialogue, what is left unsaid
+
+### Style Excerpt
+<Paste 1–3 paragraphs of prose that exemplify this style — either sourced from a reference work (with attribution) or written by the user as a target sample. The Draft Writer uses this as a concrete anchor when style guidance is ambiguous.>
+
+### Anti-Example
+<Optional. Paste or describe a short passage that represents what this style must NOT sound like. Useful for flagging the specific failure mode most likely to occur. Label it clearly.>
+
+> **Note:** The Draft Writer and Draft Fixer should re-read the Style Excerpt before generating or fixing prose. If style guidance in sections 1–9 conflicts with the excerpt, the excerpt takes precedence.
+
+════════════════════════════════════════════════════════════
+FILE: Most recent chapter: stories/Salt and Signal/chapters/Chapter_04.md
+════════════════════════════════════════════════════════════
+# Chapter 4 — The Original
+
+The original entry lay in the sealed room under a bell-jar, untouched. Mara read it aloud so there would be a witness. Hesk Varrow, in the doorway, turned his ring and asked who else knew.
+
+════════════════════════════════════════════════════════════
+FILE: state/Timeline.md
+════════════════════════════════════════════════════════════
+# Timeline — Salt and Signal
+
+> Maintained by the Story Analyzer. A new entry is appended after each completed chapter.
+
+## Events
+
+- **[Chapter 1 — The Errand]** Early winter — Hesk Varrow sends Tamsin O'Rook to retrieve the original entry.
+- **[Chapter 2 — The Sealed Room]** Early winter — Mara and Doran open the sealed room.
+- **[Chapter 3 — The Audit]** Early winter — Hesk orders a public audit he expects to clear him.
+- **[Chapter 4 — The Original]** Early winter — The original entry is found; Hesk is exposed but still holds the seal.
+
+════════════════════════════════════════════════════════════
+FILE: state/ACTIVE_SCHEMES.md
+════════════════════════════════════════════════════════════
+# Active Schemes — Salt and Signal
+
+> **What this is:** a live registry of deceptions in flight within this story.
+>
+> **Maintained by:** Story Analyzer (updates after each chapter).
+
+---
+
+## Active Ledger
+
+| ID | Owner | Target(s) | Nature | Status | Origin | Last touched |
+| --- | --- | --- | --- | --- | --- | --- |
+| S1 | [[Hesk Varrow]] | [[Tamsin O'Rook]] | Errand worded so she does not know what she fetches | Resolved | Chapter 1 | Chapter 2 |
+| S2 | [[Ilsa Brandt]] | [[Mara Quill]] | Union money keeps the acting harbor-master in post | Active | Chapter 3 | Chapter 4 |
+
+---
+
+## Detail
+
+### S2 — The quiet money
+
+- **Owner:** [[Ilsa Brandt]]
+- **Target(s):** [[Mara Quill]], [[Doran Pike]]
+- **Nature:** Union money keeps the acting harbor-master in post
+- **Status:** Active
+- **Origin:** Chapter 3
+- **Last touched:** Chapter 4
+- **Specifics:** Paid as "lamp-oil subsidy" in the Guild's own books.
+- **Knowledge gaps:** Everyone in the Guild except Hesk Varrow.
+- **Notes:** Fragile after the audit.
+
+---
+
+## Resolution Log
+
+### S1 — The worded errand
+→ Resolved at Chapter 2: Tamsin returned empty-handed and unaware.
+
+- **Owner:** [[Hesk Varrow]]
+- **Target(s):** [[Tamsin O'Rook]]
+- **Nature:** Errand worded so she does not know what she fetches
+- **Status:** Resolved
+- **Origin:** Chapter 1
+- **Last touched:** Chapter 2
+- **Specifics:** "Fetch the folio and do not read it."
+- **Knowledge gaps:** Tamsin O'Rook.
+
+════════════════════════════════════════════════════════════
+FILE: state/STORY_FACTS.md
+════════════════════════════════════════════════════════════
+# Story Facts — Salt and Signal
+
+> **What this is:** a live ledger of plot-consequential facts.
+>
+> **Maintained by:** Story Analyzer (updates after each chapter).
+
+---
+
+## Ledger
+
+| ID | Category | Fact | Status | Origin | Last touched |
+| -- | -------- | ---- | ------ | ------ | ------------ |
+| F1 | Logistics | The sealed room has one key, kept by Doran Pike on a cord | Current | Chapter 2 | Chapter 4 |
+| F2 | Fingerprint | The replaced page is newer than the binding | Superseded | Chapter 1 | Chapter 4 |
+| F3 | Fingerprint | The original entry survives in the sealed room under a bell-jar | Current | Chapter 4 | Chapter 4 |
+
+---
+
+## Detail
+
+### F1 — The only key
+
+- **Category:** Logistics
+- **Fact:** The sealed room has one key, kept by Doran Pike on a cord.
+- **Specifics:** It is warm because he wears it.
+- **Status:** Current
+- **Origin:** Chapter 2
+- **Last touched:** Chapter 4
+- **Related:** [[Doran Pike]], [[The Tally House]]
+
+### F3 — The surviving original
+
+- **Category:** Fingerprint
+- **Fact:** The original entry survives in the sealed room under a bell-jar.
+- **Specifics:** Forty-seven casks, in the original hand.
+- **Status:** Current
+- **Origin:** Chapter 4
+- **Last touched:** Chapter 4
+- **Related:** [[Mara Quill]]
+
+---
+
+## Superseded Log
+
+### F2 — The replaced page
+→ Superseded at Chapter 4; see F3 for updated value.
+
+- **Category:** Fingerprint
+- **Fact:** The replaced page is newer than the binding.
+- **Status:** Superseded
+
+════════════════════════════════════════════════════════════
+FILE: characters/Mara Quill  [story-local]
+════════════════════════════════════════════════════════════
+# Mara Quill
+
+## Identity
+- **Full Name:** Mara Quill
+- **Age:** 34
+- **Gender:** Female
+- **Occupation / Role:** Ledger-keeper at the Tally House
+
+## Appearance
+Narrow, ink-stained hands; a grey wool coat she never takes off in the Tally House; hair pinned with a pencil.
+
+## Personality
+Methodical and dry-humoured. Cannot leave an unanswered question alone. Distrusts anything that adds up too neatly. Afraid of being the person who looked away.
+
+## Background
+Born in the Flats to a family of reed-cutters. Trained as a tallier at fourteen and has kept the Guild's tallow-tax ledger for eleven years.
+
+## Relationships
+| Person | Relationship | Notes |
+|--------|-------------|-------|
+| [[Doran Pike]] | Mentor | Taught her to read a ledger for what is missing |
+| [[Hesk Varrow]] | Superior | Acting harbor-master; signs everything she keeps |
+
+## Current Status
+- **Location:** Harrowmere, lower quay
+- **Physical condition:** Healthy, under-slept
+- **Story state:** Alive
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+**Knows (as of The Tallow Ledger — Chapter 3):** Forty-seven tallow casks were entered in the ledger and never landed.
+**Knows (as of Salt and Signal — Chapter 4):** The original entry survives in the Tally House sealed room, and Hesk Varrow knows she knows.
+
+════════════════════════════════════════════════════════════
+FILE: characters/Tamsin O'Rook  [story-local]
+════════════════════════════════════════════════════════════
+# Tamsin O'Rook
+
+## Identity
+- **Full Name:** Tamsin O'Rook
+- **Age:** 23
+- **Gender:** Female
+- **Occupation / Role:** Clerk, harbor-master's office
+
+## Appearance
+Small and quick, copper hair cut short, ink on both cuffs.
+
+## Personality
+Eager to be useful and slow to ask why. Loyal to whoever gave her the post.
+
+## Background
+Hired by Hesk Varrow the winter the tallow casks went missing.
+
+## Relationships
+| Person | Relationship | Notes |
+|--------|-------------|-------|
+| [[Hesk Varrow]] | Employer | Does what the wording of an errand implies |
+
+## Current Status
+- **Location:** Harrowmere, harbor-master's office
+- **Physical condition:** Healthy
+- **Story state:** Alive
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+Sent to the Tally House to retrieve a document she was not told the contents of.
+
+════════════════════════════════════════════════════════════
+FILE: points_of_interest/The Tally House  [story-local]
+════════════════════════════════════════════════════════════
+# The Tally House
+
+## Overview
+- **Type:** Building
+- **Located in:** Harrowmere
+- **Size / Scale:** Large
+- **Controlled by:** Harbor Guild
+
+## Description
+A long brick hall with narrow windows, built so that no ledger ever sits in direct sun. Corridors of shelved volumes lead to a sealed room at the back.
+
+## History
+Raised in the first year of the Charter to hold the three seals' accounts.
+
+## Notable Features
+- The records room
+- The sealed room
+- The ledger desk
+
+## Key Inhabitants / Factions
+| Name | Role | Notes |
+|------|------|-------|
+| [[Doran Pike]] | Archivist | Keeps the keys |
+| [[Mara Quill]] | Ledger-keeper | Works at the long desk |
+
+## Current Status
+- **Condition:** Orderly; the sealed room has been opened once
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: factions/Harbor Guild  [story-local]
+════════════════════════════════════════════════════════════
+# Harbor Guild
+
+## Identity
+- **Type:** Guild
+- **Headquarters:** The Tally House
+- **Sphere of Influence:** Harrowmere's quays and the lower canals
+- **Founded:** Under the Charter of Three Seals
+
+## Goals
+- **Public position:** Keeps honest weights, honest ledgers and open water.
+- **Actual agenda:** Keeps the Guild's own members solvent first.
+
+## Power Base
+Control of the offices and records it staffs.
+
+## Structure
+A small council with one acting head.
+
+## Key Members
+| Person | Role | Notes |
+|--------|------|-------|
+| [[Hesk Varrow]] | Acting harbor-master | — |
+| [[Mara Quill]] | Ledger-keeper | — |
+| [[Doran Pike]] | Archivist | — |
+
+## Relationships
+| Faction / Entity | Relationship | Notes |
+|-----------------|-------------|-------|
+| [[Tidewright Union]] | Rival | Competes for the tallow trade |
+| [[Fen Wardens]] | Neutral | Escorts the Guild's convoys |
+
+## Current Status
+- **Standing:** Nominally dominant on the quays
+- **Internal condition:** Openly divided; the vote has been postponed
+- **Last updated in:** Salt and Signal — Chapter 4
+
+## Notes
+None at this time.
+
+--- stderr ---

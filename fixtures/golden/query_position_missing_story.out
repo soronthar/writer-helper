@@ -1,0 +1,5 @@
+exit: 1
+--- stdout ---
+{"error": "Story 'No Such Story' not found in WORLD_ORDER.md", "found": false}
+
+--- stderr ---

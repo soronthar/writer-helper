@@ -1,0 +1,11 @@
+Lives in `worlds/<World Name>/` and contains:
+- `DESCRIPTION.md` — World overview: geography, history, economy, population. Entry point for all agents. Populated from `templates/world/world_description.md`.
+- `HOOKS.md` — Story hooks: narrative seeds that can grow into stories. Added by the user and by the Story Analyzer after completed chapters. Browsed by the Story Ideator, Planner, and Writing Room Head when looking for story direction. Populated from `templates/world/hooks.md`.
+- `SUMMARY.md` — 1–2 page indexed overview of all world entities. Auto-maintained by the Writing Assistant after every create/update operation. Read by the Story Ideator and Outliner as the world index before selective entity reads. Regenerated from scratch on every update. Populated from `templates/world/summary.md`.
+- `WORLD_ORDER.md` — Chronological sequence of all stories set in this world, at chapter-level granularity. Foundation for the consolidation feature (audit log + world bible snapshots). Maintained by the World Archivist; Story Ideator adds a placeholder entry at concept creation; Story Analyzer updates per chapter. Never modified by Planner, Draft Writer, or Reviewer. Populated from `templates/world/world_order.md`.
+- `TIMELINE.md` — World-level event log. Built during consolidation by merging each story's `state/Timeline.md` into position order. Maintained by the World Archivist (Consolidate operation). Populated from `templates/world/timeline.md`.
+- `snapshots/` — World state snapshots. Contains one subdirectory per WORLD_ORDER position, capturing all entity files after that story completed. Created automatically by the Story Analyzer on story completion; refreshed by the World Archivist after consolidation. Stories at position N+1 use snapshot N as their world baseline.
+- `characters/` — One file per named character. Populated from `templates/world/character.md`.
+- `factions/` — One file per faction or organization: noble houses, guilds, orders, institutions, cults, criminal networks. Populated from `templates/world/faction.md`.
+- `mythology/` — Myths, legends, prophecies, and religious texts. Populated from `templates/world/mythology.md`.
+- `points_of_interest/` — Named locations: cities, dungeons, mountains, buildings, regions. Populated from `templates/world/point_of_interest.md`.

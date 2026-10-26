@@ -1,0 +1,578 @@
+exit: 0
+--- stdout ---
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/GUIDE.md
+════════════════════════════════════════════════════════════
+# Story Structure — How to Use This Directory
+
+This directory contains one file per named story structure. Each file is a planning reference — a framework that describes how stories of a certain shape tend to be built. They are not prescriptions.
+
+---
+
+## Files in This Directory
+
+- **[[Format Reference]]** — Start here when a format decision is needed. Defines chapter counts, word counts, subplot capacity, POV guidance, and structural fit for Short Story, Novelette, Book, and Book Series.
+- **[[The Hero's Journey]]**, **[[Three-Act Structure]]**, **[[Dan Harmon's Story Circle]]**, **[[Seven-Point Story Structure]]**, **[[Fichtean Curve]]**, **[[Freytag's Pyramid]]** — one file per named structure.
+
+---
+
+## What Each Structure File Contains
+
+Every structure file has the same format:
+
+- **Overview** — what the framework is, where it comes from, what genres or story types it suits best
+- **Quick Reference table** — all stages at a glance with story position (as a percentage of the total) and one-line purpose
+- **Per-stage entries**, each with:
+  - `Narrative beat` — what the story does at this stage
+  - `Story position` — approximate location in a full story
+  - `Questions to answer` — what the Planner or Outliner must figure out for this stage before moving on
+  - `Notes` — flexibility, common variations, pitfalls, and when to deviate
+- **Flexibility** — which stages can be skipped, compressed, merged, or reordered
+
+---
+
+## How Each Agent Uses This Directory
+
+### Outliner
+When the user specifies (or you choose) a story structure:
+1. Read this GUIDE.md.
+2. Read the chosen structure file.
+3. Map the structure's stages across your planned chapter count. Not every stage needs its own chapter — long middle sections (e.g. Tests, Allies, Enemies in the Hero's Journey) can span several chapters; short adjacent stages (e.g. Call to Adventure + Refusal) can compress into one.
+4. Annotate your outline with the stage name each chapter covers. This gives the Planner and Reviewer-Consistency a shared reference point.
+
+### Planner
+When planning an individual chapter:
+1. Read this GUIDE.md.
+2. Read the structure file the Outliner used (check the outline for the stage label).
+3. Identify which stage(s) the chapter covers.
+4. Use the `Questions to answer` for those stages as a checklist — ensure your chapter plan resolves each question before handing off to the Draft Writer.
+
+### Ideator
+When generating story ideas:
+1. Read this GUIDE.md.
+2. Read the structure file you are using as a scaffold.
+3. Use the stage list to generate one concrete event or scene idea per stage. This ensures the idea has a complete arc, not just a premise.
+4. If the user asks you to avoid certain tropes or apply specific archetypes, use the stage list to identify *where* in the arc those elements would naturally appear.
+
+---
+
+## General Principle
+
+Structure is guidance, not formula. Stages can be compressed, reordered, subverted, or skipped entirely if the story demands it. The frameworks here describe what tends to work — they do not mandate what must happen. A writer who understands the structure well enough to break it intentionally produces more interesting work than one who follows it mechanically.
+
+When in doubt: structure serves character and theme, not the other way around.
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/Format Reference.md
+════════════════════════════════════════════════════════════
+# Format Reference
+
+This file defines the four story formats used in the Writing Room framework. Use it when selecting a format for a concept, deciding how many chapters to plan, choosing a compatible story structure, or calibrating scope for subplots, characters, and pacing.
+
+---
+
+## Quick Reference Table
+
+| Attribute | Short Story | Novelette | Book | Book Series |
+|-----------|-------------|-----------|------|-------------|
+| **Word count** | 1,500–7,500 | 7,500–17,500 | 50,000–100,000 | 50,000–100,000 per book |
+| **Recommended chapters** | 1–3 | 3–8 | 15–30 | 15–30 per book |
+| **Typical chapter length** | 1,000–3,500 words | 1,500–3,500 words | 2,000–5,000 words | 2,000–5,000 words |
+| **Chaptered?** | Often unchaptered — one continuous piece or 1–3 titled sections | Yes | Yes | Yes |
+| **Subplots** | 0–1 | 1 | 2–4 | 2–4 per book + ongoing series arc thread |
+| **Named characters** | 2–5 | 4–10 | 8–20 | Shared cast across books; varies per book |
+| **POV** | Single | Single preferred; multiple is risky at this length | Single or dual | Multiple POVs possible |
+| **Recommended structures** | Fichtean Curve, Three-Act (compressed), Freytag's Pyramid | Three-Act, Fichtean Curve, Seven-Point | Hero's Journey, Three-Act, Seven-Point, Dan Harmon's Story Circle | Hero's Journey, Three-Act (per book + series arc) |
+
+---
+
+## Short Story
+
+**Word count:** 1,500–7,500 words · **Chapters:** 1–3 (or unchaptered)
+
+### Structural fit
+The [[Fichtean Curve]] is the most natural fit: it starts in conflict with no setup phase, which is essential when word count is limited. The [[Three-Act Structure]] works when compressed aggressively — Act One can be a single scene. [[Freytag's Pyramid]] suits tragic shorts where the fall is the point.
+
+[[The Hero's Journey]], [[Dan Harmon's Story Circle]], and the [[Seven-Point Story Structure]] are generally too expansive for short fiction — their stage counts create pacing problems at this length.
+
+### Arc requirements
+One central conflict. One emotional turn. No room for subplot development — any secondary thread must resolve within the main arc or be implied offscreen. The protagonist's internal state at the end must differ from the beginning, even if only slightly.
+
+### Pacing
+Conflict must be present or implied in the first paragraph. There is no space for an establishing ordinary world. Background is delivered through the conflict, not before it.
+
+### Notes for the Outliner
+Map the full chosen structure to 1–3 chapters. Adjacent stages (e.g., Call to Adventure + Refusal in the Hero's Journey) compress into a single scene. An unchaptered short story should still be outlined by stage, treating the whole piece as one long chapter.
+
+---
+
+## Novelette
+
+**Word count:** 7,500–17,500 words · **Chapters:** 3–8
+
+### Structural fit
+[[Three-Act Structure]] is the cleanest fit: the word count aligns naturally with its three-phase shape. The [[Fichtean Curve]] works well for character-driven novelettes where the accumulating crises are the point. [[Seven-Point Story Structure]]'s seven beats map well onto 5–7 chapters.
+
+[[The Hero's Journey]] is tight but possible at the high end of the word count range (15,000+). [[Dan Harmon's Story Circle]] is a compact variant of the Hero's Journey and slightly more manageable. [[Freytag's Pyramid]] suits tragic novelettes.
+
+### Arc requirements
+One main conflict with room for one subplot thread. The subplot must connect to the main arc — it cannot be self-contained. The protagonist's character arc must be visible, though it can be slight. Every named character should have a clear function.
+
+### Pacing
+Setup may occupy at most one chapter before the central conflict is established. The reader needs to understand the stakes by the end of Chapter 1.
+
+### Notes for the Outliner
+3–8 chapters; one structure stage per chapter is typical at this length. Avoid running the Hero's Journey unless you are at the upper end of the word count — it needs more room than most novelettes can give it.
+
+---
+
+## Book
+
+**Word count:** 50,000–100,000 words · **Chapters:** 15–30
+
+### Structural fit
+All six named structures are viable at book length. Choose based on story type:
+
+| Structure | Best for |
+|-----------|----------|
+| [[The Hero's Journey]] | Adventure, fantasy, coming-of-age, transformation arcs |
+| [[Three-Act Structure]] | Genre fiction, thrillers, romance, any plot-driven narrative |
+| [[Seven-Point Story Structure]] | Plot-focused stories where each beat needs a chapter-level payoff |
+| [[Dan Harmon's Story Circle]] | Character-driven books; stories where returning changed is the point |
+| [[Fichtean Curve]] | Literary fiction; books where character is revealed through sustained pressure |
+| [[Freytag's Pyramid]] | Tragedies; books with downbeat or ambiguous endings |
+
+### Arc requirements
+A full protagonist arc. 2–4 subplots, each with its own mini-arc or at minimum a resolution beat. Every subplot should connect to the main arc thematically or causally — avoid subplots that exist only as variety. Secondary characters need enough presence to matter when they resolve.
+
+### Pacing
+1–2 chapters of setup is acceptable. The inciting incident must land by Chapter 3 at the latest. The midpoint (whatever the chosen structure places there) must represent a genuine, irreversible shift.
+
+### Notes for the Outliner
+15–30 chapters. Group structure stages into chapter clusters rather than assigning one stage per chapter — the Hero's Journey's 12 stages across 20 chapters means most stages span 1–3 chapters, with the long middle section (Tests, Allies, Enemies) spanning many. Annotate each chapter in the outline with its stage label so the Planner and Reviewer-Consistency have a shared reference.
+
+---
+
+## Book Series
+
+**Word count:** 50,000–100,000 words per book · **Chapters:** 15–30 per book · **Books:** 2–7 typical
+
+### Structural fit
+Per-book structure follows the same guidance as Book above. At the series level, [[The Hero's Journey]] and [[Three-Act Structure]] are the most commonly used frameworks for planning the overarching arc — both scale well to multi-book scope.
+
+### Two arcs required
+A Book Series concept must capture two distinct arcs:
+
+1. **Per-book arc** — each book has its own satisfying central conflict that resolves by the end. A reader should be able to finish Book 2 without feeling cheated, even if the series arc is unresolved.
+2. **Series arc** — a longer-running conflict, question, or transformation that advances each book but resolves only at the series end. This is what makes the series feel like one work rather than a collection.
+
+The `CONCEPT.md` for a Book Series must address both. The **Premise** section should describe the series-level premise; the **Notes** section should describe the first book's specific arc and how it fits the series.
+
+### Arc requirements
+Same as Book for each individual volume. Additionally: the series arc must advance in every book — a book that leaves the series arc completely static feels like filler. Subplots may carry across book boundaries if they serve the series arc; subplots that are purely per-book should resolve within that book.
+
+### Character roster
+The shared cast grows across books. Early books should introduce only as many characters as the plot requires; resist the urge to populate the full roster in Book 1. Characters introduced in later books need establishment time the earlier books did not need.
+
+### Pacing
+Series-level pacing is as important as per-book pacing. Map the major series arc beats across the planned number of books before outlining any individual book. A 4-book series running [[Three-Act Structure]] at the series level places the series midpoint at the end of Book 2 — the irreversible shift that changes everything going forward.
+
+### Notes for the Outliner
+Outline one book at a time, but always with the series arc visible. Maintain a separate series-level outline document tracking: which series arc beats are hit each book, which characters are introduced and when, and which threads carry across book boundaries. Do not resolve the series arc's central question until the final book.
+
+---
+
+## Notes for the Story Ideator
+
+When a format decision affects the concept:
+- Cite the format's recommended chapter range in the concept's **Notes** section so the Outliner has a target
+- For Book Series, ensure the **Premise** captures the series-level story and the **Notes** section identifies what the first book specifically covers
+- If the user requests a format that conflicts with their other constraints (e.g., Hero's Journey for a short story), flag the tension and suggest either adjusting the format or the structure
+
+════════════════════════════════════════════════════════════
+FILE: story_structure/Freytag's Pyramid
+════════════════════════════════════════════════════════════
+# Freytag's Pyramid
+
+## Overview
+Freytag's Pyramid was developed by 19th-century German writer and critic Gustav Freytag through his analysis of classical Greek tragedy and Shakespearean drama. It describes a five-stage arc that rises to a climax and then descends — a symmetrical pyramid shape — toward a catastrophic conclusion. It is the foundational structure of tragic narrative.
+
+The critical distinction from modern story structures: **the protagonist typically loses**. Freytag's Pyramid is not designed for redemption arcs or satisfying victories. Its Catastrophe — death, ruin, or total loss — is the promised endpoint, not a failure of the story. The structure's power lies in making that Catastrophe feel both inevitable and deeply felt.
+
+**Best suited for:** Tragic narratives where the protagonist's flaw, not an external antagonist, drives their destruction. Character-driven literary fiction with downbeat or ambiguous endings. Stories that examine human self-deception, hubris, or the cost of a particular worldview. Drama and theatre. Stories where the reader's awareness of the coming disaster creates dramatic irony.
+
+**Less suited for:** Redemption arcs, commercial genre fiction with satisfying victories, stories where the protagonist meaningfully transforms and survives intact. Any narrative where the reader is meant to feel hope at the end.
+
+**Relationship to other structures:** Freytag's Pyramid shares the shape of Three-Act Structure but inverts its emotional arc — where Three-Act ends with the protagonist transformed and victorious (or at least changed for the better), Freytag ends with catastrophe. The Climax in Freytag is not the final confrontation; it is the turning point of no return, which arrives earlier (~50%) than most modern structures place their climax. The Fall (Act Four) is unique to Freytag — a sustained descent that other structures compress or skip entirely.
+
+---
+
+## Quick Reference
+
+| # | Stage | Position | Purpose |
+|---|-------|----------|---------|
+| 1 | Introduction | 0–20% | Establish characters, world, stakes, and the flaw that will cause destruction |
+| 2 | Rising Action | 20–50% | Escalating tension; false hope; the protagonist moves toward what they want — and toward their undoing |
+| 3 | Climax | ~50% | The turning point of no return; the moment control is lost |
+| 4 | Fall / Return | 50–80% | Accelerating descent; consequences compound; disaster becomes inevitable |
+| 5 | Catastrophe | 80–100% | The protagonist reaches their lowest point — ruin, death, or total loss |
+
+---
+
+## Stages
+
+### Stage 1 — Introduction
+- **Narrative beat:** Introduce the protagonist, their world, the key relationships, and the central conflict's seeds. Establish what the protagonist wants, who they are, and — crucially — what flaw or blind spot will eventually destroy them. The reader should be able to identify the seed of the catastrophe in the introduction, even if they cannot yet see how it will grow.
+- **Story position:** 0–20%.
+- **Questions to answer:**
+  - Who is the protagonist, and what do they want?
+  - What is the flaw, hubris, or false belief that will drive their destruction? (This is the story's engine — it must be present from the start.)
+  - What relationships, obligations, or circumstances will be destroyed by the Catastrophe?
+  - What does the protagonist's world look like before the fall — and what is worth mourning about it?
+- **Notes:** In tragedy, the Introduction must make the protagonist genuinely sympathetic or at least comprehensible — the reader must care about what will be lost. A protagonist who is merely contemptible produces a hollow catastrophe. The flaw that destroys them should also be a recognizable human quality: pride, loyalty carried too far, self-deception, a conviction that outpaces the evidence. The reader should be able to understand, even partially, how this person came to be who they are.
+
+---
+
+### Stage 2 — Rising Action
+- **Narrative beat:** The central conflict intensifies through escalating events. The protagonist pursues their goal with increasing commitment, and the tension between their ambition and their flaw grows. False hope may appear — moments where success seems possible — but each step forward contains the seeds of the coming fall. Allies, antagonists, and complications accumulate.
+- **Story position:** 20–50%.
+- **Questions to answer:**
+  - What events escalate the central conflict during this period?
+  - Where does false hope appear — what makes the protagonist (and possibly the reader) believe success is possible?
+  - How does the protagonist's flaw deepen or become more entrenched during this period, rather than being corrected?
+  - What do the protagonist's choices during the Rising Action make inevitable?
+- **Notes:** In tragedy, the Rising Action's false hope is not optional — it is structurally essential. The reader must believe, at some point, that the protagonist could succeed. Without false hope, the fall produces only dread, not catharsis. The protagonist's flaw should be visibly driving their decisions during this period, even if they are unaware of it. Avoid making the antagonist — if there is one — the primary cause of the coming catastrophe; in great tragedy, the protagonist destroys themselves.
+
+---
+
+### Stage 3 — Climax
+- **Narrative beat:** The story's turning point — the moment where control is lost and the direction of the arc shifts irrevocably downward. This is not the final confrontation; it is the point of no return. The Climax may be a dramatic external event, an irreversible decision, or an internal realization. After it, disaster is inevitable — the only question is its exact shape.
+- **Story position:** ~50% — the midpoint of the story.
+- **Questions to answer:**
+  - What specific event or decision marks the point of no return?
+  - How does it directly result from the protagonist's flaw — not from bad luck alone, but from who they are?
+  - Does the protagonist understand, in this moment, what they have done? Or does full understanding come later?
+  - What was the last moment before the Climax where a different choice could have changed the outcome?
+- **Notes:** Freytag's Climax is often placed earlier than writers expect — at the story's midpoint, not near the end. This is counterintuitive to writers trained on modern three-act structures, where the climax is the penultimate scene. The reason: Freytag's Fall (Stage 4) requires substantial space to develop, and it cannot do so if the Climax is near the end. A Climax too late collapses the Fall into an unsatisfying rush. Think of the Climax as the apex of the pyramid — it is the pivot, not the finale.
+
+---
+
+### Stage 4 — Fall / Return
+- **Narrative beat:** The story descends from the Climax toward the Catastrophe. The protagonist experiences the consequences of the turning point, and events compound toward disaster. Tension in this phase operates differently from the Rising Action: the reader understands what is coming, and dramatic irony replaces suspense. The question is no longer "will things go wrong?" but "how bad will it be?"
+- **Story position:** 50–80%.
+- **Questions to answer:**
+  - What specific consequences of the Climax play out during the Fall?
+  - How do the protagonist's continued choices during the Fall accelerate their destruction rather than slow it?
+  - Who else is destroyed or damaged alongside the protagonist? (Tragedy rarely claims only one victim.)
+  - What moments of recognition — where the protagonist sees clearly what they have done — are possible here, and what do they do with that recognition?
+- **Notes:** The Fall is Freytag's most distinctive feature — the stage that other structures either compress or omit. It is not passive waiting for the catastrophe; it is an active, accumulating descent in which every scene tightens the grip. The protagonist may attempt to reverse course during the Fall, but those attempts should fail or backfire — in tragedy, the flaw that caused the Climax also prevents recovery. Dramatic irony is the primary source of tension here: the reader sees the abyss approaching while the protagonist still partly believes escape is possible.
+
+---
+
+### Stage 5 — Catastrophe
+- **Narrative beat:** The protagonist reaches their lowest point. In classical tragedy this is death; in modern tragedy it may be ruin, disgrace, total loss, or a state from which no meaningful recovery is possible. Everything that was feared in the Introduction materializes. The flaw has produced its final consequence.
+- **Story position:** 80–100%.
+- **Questions to answer:**
+  - What is the specific form of the catastrophe — what does the protagonist lose or become?
+  - How does it connect directly to the flaw established in the Introduction? The reader should be able to trace the causal line from character to catastrophe without difficulty.
+  - Is the catastrophe deserved, undeserved, or ambiguous — and what does the story's answer say about its moral vision?
+  - What is the reader left with? Catharsis, grief, recognition, warning — what emotion or understanding is the story designed to produce?
+- **Notes:** Aristotle described tragedy's goal as *catharsis* — the emotional purging produced by witnessing suffering. The Catastrophe achieves this only if the preceding stages have made the protagonist real and the outcome feel both inevitable and wasteful. A catastrophe that feels purely deserved produces satisfaction, not catharsis; a catastrophe that feels purely arbitrary produces frustration, not catharsis. The most powerful tragic catastrophes feel both earned and unnecessary — the reader can see exactly how it happened and also exactly where it could have been prevented.
+
+---
+
+## Flexibility
+
+**On the tragic requirement:** Freytag's Pyramid does not require literal death. Modern literary fiction uses it for financial ruin, the destruction of a relationship, the loss of integrity, or a permanent psychological break. The catastrophe must be irrecoverable — something the protagonist cannot meaningfully come back from — but its form is flexible.
+
+**On the Climax placement:** The ~50% position of the Climax is not a rule, but moving it significantly later collapses the Fall into a rushed descent. If your story's Climax falls at 70–75%, you are closer to Three-Act Structure than Freytag — neither is wrong, but call it what it is and plan the fall accordingly.
+
+**Stages that can be compressed:**
+- Stage 1 (Introduction) can be shortened if the story opens near the inciting incident, with backstory woven into the Rising Action
+- Stage 5 (Catastrophe) can be very brief — the fall does the heavy work; the catastrophe itself can be a single scene or even a single moment
+
+**Stages that should not be skipped:**
+- Stage 4 (Fall) — without a sustained descent, the catastrophe arrives without weight
+- The flaw in Stage 1 — the catastrophe must be traceable to character, not to circumstance alone; if the flaw is not established, the tragedy becomes a misfortune story
+
+**On using Freytag in non-tragic stories:** The pyramid shape can be applied to stories without catastrophic endings by treating Stage 5 as a resolution rather than a ruin — but doing so produces a structure very close to Three-Act. Use Freytag specifically when the descending second half and the protagonist's self-destruction are central to the story's purpose.
+
+════════════════════════════════════════════════════════════
+FILE: DESCRIPTION.md  [world bible]
+════════════════════════════════════════════════════════════
+# Harrowmere
+
+## Overview
+Harrowmere is a fenland port-republic of brackish canals, stilt-houses and guild charters, grounded and slightly damp, where accounts matter more than swords. There is no magic; power is held by whoever keeps the records.
+
+## Geography
+- **Major regions:** The Marrowfen Reach (the inhabited coast), the Drowned Flats (reed and tidal marsh to the east), the harbor at Harrowmere
+- **Climate:** Cool, wet, windy. Fog most mornings, salt on everything.
+- **Notable natural features:** The canal network, the salt-pans, the half-sunk bell-tower in the Flats.
+
+## History
+
+| Era / Period | Key Events |
+|-------------|-----------|
+| The Reed Years | Scattered reed-cutters settle the Reach. |
+| The Charter | The Charter of Three Seals divides the harbor between guild, union and wardens. |
+| The Long Audit | Two centuries of quiet, in which the ledgers are trusted and rarely read. |
+
+## Population
+- **Total (approximate):** Moderate; about forty thousand in the Reach
+- **Major species / peoples:** Humans only; reed-cutters, guild families, Union merchants
+- **Major factions / nations:** Harbor Guild (governs the quays), Tidewright Union (tallow and rope trade), Fen Wardens (militia)
+
+## Economy
+Tallow, rope, salt and lamp-oil, carried on barges and taxed at the quay. The tallow-tax ledger is the republic's main revenue record.
+
+## Religion / Belief Systems
+No organised religion. The Drowned Bell is a folk belief; the Charter is treated with something close to reverence.
+
+## Current State
+The last harbor-master died without an heir and Hesk Varrow holds the seal as acting head until the Guild votes. The Union is buying influence in the Guild offices, and a replaced page in the tallow ledger has made every record suspect.
+
+## Notes
+Tone: quiet, procedural, morally grey. Avoid swashbuckling; conflict is paper and consequence.
+
+════════════════════════════════════════════════════════════
+FILE: Most recent chapter: stories/Salt and Signal/chapters/Chapter_04.md
+════════════════════════════════════════════════════════════
+# Chapter 4 — The Original
+
+The original entry lay in the sealed room under a bell-jar, untouched. Mara read it aloud so there would be a witness. Hesk Varrow, in the doorway, turned his ring and asked who else knew.
+
+════════════════════════════════════════════════════════════
+FILE: state/Timeline.md
+════════════════════════════════════════════════════════════
+# Timeline — Salt and Signal
+
+> Maintained by the Story Analyzer. A new entry is appended after each completed chapter.
+
+## Events
+
+- **[Chapter 1 — The Errand]** Early winter — Hesk Varrow sends Tamsin O'Rook to retrieve the original entry.
+- **[Chapter 2 — The Sealed Room]** Early winter — Mara and Doran open the sealed room.
+- **[Chapter 3 — The Audit]** Early winter — Hesk orders a public audit he expects to clear him.
+- **[Chapter 4 — The Original]** Early winter — The original entry is found; Hesk is exposed but still holds the seal.
+
+════════════════════════════════════════════════════════════
+FILE: state/ACTIVE_SCHEMES.md
+════════════════════════════════════════════════════════════
+# Active Schemes — Salt and Signal
+
+> **What this is:** a live registry of deceptions in flight within this story.
+>
+> **Maintained by:** Story Analyzer (updates after each chapter).
+
+---
+
+## Active Ledger
+
+| ID | Owner | Target(s) | Nature | Status | Origin | Last touched |
+| --- | --- | --- | --- | --- | --- | --- |
+| S1 | [[Hesk Varrow]] | [[Tamsin O'Rook]] | Errand worded so she does not know what she fetches | Resolved | Chapter 1 | Chapter 2 |
+| S2 | [[Ilsa Brandt]] | [[Mara Quill]] | Union money keeps the acting harbor-master in post | Active | Chapter 3 | Chapter 4 |
+
+---
+
+## Detail
+
+### S2 — The quiet money
+
+- **Owner:** [[Ilsa Brandt]]
+- **Target(s):** [[Mara Quill]], [[Doran Pike]]
+- **Nature:** Union money keeps the acting harbor-master in post
+- **Status:** Active
+- **Origin:** Chapter 3
+- **Last touched:** Chapter 4
+- **Specifics:** Paid as "lamp-oil subsidy" in the Guild's own books.
+- **Knowledge gaps:** Everyone in the Guild except Hesk Varrow.
+- **Notes:** Fragile after the audit.
+
+---
+
+## Resolution Log
+
+### S1 — The worded errand
+→ Resolved at Chapter 2: Tamsin returned empty-handed and unaware.
+
+- **Owner:** [[Hesk Varrow]]
+- **Target(s):** [[Tamsin O'Rook]]
+- **Nature:** Errand worded so she does not know what she fetches
+- **Status:** Resolved
+- **Origin:** Chapter 1
+- **Last touched:** Chapter 2
+- **Specifics:** "Fetch the folio and do not read it."
+- **Knowledge gaps:** Tamsin O'Rook.
+
+════════════════════════════════════════════════════════════
+FILE: state/STORY_FACTS.md
+════════════════════════════════════════════════════════════
+# Story Facts — Salt and Signal
+
+> **What this is:** a live ledger of plot-consequential facts.
+>
+> **Maintained by:** Story Analyzer (updates after each chapter).
+
+---
+
+## Ledger
+
+| ID | Category | Fact | Status | Origin | Last touched |
+| -- | -------- | ---- | ------ | ------ | ------------ |
+| F1 | Logistics | The sealed room has one key, kept by Doran Pike on a cord | Current | Chapter 2 | Chapter 4 |
+| F2 | Fingerprint | The replaced page is newer than the binding | Superseded | Chapter 1 | Chapter 4 |
+| F3 | Fingerprint | The original entry survives in the sealed room under a bell-jar | Current | Chapter 4 | Chapter 4 |
+
+---
+
+## Detail
+
+### F1 — The only key
+
+- **Category:** Logistics
+- **Fact:** The sealed room has one key, kept by Doran Pike on a cord.
+- **Specifics:** It is warm because he wears it.
+- **Status:** Current
+- **Origin:** Chapter 2
+- **Last touched:** Chapter 4
+- **Related:** [[Doran Pike]], [[The Tally House]]
+
+### F3 — The surviving original
+
+- **Category:** Fingerprint
+- **Fact:** The original entry survives in the sealed room under a bell-jar.
+- **Specifics:** Forty-seven casks, in the original hand.
+- **Status:** Current
+- **Origin:** Chapter 4
+- **Last touched:** Chapter 4
+- **Related:** [[Mara Quill]]
+
+---
+
+## Superseded Log
+
+### F2 — The replaced page
+→ Superseded at Chapter 4; see F3 for updated value.
+
+- **Category:** Fingerprint
+- **Fact:** The replaced page is newer than the binding.
+- **Status:** Superseded
+
+════════════════════════════════════════════════════════════
+FILE: HOOKS.md
+════════════════════════════════════════════════════════════
+# Story Hooks — Harrowmere
+
+Story hooks are narrative seeds: situations, tensions, questions, or character dynamics that could grow into a story. They are collected here so the Story Ideator can browse them.
+
+**Who adds hooks:** The user (at any time) and the Story Analyzer (after a chapter is completed, if events reveal new possibilities).
+**Status values:** `Open` · `In Use` · `Archived`
+
+---
+
+### The Replaced Page
+- **Source:** User-defined
+- **Status:** `In Use (The Tallow Ledger)`
+- **Hook:** A ledger page is replaced rather than corrected, and the one clerk who notices refuses to sign.
+- **Related:** [[Mara Quill]], [[The Tally House]], [[The Tithe Ledger Clause]]
+
+### The Sealed Room
+- **Source:** Story Analyzer — The Tallow Ledger, Chapter 3
+- **Status:** `In Use (Salt and Signal)`
+- **Hook:** The Tally House keeps a sealed room that only the archivist has opened in thirty years. What else is in it?
+- **Related:** [[Doran Pike]], [[The Tally House]]
+
+### The Third Seal
+- **Source:** Story Analyzer — Salt and Signal, Chapter 4
+- **Status:** `Open`
+- **Hook:** If the third seal of the Charter was forged, every law passed under it is open to challenge. Who knows, and who profits?
+- **Related:** [[The Charter of Three Seals]], [[Tidewright Union]]
+
+### The Bell Under the Water
+- **Source:** User-defined
+- **Status:** `Archived`
+- **Hook:** Boatmen swear the Drowned Bell still rings. Retired: the sound was explained as reeds.
+- **Related:** [[The Drowned Bell]], [[The Drowned Flats]]
+
+════════════════════════════════════════════════════════════
+FILE: factions/Tidewright Union  [snapshot pos 1]
+════════════════════════════════════════════════════════════
+# Tidewright Union
+
+## Identity
+- **Type:** Merchant union
+- **Headquarters:** The Union counting-house
+- **Sphere of Influence:** Tallow, rope and lamp-oil trade
+- **Founded:** Forty years ago by dissident Guild members
+
+## Goals
+- **Public position:** Free trade and fair prices.
+- **Actual agenda:** Control of the tallow supply.
+
+## Power Base
+Control of the offices and records it staffs.
+
+## Structure
+A small council with one acting head.
+
+## Key Members
+| Person | Role | Notes |
+|--------|------|-------|
+| [[Ilsa Brandt]] | Factor | — |
+
+## Relationships
+| Faction / Entity | Relationship | Notes |
+|-----------------|-------------|-------|
+| [[Harbor Guild]] | Rival | Buys its way into Guild offices |
+
+## Current Status
+- **Standing:** Gaining ground
+- **Internal condition:** Unified
+- **Last updated in:** The Tallow Ledger — Chapter 3
+
+## Notes
+None at this time.
+
+════════════════════════════════════════════════════════════
+FILE: factions/Fen Wardens  [snapshot pos 1]
+════════════════════════════════════════════════════════════
+# Fen Wardens
+
+## Identity
+- **Type:** Militia
+- **Headquarters:** The Marrowfen Reach
+- **Sphere of Influence:** The canals beyond the quays and the Flats
+- **Founded:** After the Drowned Bell
+
+## Goals
+- **Public position:** Keeps the roads and channels open.
+- **Actual agenda:** Keeps whichever faction pays its muster.
+
+## Power Base
+Control of the offices and records it staffs.
+
+## Structure
+A small council with one acting head.
+
+## Key Members
+| Person | Role | Notes |
+|--------|------|-------|
+| — | — | — |
+
+## Relationships
+| Faction / Entity | Relationship | Notes |
+|-----------------|-------------|-------|
+| [[Harbor Guild]] | Client | Escorts convoys |
+
+## Current Status
+- **Standing:** Neutral, watching
+- **Internal condition:** Stretched thin
+- **Last updated in:** The Tallow Ledger — Chapter 3
+
+## Notes
+None at this time.
+
+--- stderr ---

@@ -1,0 +1,24 @@
+filters:
+  and:
+    - file.basename == "CONCEPT"
+    - file.folder.startsWith("stories")
+formulas:
+  Story: file.asLink(file.folder.replace("stories/", ""))
+  Outline: link(file.folder + "/OUTLINE.md", "Outline")
+properties:
+  note.world:
+    displayName: World
+  formula.Story:
+    displayName: Story
+  formula.Outline:
+    displayName: Outline
+views:
+  - type: table
+    name: Stories by world
+    groupBy:
+      property: note.world
+      direction: ASC
+    order:
+      - formula.Story
+      - formula.Outline
+      - note.status

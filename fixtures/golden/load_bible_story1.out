@@ -1,0 +1,133 @@
+exit: 0
+--- stdout ---
+
+════════════════════════════════════════════════════════════
+FILE: Most recent chapter: stories/The Tallow Ledger/chapters/Chapter_03_original.md
+════════════════════════════════════════════════════════════
+# Chapter 3 — The Strike-Through (first draft)
+
+'Sign,' said Hesk Varrow. She signed. The draft ended there, and the author threw it away in all but name.
+
+════════════════════════════════════════════════════════════
+FILE: state/Timeline.md
+════════════════════════════════════════════════════════════
+# Timeline — The Tallow Ledger
+
+> Maintained by the Story Analyzer. A new entry is appended after each completed chapter.
+
+## Events
+
+- **[Chapter 1 — The Amended Page]** Autumn — Mara Quill is asked to countersign a corrected tallow ledger and notices the page was replaced, not struck through.
+- **[Chapter 2 — Forty-Seven Casks]** Autumn — She traces forty-seven casks entered but never landed; Ilsa Brandt approaches her.
+- **[Chapter 3 — The Strike-Through]** Autumn — Mara refuses to sign, and Doran Pike confirms the replacement.
+
+════════════════════════════════════════════════════════════
+FILE: state/ACTIVE_SCHEMES.md
+════════════════════════════════════════════════════════════
+# Active Schemes — The Tallow Ledger
+
+> **What this is:** a live registry of deceptions in flight within this story.
+>
+> **Maintained by:** Story Analyzer (updates after each chapter).
+
+---
+
+## Active Ledger
+
+| ID | Owner | Target(s) | Nature | Status | Origin | Last touched |
+| --- | --- | --- | --- | --- | --- | --- |
+| S1 | [[Hesk Varrow]] | [[Mara Quill]] | Replaced ledger page presented as a correction | Exposed | Chapter 1 | Chapter 3 |
+
+---
+
+## Detail
+
+---
+
+## Resolution Log
+
+### S1 — The replaced page
+→ Exposed at Chapter 3: Mara refused to sign and Doran Pike confirmed the replacement.
+
+- **Owner:** [[Hesk Varrow]]
+- **Target(s):** [[Mara Quill]]
+- **Nature:** Replaced ledger page presented as a correction
+- **Status:** Exposed
+- **Origin:** Chapter 1
+- **Last touched:** Chapter 3
+- **Specifics:** The page is newer than the binding and carries no strike-through.
+- **Knowledge gaps:** Mara Quill did not know until Chapter 1.
+
+════════════════════════════════════════════════════════════
+FILE: state/STORY_FACTS.md
+════════════════════════════════════════════════════════════
+# Story Facts — The Tallow Ledger
+
+> **What this is:** a live ledger of plot-consequential facts.
+>
+> **Maintained by:** Story Analyzer (updates after each chapter).
+
+---
+
+## Ledger
+
+| ID | Category | Fact | Status | Origin | Last touched |
+| -- | -------- | ---- | ------ | ------ | ------------ |
+| F1 | Quantity | Forty-seven tallow casks were entered and never landed | Current | Chapter 2 | Chapter 3 |
+
+---
+
+## Detail
+
+### F1 — The missing casks
+
+- **Category:** Quantity
+- **Fact:** Forty-seven tallow casks were entered and never landed.
+- **Specifics:** Quay-tally, toll-book and barge slips agree with each other and not with the ledger.
+- **Status:** Current
+- **Origin:** Chapter 2
+- **Last touched:** Chapter 3
+- **Related:** [[Mara Quill]]
+
+---
+
+## Superseded Log
+
+*(Facts that changed on-page.)*
+
+════════════════════════════════════════════════════════════
+FILE: characters/Mara Quill  [story-local]
+════════════════════════════════════════════════════════════
+# Mara Quill
+
+## Identity
+- **Full Name:** Mara Quill
+- **Age:** 34
+- **Gender:** Female
+- **Occupation / Role:** Ledger-keeper at the Tally House
+
+## Appearance
+Narrow, ink-stained hands; a grey wool coat she never takes off in the Tally House; hair pinned with a pencil.
+
+## Personality
+Methodical and dry-humoured. Cannot leave an unanswered question alone. Distrusts anything that adds up too neatly. Afraid of being the person who looked away.
+
+## Background
+Born in the Flats to a family of reed-cutters. Trained as a tallier at fourteen and has kept the Guild's tallow-tax ledger for eleven years.
+
+## Relationships
+| Person | Relationship | Notes |
+|--------|-------------|-------|
+| [[Doran Pike]] | Mentor | Taught her to read a ledger for what is missing |
+| [[Hesk Varrow]] | Superior | Acting harbor-master; signs everything she keeps |
+
+## Current Status
+- **Location:** Harrowmere, lower quay
+- **Physical condition:** Healthy, under-slept
+- **Story state:** Alive
+- **Last updated in:** The Tallow Ledger — Chapter 3
+
+## Notes
+**Knows (as of The Tallow Ledger — Chapter 3):** Forty-seven tallow casks were entered in the ledger and never landed.
+
+--- stderr ---
