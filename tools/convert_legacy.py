@@ -57,7 +57,7 @@ def main():
     if dst.exists():
         sys.exit(f"{dst} exists; not overwriting")
     dst.parent.mkdir(parents=True, exist_ok=True)
-    dst.write_text(f"---\nname: {name}\ndescription: {json.dumps(desc, ensure_ascii=False)}\n---\n{body}", encoding="utf-8", newline="\n")
+    dst.write_bytes((f"---\nname: {name}\ndescription: {json.dumps(desc, ensure_ascii=False)}\n---\n{body}").encode("utf-8"))
     print(dst)
 
 

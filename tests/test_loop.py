@@ -130,7 +130,7 @@ class FullLoop(unittest.TestCase):
 
             def put(path, text):
                 path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(text, encoding="utf-8", newline="\n")
+                path.write_bytes((text).encode("utf-8"))
 
             # create-world, story-ideator
             put(world / "DESCRIPTION.md", "# Realm\n")

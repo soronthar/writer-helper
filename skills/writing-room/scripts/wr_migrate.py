@@ -136,7 +136,7 @@ def main():
               + ("retired files are kept in " + ARCHIVE + "/." if to_move else "the only change is the new marker file."))
 
     if need_marker:
-        marker.write_text(MARKER_TEXT, encoding="utf-8", newline="\n")
+        marker.write_bytes((MARKER_TEXT).encode("utf-8"))
     for rel in to_move:
         dest = root / ARCHIVE / rel
         dest.parent.mkdir(parents=True, exist_ok=True)

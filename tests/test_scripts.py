@@ -573,14 +573,14 @@ class ConceptFrontmatter(Tmp):
         t = c.read_text(encoding="utf-8")
         world = re.search(r"\*\*World:\*\*\s*(.+)", t).group(1).strip()
         status = re.search(r"\*\*Status:\*\*\s*`?([A-Za-z ]+?)`?\s*(?:$|\n|\*)", t).group(1).strip()
-        c.write_text(f"---\nworld: {world}\nstatus: {status}\n---\n\n" + t, encoding="utf-8", newline="\n")
+        c.write_bytes((f"---\nworld: {world}\nstatus: {status}\n---\n\n" + t).encode("utf-8"))
         r = run("wr_doctor", "--root", d)
         self.assertNotIn("frontmatter", r.stdout, r.stdout)
 
     def test_drifting_frontmatter_warns(self):
         d = self._copy()
         c = self._concept(d)
-        c.write_text("---\nworld: Nowhere\nstatus: Concept\n---\n\n" + c.read_text(encoding="utf-8"), encoding="utf-8", newline="\n")
+        c.write_bytes(("---\nworld: Nowhere\nstatus: Concept\n---\n\n" + c.read_text(encoding="utf-8")).encode("utf-8"))
         r = run("wr_doctor", "--root", d)
         self.assertEqual(r.returncode, 0, r.stdout)   # a warning, never an error
         self.assertIn("frontmatter world 'Nowhere'", r.stdout)

@@ -2,6 +2,10 @@
 
 All notable changes. Versions follow semantic versioning; the project layout has its own number (see docs/LAYOUT_V1.md).
 
+## 0.1.1 (2026-10-26)
+
+- Python 3.9 works again. `wr_init`, `wr_install` (and so `wr_update`) and `wr_migrate` wrote files with an option that only exists from Python 3.10, so on 3.9 they stopped with `TypeError: write_text() got an unexpected keyword argument 'newline'`. They now write the same bytes in a way 3.9 supports. Nothing else changed.
+
 ## 0.1.0 (2026-10-26)
 
 First portable build.

@@ -17,6 +17,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 WR = REPO / "skills" / "writing-room"
+CURRENT = (WR / "VERSION").read_text(encoding="utf-8").strip()   # the build these tests install as "old"
 EXAMPLE = REPO / "examples" / "sample-project"
 sys.path.insert(0, str(WR / "scripts"))
 
@@ -125,7 +126,7 @@ class UpdateProject(Base):
         new = self.make_build()
         r = self.update(new)
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
-        self.assertIn("version 0.1.0 -> 0.2.0", r.stdout)
+        self.assertIn(f"version {CURRENT} -> 0.2.0", r.stdout)
         self.assertIn("planner", r.stdout)
         # content of the new build is installed
         self.assertIn("New in 0.2.0", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
@@ -162,7 +163,7 @@ class UpdateProject(Base):
         self.install_old()
         r = self.update(self.make_build(), "--dry-run")
         self.assertIn("planner now asks one more question", r.stdout)
-        self.assertNotIn("First build", r.stdout)  # 0.1.0 is already installed
+        self.assertNotIn("First build", r.stdout)  # 0.1.0 is older than what is installed
 
     def test_project_content_is_never_touched(self):
         def tree():
@@ -179,7 +180,7 @@ class UpdateProject(Base):
         r = self.update(new)
         self.assertEqual(r.returncode, 0, r.stdout)
         self.assertIn("content differs", r.stdout)
-        self.assertIn("New in 0.1.0", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
+        self.assertIn(f"New in {CURRENT}", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
 
 
 class LocalEdits(Base):
@@ -247,7 +248,7 @@ class Safety(Base):
         r = self.update(old_build)
         self.assertEqual(r.returncode, 1)
         self.assertIn("REFUSED", r.stdout)
-        self.assertEqual(self.manifest()["version"], "0.1.0")
+        self.assertEqual(self.manifest()["version"], CURRENT)
         self.assertEqual(self.update(old_build, "--allow-downgrade").returncode, 0)
         self.assertEqual(self.manifest()["version"], "0.0.9")
 
@@ -262,7 +263,7 @@ class Safety(Base):
     def test_a_skill_folder_deleted_by_hand_is_restored(self):
         self.install_old()
         shutil.rmtree(self.skills / "outliner")
-        r = self.update(self.make_build(edit=False, add=False, remove=False, version="0.1.0"))
+        r = self.update(self.make_build(edit=False, add=False, remove=False, version=CURRENT))
         self.assertEqual(r.returncode, 0, r.stdout)
         self.assertTrue((self.skills / "outliner" / "SKILL.md").is_file())
 

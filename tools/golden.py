@@ -96,7 +96,7 @@ def main():
             continue
         target = GOLDEN / f"{case['name']}.out"
         if args.mode == "capture":
-            target.write_text(text, encoding="utf-8", newline="\n")
+            target.write_bytes((text).encode("utf-8"))
             print(f"wrote  {case['name']}")
         elif not target.exists():
             print(f"MISSING {case['name']}")

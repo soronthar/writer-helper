@@ -256,7 +256,7 @@ def write_manifest(directory, names, version=None):
     names = sorted(names)
     data = {"tool": "wr_install", "version": version or framework_version(), "skills": names,
             "hashes": {n: folder_hash(directory / n) for n in names if (directory / n).is_dir()}}
-    (directory / MANIFEST).write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8", newline="\n")
+    (directory / MANIFEST).write_bytes((json.dumps(data, indent=2) + "\n").encode("utf-8"))
 
 
 def install_into(directory, dry_run=False, force=False, log=print, src=None):

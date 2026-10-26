@@ -32,7 +32,7 @@ DATE1, DATE2 = "2026-01-15", "2026-02-20"
 def write(path, text):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text.strip("\n") + "\n", encoding="utf-8", newline="\n")
+    path.write_bytes((text.strip("\n") + "\n").encode("utf-8"))
 
 
 # ----------------------------------------------------------------------------- world entities
@@ -891,7 +891,7 @@ def build_sample(dest, marker=False):
     shutil.copy2(REPO / "skills" / "writing-room" / "shared" / "craft" / "styles" / "Default Style.md", styles / "Default Style.md")
     if marker:
         from wr_init import MARKER_TEXT
-        (dest / "writing-room.toml").write_text(MARKER_TEXT, encoding="utf-8", newline="\n")
+        (dest / "writing-room.toml").write_bytes((MARKER_TEXT).encode("utf-8"))
 
 
 def rebuild_fixtures():

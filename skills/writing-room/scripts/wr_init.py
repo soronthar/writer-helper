@@ -90,7 +90,7 @@ def main():
             if not dst.exists():
                 shutil.copy2(act[2], dst)
         else:
-            (target / MARKER).write_text(MARKER_TEXT, encoding="utf-8", newline="\n")
+            (target / MARKER).write_bytes((MARKER_TEXT).encode("utf-8"))
     if not a.dry_run:
         print(f"\nProject created at {target}. Next: build a world (the create-world skill), then a story.")
     return 0
