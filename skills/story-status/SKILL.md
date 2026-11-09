@@ -1,11 +1,11 @@
 ---
 name: story-status
-description: "Show where a story stands. Use at the start of any writing session, or when the user asks about progress, what is in progress, or what to do next. Read-only dashboard of chapters complete, the chapter in progress and which reviews exist, recent timeline entries, in-flight schemes, story facts, pending payoffs and open hooks. Reports the next step in the chapter pipeline."
+description: "Full read-only dashboard of one story: chapters complete, the chapter in progress and which reviews exist, recent timeline entries, in-flight schemes, story facts, pending payoffs and open hooks. Use when the user asks for the full status, a dashboard, an overview of the story, or its schemes, facts, payoffs or hooks. For only the next step (\"what's next?\", \"where am I?\"), use the writing-room skill instead; it is much lighter."
 ---
 
 # Story Status
 
-Your job is to read the current state of a story and present a clean, scannable dashboard. This is entirely read-only — you change nothing. Shared rules: `../writing-room/references/conventions.md`.
+Your job is to read the current state of a story and present a clean, scannable dashboard. This is entirely read-only — you change nothing. Shared rules: `<WR>/references/conventions.md`. `<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project.
 
 ---
 
@@ -74,7 +74,9 @@ Output a clean, scannable status block:
 
   <If CONTENT.md exists:>
   Chapter N — <Title> draft exists.
-  Reviews present:  <list: Reviewer-Consistency ✓ / Reviewer-Character ✓ / Draft-Fixer-Log ✗>
+  Reviews present:  <list: Reviewer-Consistency ✓ / Reviewer-Character ✓ / Draft-Fixer-Log ✗; mark a report whose Review status says In progress, or a fix log whose Fix status says In progress, as "partial">
+  <If a review is partial:>
+  → Review stopped partway. Run `reviewer` again; it resumes.
   <If all reviews done and log present:>
   → Ready for `story-analyzer`, then `promote-chapter`.
   <If no reviews yet:>

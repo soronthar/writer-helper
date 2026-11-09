@@ -27,7 +27,7 @@ description: "Plan a single chapter scene by scene. Use after ... "
 
 - **Procedure, not prose.** Numbered steps, explicit checks, and the exact output format. Keep `SKILL.md` under about 300 lines; move category lists, long examples and rarely used procedures into `references/` and tell the reader when to open them.
 - **No agent-specific wording.** No tool names (read, write, edit, glob, grep, bash), no model ids, no subagent calls ("invoke the X agent"), no slash commands, no `Writing_Room/` paths. Say "list the folders in `worlds/`", "search for the name", "follow the `planner` skill". The lint enforces most of this.
-- **Scripts are optional.** Skills reach the runtime at `../writing-room/` (scripts, templates, shared references). Every script call needs a "Without a shell" alternative that produces the same result by reading and writing files. The runtime lives inside the `writing-room` skill because every agent installs skills side by side, so the relative path works wherever they are installed.
+- **Scripts are optional.** Skills reach the runtime as `<WR>/…` (scripts, templates, shared references). Never write `../writing-room/`: models read it as relative to the running skill or to the project root (the lint rejects it). Each skill's Files section opens with the standard sentence defining `<WR>`: the project's `AGENTS.md` names it in the "Writing Room paths" block, with the `writing-room` folder beside the skill as the fallback. Every script call needs a "Without a shell" alternative that produces the same result by reading and writing files.
 - **Hand-offs.** A skill never needs a subagent: when it needs another skill's work (for example creating a missing character) it follows that skill itself and returns. End with a `**Next step:**` line naming the next skill.
 - **Template headings and registry names are data.** `Notes for the Draft Writer`, `Reviewer Notes`, `Draft-Fixer-Log.md`, ledger columns and status values are read by other skills and by existing projects. Never reword them.
 - **Be explicit about writes.** Say what is created, what is changed in place, what is never touched, and what needs the user's confirmation.
@@ -37,6 +37,7 @@ description: "Plan a single chapter scene by scene. Use after ... "
 ```bash
 python tools/lint_skills.py                  # frontmatter, naming, quoting, wording, referenced paths (also in references/)
 python -m unittest discover -s tests         # includes fidelity, fallback and pipeline tests
+python tools/record_templates.py           # after changing a template or craft file: records its fingerprint (a test checks)
 python tools/convert_legacy.py <old agent>   # a mechanical first pass over a legacy agent or command; finish by hand
 ```
 

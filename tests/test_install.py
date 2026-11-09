@@ -109,9 +109,25 @@ class ProjectScope(Base):
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertTrue((self.proj / "AGENTS.md").is_file())
         self.assertEqual((self.proj / "CLAUDE.md").read_text(encoding="utf-8").strip(), "@AGENTS.md")
+        self.assertIn("- `<WR>` = `.claude/skills/writing-room`", (self.proj / "AGENTS.md").read_text(encoding="utf-8"))
         (self.proj / "AGENTS.md").write_text("MINE", encoding="utf-8")
         self.install("--harness", "claude", "--project", self.proj, "--guidance")
-        self.assertEqual((self.proj / "AGENTS.md").read_text(encoding="utf-8"), "MINE")
+        text = (self.proj / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertTrue(text.startswith("MINE\n"), text)  # not replaced: only the paths block is added
+        self.assertIn("- `<WR>` = `.claude/skills/writing-room`", text)
+
+    def test_paths_block_names_the_installed_framework_and_is_removed_on_uninstall(self):
+        (self.proj / "AGENTS.md").write_text("# Mine\n\nIntro.\n\n## Rules\n\nKeep.\n", encoding="utf-8")
+        r = self.install("--harness", "opencode", "--project", self.proj)
+        self.assertIn("AGENTS.md: added the Writing Room paths block (<WR> = .opencode/skills/writing-room)", r.stdout)
+        text = (self.proj / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertLess(text.index("## Writing Room paths"), text.index("## Rules"))
+        self.assertIn("`.opencode/skills/writing-room/references/conventions.md`", text)
+        self.assertIn("`.opencode/skills/<skill name>/references/…`", text)
+        self.install("--harness", "opencode", "--project", self.proj, "--uninstall")
+        after = (self.proj / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertNotIn(".opencode/skills/writing-room", after)
+        self.assertIn("## Rules\n\nKeep.", after)
 
 
 class ProjectPlacement(Base):

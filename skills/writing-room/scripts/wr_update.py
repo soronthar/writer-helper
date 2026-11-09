@@ -16,8 +16,11 @@ compares them with this build, and brings them up to date:
     (and so is anything replaced when the install is old enough not to record hashes)
   - skill folders that are not ours are never touched; a new skill whose name collides with one of
     yours is skipped and reported (--force replaces it)
-  - worlds, stories, styles and templates are never touched
+  - worlds, stories, styles and templates are never touched; project templates and craft files that
+    are unedited copies hiding this build's versions are reported (wr_templates.py --retire moves them)
   - the CHANGELOG entries since the installed version are shown when the build has a CHANGELOG.md
+  - the project's AGENTS.md gets a current "Writing Room paths" block naming the framework folder
+    (wr_paths.py); the block is ignored when comparing AGENTS.md with the shipped version
   - AGENTS.md and CLAUDE.md in the project are compared with the shipped versions and reported if they
     differ; --guidance replaces them (the old file is kept as <name>.bak)
 
@@ -41,6 +44,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import MARKER, ProjectNotFound, find_root, read_marker  # noqa: E402
+from wr_templates import classify, summary  # noqa: E402
+from wr_paths import describe as describe_paths, strip as strip_paths, write as write_paths  # noqa: E402
 from wr_install import (HARNESSES, MANIFEST, PROJECT_DIRS, Source, copy_skill, folder_hash,  # noqa: E402
                         read_manifest, user_dir, write_manifest)
 
@@ -170,7 +175,8 @@ def guidance_report(project, src, replace, dry_run, log=print):
         mine = Path(project) / name
         if not shipped.is_file() or not mine.is_file():
             continue
-        if mine.read_bytes() == shipped.read_bytes():
+        if strip_paths(mine.read_bytes().decode("utf-8").replace("\r\n", "\n")) == \
+                shipped.read_bytes().decode("utf-8").replace("\r\n", "\n"):
             continue
         differ.append(name)
         if replace:
@@ -276,6 +282,14 @@ def main(argv=None):
                 print("    updated")
         if proj and (a.guidance or not a.check):
             guidance_report(proj, src, a.guidance, a.dry_run or a.check)
+
+    if project and not a.check:
+        line = describe_paths(*write_paths(project, dry_run=a.dry_run), a.dry_run)
+        if line:
+            print(f"\n{line}")
+    if project:
+        for line in summary(classify(project, framework=src.root / "writing-room")):
+            print(f"\nNote: {line}")
 
     print()
     if a.check:

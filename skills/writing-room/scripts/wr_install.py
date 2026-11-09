@@ -31,6 +31,9 @@ containing .git, and Devin discovers skills in git repositories. If the project 
 repository root, the installer says so for the harnesses affected. Hermes also asks the user to approve
 project skills once (`hermes skills trust`).
 
+AGENTS.md: at project scope the installer writes a "Writing Room paths" block into the project's AGENTS.md
+(if it has one) naming the installed framework folder, so skills can find <WR> (see wr_paths.py).
+
 Safety: a skill folder that already exists and was not installed by this tool is never replaced
 unless you pass --force. An install manifest (.writing-room-install.json) in each target records what
 this tool installed, so updates replace only those folders and --uninstall removes only those.
@@ -409,6 +412,14 @@ def main(argv=None):
                     shutil.copy2(src, dst)
     elif a.guidance and project is None:
         print("  guidance: only added for --scope project", file=sys.stderr)
+
+    if project is not None and not a.target:
+        from wr_paths import describe as describe_paths, write as write_paths
+        wr = None if a.uninstall else next((d / "writing-room" for d, _ in targets
+                                            if (d / "writing-room" / "SKILL.md").is_file()), None)
+        line = describe_paths(*write_paths(project, wr, dry_run=a.dry_run), a.dry_run)
+        if line:
+            print(f"  {line}")
 
     if a.dry_run:
         print("\nDry run: nothing changed.")

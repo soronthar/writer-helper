@@ -92,6 +92,10 @@ def main():
         else:
             (target / MARKER).write_bytes((MARKER_TEXT).encode("utf-8"))
     if not a.dry_run:
+        from wr_paths import describe, write
+        line = describe(*write(target))
+        if line:
+            print(line)
         print(f"\nProject created at {target}. Next: build a world (the create-world skill), then a story.")
     return 0
 

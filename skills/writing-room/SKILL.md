@@ -7,7 +7,7 @@ description: "Entry point for the Writing Room fiction-writing framework. Use wh
 
 You coordinate the Writing Room: a pipeline of skills that takes an author from a world bible to finished chapters while keeping continuity. The author makes the creative decisions; the skills do the structural and mechanical work. You do not write prose or world content yourself: you find where the project stands and hand off to the right skill.
 
-Read `references/conventions.md` first. It defines the project root, `<WR>` (this skill's directory), template lookup, and the working rules every skill follows. `references/layout.md` describes the project's files.
+Read `<WR>/references/conventions.md` first. `<WR>` is this skill's own folder; the project's `AGENTS.md` names it under "Writing Room paths". The conventions define the project root, template lookup, and the working rules every skill follows. `<WR>/references/layout.md` describes the project's files.
 
 ## 1. Find the project
 
@@ -26,18 +26,19 @@ If you can run commands, run `python "<WR>/scripts/wr_next.py"` (add `--json` to
 1. No `worlds/<name>/` yet → `create-world`. A world but no story folder → `story-ideator`.
 2. No `OUTLINE.md` (for a series: no `SERIES_OUTLINE.md` or no book folder) → `outliner`.
 3. `current_chapter/` has `CONTENT.md` but no `CHAPTER_PLAN.md` → something is off; run `story-status` and ask the user.
-4. `CHAPTER_PLAN.md` but no `CONTENT.md` → `draft-writer`.
-5. `CONTENT.md` and no `current_reviews/Reviewer-*.md` → `reviewer`.
-6. Reviews but no `current_reviews/Draft-Fixer-Log.md` → `draft-fixer`.
-7. Fix log, and `state/Timeline.md` has no entry for this chapter number → `story-analyzer`.
+4. `CHAPTER_PLAN.md` but no `CONTENT.md` → `draft-writer` (it resumes from `.writing-room-work/<story or book folder>/current_chapter/CONTENT.md` if a draft was saved partway).
+5. `CONTENT.md` and no `current_reviews/Reviewer-*.md` → `reviewer`. Also `reviewer` (it resumes) when a report's `**Review status:**` says `In progress`, or `Reviewer-Consistency.md` exists without `Reviewer-Character.md`.
+6. Finished reviews but no `current_reviews/Draft-Fixer-Log.md` → `draft-fixer`. Also `draft-fixer` (it resumes) when the log's `**Fix status:**` says `In progress`.
+7. A finished fix log (status `Complete`, or no status line), and `state/Timeline.md` has no entry for this chapter number → `story-analyzer`.
 8. Timeline entry present → `promote-chapter`.
 9. `current_chapter/` empty and the number of `chapters/Chapter_NN.md` files is below `**Total chapters:**` in `OUTLINE.md` → `planner`.
 10. All chapters promoted → the story is finished: see "Finishing a story" below.
 
-`story-status` gives the user a fuller dashboard (progress, recent timeline, schemes, facts, hooks) whenever they want one.
+`story-status` gives the user a fuller dashboard (progress, recent timeline, schemes, facts, hooks) when they ask for one. It reads many more files, so do not use it just to find the next step.
 
 ## 3. Hand off
 
+- **Only asked where things stand** ("what's next?", "where am I?", "what should I do now?"): report each story's state and next skill, in a line each, from `wr_next` or the list above, and stop. Do not start the skill until the user says to.
 - **One story in progress:** tell the user what comes next and why in a sentence, then follow that skill (name it, e.g. "I'll follow the `planner` skill for Chapter 4").
 - **Several in progress:** list them with their next steps and ask which to work on.
 - **No story in progress** (`project.next_skill` is set): follow that skill. If every story is finished, offer `story-ideator` for a new one.
@@ -72,7 +73,8 @@ When every chapter is promoted:
 | Reviews exist | `draft-fixer` |
 | Draft fixed | `story-analyzer` |
 | Chapter analyzed | `promote-chapter` |
-| Where am I? | `story-status` |
+| Where am I? / What's next? | this skill: report and stop (section 3) |
+| Full dashboard of a story | `story-status` |
 | World index stale, story order, or consolidating a finished story | `world-archivist` |
 
 A skill that is not installed cannot be replaced by guessing: tell the user which one is missing and stop. The older `reviewer-consistency` and `reviewer-character` agents no longer exist; `reviewer` does both passes.

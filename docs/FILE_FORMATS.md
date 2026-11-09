@@ -14,7 +14,7 @@ The files the skills share. Everything is Markdown. The skills and scripts read 
 | `DESCRIPTION.md` | World overview: geography, history, population, economy, magic, beliefs, current state | |
 | `HOOKS.md` | Story seeds. Each has Source, Status (`Open`, `In Use (<Story>)`, `Archived`), Hook, Related | Status |
 | `SUMMARY.md` | Index of every entity, rebuilt from scratch (never edited by hand). Skills read it instead of every entity file; the doctor warns if it is missing or lists different names than the entity files | table rows |
-| `WORLD_ORDER.md` | Chronological order of stories. Table `\| Position \| Story \| Unit \| In-World Date \| Status \| Notes \|`; Unit is `Full Story`, `Ch. N`, `Bk. N Ch. M` or `TBD`; Status is `Not Started`, `In Progress`, `Complete` | **yes** (`query_position.py`) |
+| `WORLD_ORDER.md` | Chronological order of stories. Table `\| Position \| Story \| Unit \| In-World Date \| Status \| Notes \|`; Unit is `Full Story`, `Ch. N`, `Bk. N Ch. M` or `TBD`; Status is `Not Started`, `In Progress`, `Complete` | **yes** (`query_position.py`, `world_order.py`) |
 | `TIMELINE.md` | Events of finished stories, grouped under `### [[Story]] (Position N)`; a story counts as consolidated when its heading is here | heading |
 | `characters/`, `factions/`, `points_of_interest/`, `mythology/` | One file per element, named after its `# Heading` | |
 | `snapshots/<N>/` | The world after the story at position N completed (entities, `DESCRIPTION.md`, `manifest.md`; never `HOOKS.md`). The story at N+1 starts from snapshot N | folder names |
@@ -29,12 +29,12 @@ A character file's `## Notes` collects **knowledge lines**: `**Knows (as of <Sto
 | `OUTLINE.md` | Chapter map, subplot threads. `**Total chapters:**`, `**World Order Position:**`, `**Story before/after:**`. The story-analyzer later appends `#### Payoff Annotations` under future chapters; the outliner's own text is never changed | **Total chapters** |
 | `current_chapter/CHAPTER_PLAN.md` | Scene-by-scene plan. `**Chapter:** N of M`; headings such as `Notes for the Draft Writer` are part of the format | **Chapter** |
 | `current_chapter/CONTENT.md` | The draft | existence |
-| `current_chapter/current_reviews/` | `Reviewer-Consistency.md`, `Reviewer-Character.md`, `Draft-Fixer-Log.md` | existence |
+| `current_chapter/current_reviews/` | `Reviewer-Consistency.md`, `Reviewer-Character.md`, `Draft-Fixer-Log.md` | existence, plus `**Review status:**` / `**Fix status:**` `In progress` (stopped partway; no line means finished) |
 | `chapters/Chapter_NN.md` | Promoted chapters; anything else in the folder is ignored | name pattern |
 | `state/Timeline.md` | One entry per analyzed chapter: `- **[Chapter N — Title]** <date> — <what happened>` | **entry per chapter** |
 | `state/ACTIVE_SCHEMES.md` | Ledger of in-flight lies, promises and concealments: ID `S1…`, owner, targets, nature, status (`Active`, `Complicated`, `Exposed`, `Resolved`), origin, last touched, plus detail blocks and a Resolution Log. Never merged into the world | |
 | `state/STORY_FACTS.md` | Ledger of plot-critical facts that cross-cut entities: ID `F1…`, category, fact, status (`Current`, `Superseded`), plus a Superseded Log. Never merged into the world | |
-| `state/bible/<type>/` | The story's own working copy of world entities; read before `worlds/` | |
+| `state/bible/<type>/` | The story's own working copy of world entities; read before `worlds/`. Files must sit in their type folder: one directly in `state/bible/` is never read | |
 
 ## Where an entity is read from
 

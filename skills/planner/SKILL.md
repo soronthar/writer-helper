@@ -13,7 +13,7 @@ You do not write prose. You do not create or modify world elements. You do not c
 
 ## Files
 
-Shared rules, the meaning of `<WR>`, template lookup and the project layout: `../writing-room/references/conventions.md` and `../writing-room/references/layout.md`. Paths below are relative to the project root.
+`<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project. Shared rules, template lookup and the project layout: `<WR>/references/conventions.md` and `<WR>/references/layout.md`. Templates (`templates/…`) and craft files (`writing_concepts/story_structure/…`, `archetypes/…`, `tropes/…`) are the project's own copy if it has that file, otherwise the framework's under `<WR>/shared/` ("Writing Room paths" gives the exact folders). Every other path below is relative to the project root.
 
 - Reads: `stories/<Story>/CONCEPT.md`, `OUTLINE.md`, `state/Timeline.md`, `state/ACTIVE_SCHEMES.md`, `state/STORY_FACTS.md`, `state/bible/` (takes precedence over `worlds/`), the world bible, `writing_concepts/story_structure/` (`GUIDE.md`, `Format Reference.md`, the named structure), `writing_concepts/styles/<Style>.md`, and the template `templates/story/chapter_plan.md`.
 - Writes: `current_chapter/CHAPTER_PLAN.md`, and (first chapter only) the Status line of `CONCEPT.md`.
@@ -25,7 +25,7 @@ Shared rules, the meaning of `<WR>`, template lookup and the project layout: `..
 
 ### Step 1 — Mode Selection
 
-Ask the user: **Autonomous** or **Collaborative**?
+If the request already names a mode, use it. Otherwise ask the user: **Autonomous** or **Collaborative**?
 
 - **Autonomous:** You generate the full scene breakdown and write `CHAPTER_PLAN.md` directly after quality checks pass. No preview gate. To opt into a preview before writing, the user can include `preview: true` in the prompt.
 - **Collaborative:** You propose a scene structure table and let the user steer the breakdown before generating the full plan. The assembled plan is always shown for confirmation before writing in this mode.
@@ -71,7 +71,7 @@ python "<WR>/scripts/query_position.py" \
 
 Parse the JSON output:
 - `position` → the story's position in WORLD_ORDER
-- `before.position` → the previous story's position (used as `--position` for world loading)
+- `before.position` → the previous story's position, at its first row if it has several (used as `--position` for world loading)
 - `before.story`, `before.status` → for context
 - `after.story` → for context (story that follows)
 - If the script returns `"found": false` → WORLD_ORDER entry is missing; note in the plan and skip position-aware loading.
@@ -82,38 +82,31 @@ Record:
 
 This call is fast and adds important context. Do not skip it unless WORLD_ORDER.md is absent.
 
-**Without a shell:** read `worlds/<World Name>/WORLD_ORDER.md` and find the story's row in the Story Order table (`| Position | [[Story]] | Unit | In-World Date | Status | Notes |`). `WORLD_POS` is its Position; `BASELINE_POS` is the Position of the row immediately before it (null if it is the first). A missing row is the same as `"found": false`.
+**Without a shell:** read `worlds/<World Name>/WORLD_ORDER.md` and find the story's row in the Story Order table (`| Position | [[Story]] | Unit | In-World Date | Status | Notes |`). `WORLD_POS` is its Position (its first row, if it has one row per chapter); `BASELINE_POS` is the Position of the row immediately before that, except that when that row belongs to a story with several rows (a Book, one per chapter), take that story's first row instead, where its snapshot is made (null if this is the first entry). A missing row is the same as `"found": false`.
 
 ---
 
 **4b — Load the story context.** If you can run commands, run `load_bible.py` once:
 
 ```bash
-python "<WR>/scripts/load_bible.py" \
-  --story         "<story_path>"         \
-  --world         "worlds/<World Name>"  \
-  --structure     "<Structure Name>"     \
-  --no-last-chapter                      \
-  [--position     "<BASELINE_POS>"]      \
-  [--style        "<style hint>"]        \
-  [--char         "Name"] ...            \
-  [--loc          "Name"] ...            \
-  [--faction      "Name"] ...
+python "<WR>/scripts/load_bible.py" --for planner --story "<story_path>" --char "<Name>" --loc "<Name>" --output
 ```
 
-- `--structure` — the exact Suggested Story Structure name from CONCEPT.md (no `.md` extension).
-- `--no-last-chapter` — always set for planning. The Timeline is sufficient for continuity context; do not load chapter prose.
-- `--position` — pass `BASELINE_POS` (the previous story's position from Step 4a-bis). Omit if `BASELINE_POS` is null (first story in world) or if WORLD_ORDER lookup failed.
-- `--style` — omit if no style name was found in CONCEPT.md Notes.
-- `--char` / `--loc` — every character and location named in the chapter's OUTLINE.md entry. `--faction` only if a faction is explicitly named in the entry.
+Write it as one line (see conventions, "Loading story context"). `--for planner` works out the world, `BASELINE_POS` and the structure from CONCEPT.md and WORLD_ORDER.md and never loads chapter prose: the Timeline and entity states are the continuity source (Quality Check 8). The CONTEXT block at the top of the output says what it used; check it against Step 4a-bis.
+
+- `--char` / `--loc` — one per character and location named in the chapter's OUTLINE.md entry. Add `--faction "<Name>"` only for a faction explicitly named in the entry.
+- `--style "<hint>"` — add it only if CONCEPT.md Notes names a style.
+- `--structure "<Structure Name>"` — add it only if the CONTEXT block shows no structure or the wrong one (the exact Suggested Story Structure name, no `.md`).
 
 The script outputs in a single result: `GUIDE.md`, `Format Reference.md`, the named structure file, the style file, `state/Timeline.md`, `state/ACTIVE_SCHEMES.md`, and all world bible entity files with source-priority applied (`state/bible/` → `worlds/`).
 
 **Without a shell:** read these yourself, in this order: `writing_concepts/story_structure/GUIDE.md`, `Format Reference.md`, and the named structure file; the style file (the only file in `writing_concepts/styles/`, or the one CONCEPT.md Notes names); `state/Timeline.md`; `state/ACTIVE_SCHEMES.md`; `state/STORY_FACTS.md`; then each named character, location and faction, taking the first that exists of `state/bible/<type>/<Name>.md`, `worlds/<World>/snapshots/<BASELINE_POS>/<type>/<Name>.md` (if `BASELINE_POS` is set), `worlds/<World>/<type>/<Name>.md`. Types are `characters`, `points_of_interest`, `factions`. Craft files and templates that the project does not have come from the framework (see conventions). A missing file is the same as the script's `⚠ NOT FOUND`.
 
-**ACTIVE_SCHEMES.md is your first internalized input.** Before reading the structure file or planning any scene, read the Active Ledger and every Detail block. These define the operational truth that constrains how characters can act in this chapter: a character maintaining a lie cannot casually contradict it; a character who extracted a promise must act as if the promise is binding; a scheme marked `Complicated` is fragile and realistically affects the owner's decisions. The Resolution Log is also load-bearing — a character whose deception was Exposed in Chapter 3 cannot behave in Chapter 5 as if it never happened.
+The script prints the structure files first. That is output order, not priority: work through the two registries below before you turn to the structure questions or plan any scene.
 
-**STORY_FACTS.md is your second internalized input.** Read every `Current` entry before reading the structure file or planning any scene. Each Current fact is a hard constraint on what the prose can assert: a quantity the plan must preserve or explicitly supersede with an on-page beat, a logistical detail characters must act consistently with, a forensic fingerprint a later scene must acknowledge. When a scene's beats would change a Current fact (e.g., a quantity drops, a commitment is fulfilled), note the supersession explicitly in the scene's Notes for Draft Writer so the `story-analyzer` can record it.
+**ACTIVE_SCHEMES.md is your first internalized input.** Read the Active Ledger and every Detail block. These define the operational truth that constrains how characters can act in this chapter: a character maintaining a lie cannot casually contradict it; a character who extracted a promise must act as if the promise is binding; a scheme marked `Complicated` is fragile and realistically affects the owner's decisions. The Resolution Log is also load-bearing — a character whose deception was Exposed in Chapter 3 cannot behave in Chapter 5 as if it never happened.
+
+**STORY_FACTS.md is your second internalized input.** Read every `Current` entry. Each Current fact is a hard constraint on what the prose can assert: a quantity the plan must preserve or explicitly supersede with an on-page beat, a logistical detail characters must act consistently with, a forensic fingerprint a later scene must acknowledge. When a scene's beats would change a Current fact (e.g., a quantity drops, a commitment is fulfilled), record the supersession in that scene's `Scheme / fact dispositions` field so the `story-analyzer` can record it.
 
 When reading the structure file output, focus on the stage(s) listed in the chapter's outline entry — extract every "Questions to answer" item for those stages only.
 
@@ -138,11 +131,11 @@ The breakdown must:
 - Assign each Structure Stage Checklist item to at least one scene.
 - Give every thread from the Subplot Threads table a directive in the Subplot Directives table.
 
-**Active Schemes:** for each entry in the Active Ledger whose Owner or Target(s) appears in this chapter's scene entries, decide the scheme's disposition for this chapter: advance, hold steady, complicate, expose, or resolve. Record the decision in the scene entry's `Notes for Draft Writer` — e.g., *"Hesk continues to maintain S2 ('the false alibi'). He must not contradict the specifics recorded in ACTIVE_SCHEMES.md: he was at the archive, not the docks."* If this chapter is the intended exposure or resolution of a scheme, flag it explicitly in the scene notes. If the chapter advances a scheme through a specific new lie or promise, name it so the `draft-writer` writes it correctly and the `story-analyzer` can record it later.
+**Active Schemes:** for each entry in the Active Ledger whose Owner or Target(s) appears in this chapter's scene entries, decide the scheme's disposition for this chapter: advance, hold steady, complicate, expose, or resolve. Record the decision in the scene entry's `Scheme / fact dispositions` field — e.g., *"S2 — hold: Hesk maintains the false alibi; he was at the archive, not the docks."* If this chapter is the intended exposure or resolution of a scheme, say so in that field. If the chapter advances a scheme through a specific new lie or promise, name it so the `draft-writer` writes it correctly and the `story-analyzer` can record it later.
 
-**Story Facts:** for each `Current` entry in STORY_FACTS.md whose Related entities or Specifics are implicated in this chapter's scenes, record the intended disposition in the relevant scene's Notes for Draft Writer: `preserve` (the fact holds unchanged), `supersede` (an on-page beat changes it — name the beat explicitly so the `story-analyzer` can record the supersession), or `confirm` (the chapter reinforces the fact without changing it). A Current fact implicated in a scene but absent from the Notes is a silent assumption — if the default (preserve) is not obvious from context, flag it.
+**Story Facts:** for each `Current` entry in STORY_FACTS.md whose Related entities or Specifics are implicated in this chapter's scenes, record the intended disposition in the relevant scene's `Scheme / fact dispositions` field: `preserve` (the fact holds unchanged), `supersede` (an on-page beat changes it — name the beat explicitly so the `story-analyzer` can record the supersession), or `confirm` (the chapter reinforces the fact without changing it). A Current fact implicated in a scene but absent from that field is a silent assumption — if the default (preserve) is not obvious from context, flag it.
 
-**Style directives:** after reading the style file, determine whether the outline's Notes warrant any overrides on Chapter Opening, Ending, or Pacing. Each override must include a reason. If no override is warranted, use the style file's default value for that field.
+**Style directives:** after reading the style file, determine whether the outline's entry or the author's instructions warrant any overrides on Chapter Opening, Ending, Pacing, or Length. Each override must include a reason and its authority (e.g. `OUTLINE.md Chapter 4 Notes`, or the author's request). If no override is warranted, use the style file's default value for that field. A length the outline sets deliberately outside the style range is a Length override, recorded in Style Directives — not an Open Question.
 
 **Collaborative mode — Step 6B:** before generating full scene entries, present this compact table:
 
@@ -163,11 +156,11 @@ Run all eleven checks before writing. Each failure is either FLAGged in the plan
 4. **World element existence** — every character and location referenced in scene entries has a file in the world bible. Missing entities are FLAGged (do not silently invent them).
 5. **Style compliance** — each scene's "Opens with" beat must not violate the style file's Forbidden Elements list (Section 9). Check specifically for: weather/waking-up/mirror openers, over-explained emotion. Flag violations.
 6. **Subplot thread accounting** — every thread in the Subplot Threads table has a row in the Subplot Directives table. Threads not touched this chapter are listed as "Dormant — do not advance."
-7. **Word count plausibility** — target falls within the style file's Typical Length range (§5) or, if no style file, the Format Reference range for this story's format (from `writing_concepts/story_structure/Format Reference.md`).
-8. **Continuity** — soft check against the most recent completed chapter. Flag any contradictions in character location, knowledge, or physical state. Do not block the preview on this check; flag and proceed.
-9. **Active scheme continuity** — for every `Active` or `Complicated` entry in ACTIVE_SCHEMES.md whose Owner or Target(s) appears on-stage this chapter, verify the plan either advances, holds, complicates, exposes, or resolves it — and records that disposition in the relevant scene's Notes for Draft Writer. An on-stage owner whose scheme is simply never mentioned is a plan gap; FLAG it. A scene whose planned action would contradict a scheme's Specifics without marking the scheme Exposed is a structural error; rework the scene or mark the scheme Exposed.
+7. **Word count plausibility** — target falls within the style file's Typical Length range (§5) or, if no style file, the Format Reference range for this story's format (from `writing_concepts/story_structure/Format Reference.md`). A target outside that range passes only with a `Length: Override` in Style Directives that gives its reason and authority.
+8. **Continuity** — soft check of the plan against the latest `state/Timeline.md` entry and the Current Status of each loaded entity (do not load chapter prose for this). Flag any contradictions in character location, knowledge, or physical state. Do not block the preview on this check; flag and proceed.
+9. **Active scheme continuity** — for every `Active` or `Complicated` entry in ACTIVE_SCHEMES.md whose Owner or Target(s) appears on-stage this chapter, verify the plan either advances, holds, complicates, exposes, or resolves it — and records that disposition in the relevant scene's `Scheme / fact dispositions` field. An on-stage owner whose scheme is simply never mentioned is a plan gap; FLAG it. A scene whose planned action would contradict a scheme's Specifics without marking the scheme Exposed is a structural error; rework the scene or mark the scheme Exposed.
 
-10. **Payoff annotation coverage** — if the chapter's entry in OUTLINE.md has a `#### Payoff Annotations` subsection, verify every bullet is either (a) honoured by a named beat in at least one scene, or (b) explicitly retired by an in-scene beat the plan names. An annotation present in OUTLINE.md but absent from every scene's Notes for Draft Writer is a plan gap; FLAG it.
+10. **Payoff annotation coverage** — if the chapter's entry in OUTLINE.md has a `#### Payoff Annotations` subsection, verify every bullet is either (a) honoured by a named beat in at least one scene, or (b) explicitly retired by an in-scene beat the plan names. An annotation present in OUTLINE.md but absent from every scene's `Notes for Draft Writer` is a plan gap; FLAG it.
 
 11. **Story fact continuity** — for every `Current` entry in STORY_FACTS.md whose Related entities or Specifics are implicated in the chapter, verify the plan either preserves, confirms, or explicitly supersedes it in a named scene beat. A Current fact silently contradicted by the plan (without a supersession beat) is a structural error; rework the relevant scene or flag the contradiction.
 
@@ -208,7 +201,9 @@ Always read `templates/story/chapter_plan.md` fresh before assembling the plan. 
 
 **Structure Stage Checklist:** each item is the verbatim "Questions to answer" text from the structure file, followed by `→ Scene N`. Items that could not be assigned are followed by `[FLAG]`.
 
-**Style Directives:** each field is either `Default — [value]` (copied from the style file §5) or `Override — [value]: [reason]` (when the outline's Notes require a deviation).
+**Style Directives:** each field (Opening, Ending, Pacing, Length) is either `Default — [value]` (copied from the style file §5) or `Override — [value]: [reason]` (when the outline entry or the author requires a deviation). A Length override also names its authority.
+
+**Scene fields:** use exactly the fields the template gives each scene. Scheme and fact dispositions go in `Scheme / fact dispositions`; everything else scene-specific goes in that scene's `Notes for Draft Writer`. Do not add fields.
 
 ---
 
@@ -234,7 +229,7 @@ After writing all files, output:
 - stories/<path>/CONCEPT.md  *(Status updated to `Active` — first chapter only)*
 
 **Scene count:** N scenes
-**Word count target:** <N> words
+**Word count target:** <N> words  *(<"style default" | "Length override — reason">)*
 **Structure checklist:** N of N questions resolved
 **Flags:**
 - <Unresolved questions, missing world entities, continuity concerns — or "None">

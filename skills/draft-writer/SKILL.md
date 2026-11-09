@@ -13,10 +13,10 @@ You do not plan, outline, or revise world elements. You do not promote chapters 
 
 ## Files
 
-Shared rules, the meaning of `<WR>`, template lookup and the project layout: `../writing-room/references/conventions.md` and `../writing-room/references/layout.md`. Paths below are relative to the project root.
+`<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project. Shared rules, template lookup and the project layout: `<WR>/references/conventions.md` and `<WR>/references/layout.md`. Templates (`templates/…`) and craft files (`writing_concepts/story_structure/…`, `archetypes/…`, `tropes/…`) are the project's own copy if it has that file, otherwise the framework's under `<WR>/shared/` ("Writing Room paths" gives the exact folders). Every other path below is relative to the project root.
 
 - Reads: `current_chapter/CHAPTER_PLAN.md` (your primary input), `CONCEPT.md`, `state/Timeline.md`, `state/ACTIVE_SCHEMES.md` (in-flight deceptions the prose must not contradict), `state/STORY_FACTS.md` (plot-load-bearing facts the prose must not contradict unless the plan directs a supersession), `state/bible/` (story-local world bible, takes precedence over `worlds/`), the world bible, the most recent file in `chapters/`, `writing_concepts/styles/<Style>.md`, and the template `templates/story/content.md`.
-- Writes: `current_chapter/CONTENT.md`.
+- Writes: the working draft `.writing-room-work/<unit>/current_chapter/CONTENT.md` while you write (see "The working draft"), then `current_chapter/CONTENT.md`. `<unit>` is the story folder (`stories/<Story>`), or the book folder for a Book Series.
 - **Book Series** keep `chapters/`, `current_chapter/` and `state/` in `stories/<Series>/Book NN - <Title>/`; `CONCEPT.md` stays at the series root.
 
 ---
@@ -25,10 +25,19 @@ Shared rules, the meaning of `<WR>`, template lookup and the project layout: `..
 
 ### Step 1 — Mode Selection
 
-Ask the user: **Autonomous** or **Scene-by-Scene**?
+If the request already names a mode, use it. Otherwise ask the user: **Autonomous** or **Scene-by-Scene**?
 
-- **Autonomous:** You write the full chapter scene by scene, run the quality self-check, then write `CONTENT.md` directly. No preview gate. To opt into a preview before the file is written, the user can include `preview: true` in the prompt.
-- **Scene-by-Scene:** You write one scene at a time, present it, and wait for the user's feedback before proceeding to the next. You assemble and write the full file only after all scenes are complete and approved.
+- **Autonomous:** You write the full chapter scene by scene, saving each scene to the working draft, run the quality self-check on that file, then write `CONTENT.md` from it. No preview gate. To opt into a preview before the file is written, the user can include `preview: true` in the prompt.
+- **Scene-by-Scene:** You write one scene at a time, present it, and wait for the user's feedback before proceeding to the next. Each approved scene is saved to the working draft; `CONTENT.md` is written from it after all scenes are complete and approved.
+
+### The working draft
+
+Prose that exists only in the conversation is lost if the session stops, runs out of context or is interrupted. So every scene goes to disk as soon as it is written (Autonomous) or approved (Scene-by-Scene), in the working draft `.writing-room-work/<unit>/current_chapter/CONTENT.md`. Never write a partial chapter to `current_chapter/CONTENT.md`: that file existing means the chapter is drafted and the reviewer is next.
+
+- **First line, always:** `<!-- draft: Chapter <N>, <K> of <M> scenes saved; self-check: <not started | in progress | done> -->`, where `<M>` is the number of scenes in CHAPTER_PLAN.md. Below it, the scenes so far, each starting with a line `<!-- scene <K> -->`.
+- **After each scene:** write the whole working draft again with the new scene added and the first line updated (rewriting the file works in every tool; appending does not). Then read the end of the file back and check the scene's closing lines are there. If they are not, write it again before starting the next scene.
+- **Edits go into the file.** When you or the user change a saved scene, change it in the working draft. From here on the working draft, not your memory of the conversation, is the text of the chapter.
+- `wr_next.py` reports a working draft, so a new session knows there is a draft to resume.
 
 ---
 
@@ -42,10 +51,11 @@ Ask the user: **Autonomous** or **Scene-by-Scene**?
 
 ### Step 3 — Collision Check
 
-Check whether `current_chapter/CONTENT.md` already exists.
+Check whether `current_chapter/CONTENT.md` already exists, and whether a working draft exists (`.writing-room-work/<unit>/current_chapter/CONTENT.md`).
 
-- **CONTENT.md exists:** warn the user. Ask: *"A draft already exists for this chapter. Overwrite it?"* Continue only on explicit confirmation.
-- **CONTENT.md absent:** proceed without warning.
+- **CONTENT.md exists:** warn the user. Ask: *"A draft already exists for this chapter. Overwrite it?"* Continue only on explicit confirmation. If a working draft also exists, it is left over from a save that finished; mention it and delete it once the user has chosen.
+- **Only a working draft exists:** read its first line. If it is for this chapter, tell the user what it holds (*"A saved draft of Chapter N has K of M scenes; the self-check is <state>."*) and ask: resume it, or start over? Start over deletes the working draft. If it is for another chapter number, it is stale: say so and ask before deleting it. **To resume:** finish Steps 4 and 5 (the context is not in this session), read the working draft, then continue with scene K+1 in Step 6; if all scenes are saved, continue with Step 7 (it reruns the self-check from the start unless it says `done`, in which case go to Step 8). Keep the mode the user chooses now.
+- **Neither exists:** proceed without warning.
 
 ---
 
@@ -81,27 +91,21 @@ Collect all unique names from the `[[Name]]` wiki-links in:
 **4c — Load the story context.** If you can run commands, run `load_bible.py` once:
 
 ```bash
-python "<WR>/scripts/load_bible.py" \
-  --story   "<story_path>"        \
-  --world   "worlds/<World Name>" \
-  [--position "<BASELINE_POS>"]   \
-  [--style  "<style hint>"]       \
-  [--char   "Name"] ...           \
-  [--loc    "Name"] ...           \
-  [--faction "Name"] ...
+python "<WR>/scripts/load_bible.py" --for draft-writer --story "<story_path>" --char "<Name>" --loc "<Name>" --output
 ```
 
-- `--position` — pass `BASELINE_POS` if set (from CHAPTER_PLAN.md `**World baseline:**`). Omit if null. This loads entity files from the world snapshot that predates this story, ensuring historically-correct character knowledge and world facts.
-- Omit `--style` if no hint was found in CONCEPT.md Notes.
-- Repeat `--char`, `--loc`, `--faction` once per name collected in 4b.
-- Names must match the world bible filename exactly (the `[[Name]]` value from the plan).
+Write it as one line (see conventions, "Loading story context"). `--for draft-writer` works out the world and the baseline snapshot, so entity files come from the world as it stood before this story. The CONTEXT block at the top of the output says what it used.
+
+- Repeat `--char`, `--loc` and `--faction` once per name collected in 4b. Names must match the world bible filename exactly (the `[[Name]]` value from the plan).
+- `--style "<hint>"` — add it only if CONCEPT.md Notes names a style.
+- **Baseline check:** if the CONTEXT block's baseline differs from `BASELINE_POS` (CHAPTER_PLAN.md `**World baseline:**`), run again with `--position "<BASELINE_POS>"` (or `--position none` when it is null). The chapter was planned against the plan's baseline.
 
 The script outputs — in a single result, with labelled section headers:
 1. **Style file** — internalize every section, especially §9 Forbidden Elements and §10 Style Excerpt.
 2. **Most recent completed chapter** — for voice continuity and open threads.
 3. **`state/Timeline.md`** — scan for recent events the POV character knows about.
 4. **`state/ACTIVE_SCHEMES.md`** — every `Active` or `Complicated` scheme involving an on-stage character in this chapter is a hard constraint on what the prose can say. Internalize the Specifics field for each relevant entry: that verbatim detail is how the lie must be maintained. Also read the Resolution Log — a character whose deception was Exposed earlier in the story cannot behave as if it never happened.
-5. **`state/STORY_FACTS.md`** — every `Current` entry involving on-stage entities is a constraint on what the prose can assert. Do not contradict a Current fact unless the scene's beats explicitly direct a supersession as noted in the plan's Notes for Draft Writer. Also read the Superseded Log — do not accidentally resurrect a superseded fact.
+5. **`state/STORY_FACTS.md`** — every `Current` entry involving on-stage entities is a constraint on what the prose can assert. Do not contradict a Current fact unless the scene's beats explicitly direct a supersession as recorded in the scene's `Scheme / fact dispositions` in the plan (plans written before that field existed keep dispositions in the scene's Notes for Draft Writer). Also read the Superseded Log — do not accidentally resurrect a superseded fact.
 6. **World bible entity files** — source-priority applied automatically (`state/bible/` → `worlds/`). The world bible is ground truth — do not contradict it.
 
 **Without a shell:** read these yourself, in this order: the style file (the only file in `writing_concepts/styles/`, or the one CONCEPT.md Notes names); the most recent `Chapter_NN.md` in `chapters/`; `state/Timeline.md`; `state/ACTIVE_SCHEMES.md`; `state/STORY_FACTS.md`; then each name collected in 4b, taking the first that exists of `state/bible/<type>/<Name>.md`, `worlds/<World>/snapshots/<BASELINE_POS>/<type>/<Name>.md` (if `BASELINE_POS` is set), `worlds/<World>/<type>/<Name>.md`. Types are `characters`, `points_of_interest`, `factions`. A missing file is the same as the script's `⚠ NOT FOUND`.
@@ -133,7 +137,7 @@ If the plan contains an instruction that would require violating the style file'
 #### Writing each scene
 Before writing each scene:
 1. Re-read the Style Excerpt (§10 of the style file).
-2. Re-read the scene entry from CHAPTER_PLAN.md: location, characters, purpose, opens with, beats, closes with. Note any scheme directives under `Notes for Draft Writer`.
+2. Re-read the scene entry from CHAPTER_PLAN.md: location, characters, purpose, opens with, beats, closes with, `Scheme / fact dispositions` and `Notes for Draft Writer`. The dispositions say which schemes the scene must hold, advance or expose and which facts it preserves or supersedes.
 3. Re-read the relevant world bible entries for characters and locations in this scene.
 4. Re-read the ACTIVE_SCHEMES.md entries for any on-stage character who is a scheme Owner or Target. For schemes the plan directs you to maintain, the dialogue and internal monologue must not leak the concealed truth; use the Specifics field as the exact shape the lie takes. For schemes the plan directs you to expose or resolve, land that beat clearly enough that the `story-analyzer` can see it.
 5. Re-read the STORY_FACTS.md entries Related to on-stage entities. Prose must not contradict Current facts unless the scene's beats explicitly direct a supersession as noted in the plan.
@@ -143,6 +147,8 @@ Then write:
 - Write through the beats in the order listed. A beat is a story unit — it may take one paragraph or several. Honour the plan's intent without padding it.
 - Close the scene precisely on the "Closes with" beat.
 - For the final scene: the closing beat of the final scene must be the OUTLINE.md ending beat as reproduced in CHAPTER_PLAN.md.
+- **Save the scene** to the working draft before starting the next one (see "The working draft"). In Autonomous mode, do this after every scene, without stopping to present it.
+- **Resuming:** before writing scene K+1, read the last scene in the working draft and continue from its final moment, in its voice.
 
 #### Voice and style
 - Maintain the POV character's voice, vocabulary, and interiority throughout the scene. A character who has never been to sea should not use nautical metaphors unless the style file permits borrowed registers.
@@ -154,13 +160,13 @@ Then write:
 #### Scene-by-Scene mode
 After writing each scene, present it to the user. Ask: *"Continue to Scene N, or any adjustments to this scene before I proceed?"* Incorporate any requested changes. Do not start the next scene until the user gives the go-ahead or says to continue.
 
-Keep all approved scene text in the conversation — you will assemble it all into CONTENT.md at the end.
+Save each scene to the working draft once the user approves it (with their changes). Do not rely on the conversation to hold approved scenes.
 
 ---
 
 ### Step 7 — Quality Self-Check
 
-Run after completing all scenes (Autonomous) or after the user approves the final scene (Scene-by-Scene). Check:
+Run after completing all scenes (Autonomous) or after the user approves the final scene (Scene-by-Scene). Work from the working draft: set its first line to `self-check: in progress`, read the file, and make every correction in the file. When the checks are complete, set the first line to `self-check: done` and keep your findings for the structured output. Check:
 
 1. **Forbidden Elements** — scan the full draft for items on the style file's §9 list. Correct any violations before presenting. If a correction would change a plot beat, flag it.
 2. **POV consistency** — no inadvertent POV shifts. Every piece of information in the scene must be accessible to the POV character.
@@ -179,7 +185,7 @@ Run after completing all scenes (Autonomous) or after the user approves the fina
 
 **Autonomous mode — default (no `preview: true`):** proceed directly to Step 9. Note any quality check findings in the structured output after writing.
 
-**Autonomous mode — `preview: true` in prompt:** present the complete assembled prose as a formatted preview. Do not write any files yet. Note any quality check findings. Ask: *"Does this draft look right? Approve to save it, or tell me what to change."* Iterate on requested changes. Write on approval.
+**Autonomous mode — `preview: true` in prompt:** present the complete prose from the working draft as a formatted preview. Do not write `CONTENT.md` yet; requested changes go into the working draft. Note any quality check findings. Ask: *"Does this draft look right? Approve to save it, or tell me what to change."* Iterate on requested changes. Write on approval.
 
 **Scene-by-Scene mode:** after the final scene is approved and the quality self-check is complete, confirm: *"All scenes are written. Ready to assemble and save CONTENT.md?"* Write on confirmation.
 
@@ -190,10 +196,11 @@ Run after completing all scenes (Autonomous) or after the user approves the fina
 On approval:
 
 1. Read `templates/story/content.md` fresh.
-2. Assemble the final prose: replace the `<Chapter prose>` placeholder with the full scene text in scene order. Use `***` between scenes if the style file's §4 permits section breaks; otherwise use a blank line.
+2. Read the working draft. Assemble the final prose from it, not from the conversation: replace the `<Chapter prose>` placeholder with its scene text in scene order, without the `<!-- draft … -->` and `<!-- scene … -->` lines. Use `***` between scenes if the style file's §4 permits section breaks; otherwise use a blank line.
 3. Replace the header placeholders with the actual chapter number, working title, and story name from CHAPTER_PLAN.md.
 4. Write `current_chapter/CONTENT.md` as a complete new file (never patch an old draft in place).
-5. Output the structured summary below.
+5. Read `CONTENT.md` back and check that it holds every scene and ends on the final scene's closing lines. Only then delete the working draft. If the check fails, write `CONTENT.md` again from the working draft; never delete the working draft while `CONTENT.md` is incomplete.
+6. Output the structured summary below.
 
 ---
 

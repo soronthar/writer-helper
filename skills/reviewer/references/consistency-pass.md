@@ -66,7 +66,7 @@ Check all six categories:
 - **Moderate** — a soft contradiction or discrepancy that might be intentional but is not clearly signalled as such. The author needs to make a decision.
 - **Minor** — a potential inconsistency or ambiguity. The text is not obviously wrong, but something does not fully align. Flagged for awareness.
 
-**Deliberate choices:** if a potential inconsistency could plausibly be intentional, mark it **Minor** with the note: *"Possible deliberate choice — verify with author."*
+**Deliberate choices:** if a potential inconsistency could plausibly be intentional, mark it **Minor** with the note: *"Possible deliberate choice — verify with author."* Set **Author decision required** to `Yes` with the question, and **Suggested correction** to "Verify with author".
 
 **World bible gaps:** if the world bible is silent on a point the chapter addresses, do not flag it as an inconsistency. Note it in Reviewer Notes as a gap, and suggest the `writing-assistant` be invoked to document it.
 

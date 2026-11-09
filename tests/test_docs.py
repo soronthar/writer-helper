@@ -43,7 +43,7 @@ class Links(unittest.TestCase):
         for doc in DOCS:
             if doc.name in ("CHANGELOG.md",) or "development" in doc.parts:
                 continue
-            for name in re.findall(r"\b((?:wr_\w+|load_\w+|query_position|create_snapshot|promote_chapter)\.py)\b",
+            for name in re.findall(r"\b((?:wr_\w+|load_\w+|query_position|create_snapshot|promote_chapter|new_story|world_order)\.py)\b",
                                    doc.read_text(encoding="utf-8")):
                 self.assertIn(name, scripts, f"{doc.name} names {name}")
 

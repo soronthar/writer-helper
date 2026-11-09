@@ -27,6 +27,10 @@ DIV = "═" * 60
 
 MARKER = "writing-room.toml"
 SUPPORTED_LAYOUT = 1
+# Temporary working files (saved loader output, drafts being assembled). Never a source of truth;
+# safe to delete at any time. Paths inside mirror the project: stories/<Story>/…, worlds/<World>/….
+WORK_DIR = ".writing-room-work"
+DEFAULT_OUTPUT = "<work dir>"  # the value --output takes when given without a path
 FRAMEWORK_DIR = Path(__file__).resolve().parent.parent
 
 # Logical project paths that fall back to the framework's shared/ directory.
@@ -217,6 +221,51 @@ def in_project(root):
         yield
     finally:
         os.chdir(previous)
+
+
+def add_output_arg(parser):
+    parser.add_argument("--output", nargs="?", const=DEFAULT_OUTPUT, default="",
+                        help=f"save the output to a file and print a receipt; without a path, under {WORK_DIR}/")
+
+
+def output_path(value, scope, name):
+    """Where --output writes, as an absolute Path. Without a path: <root>/WORK_DIR/<scope>/<name>
+    (scope is a project path such as 'stories/<Story>'); otherwise the path, relative to the project root."""
+    if value == DEFAULT_OUTPUT:
+        work = Path(WORK_DIR)
+        path = work / Path(*[p for p in Path(scope).parts if p not in ("..", ".")]) / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not (work / ".gitignore").exists():
+            (work / ".gitignore").write_bytes(b"# Writing Room temporary working files\n*\n")
+    else:
+        path = Path(value)
+        path.parent.mkdir(parents=True, exist_ok=True)
+    return path.resolve()
+
+
+def save_output(text, path):
+    with open(path, "w", encoding="utf-8", newline="") as fh:
+        fh.write(text)
+
+
+def receipt_header(path, text, items, warnings):
+    return [f"Wrote {path} — {text.count(chr(10))} lines, {items} items, {warnings} warning(s).",
+            "Read every range below before relying on the file; one large read can be cut short.", ""]
+
+
+def text_receipt(text, path):
+    """A receipt for output made of ═-delimited blocks: one line per block header with its line range."""
+    lines = text.split("\n")
+    if text.endswith("\n"):
+        lines.pop()
+    # Each block is: blank line, DIV, header line(s), DIV, content. heads = indexes of the first header line.
+    heads = [h for h in range(2, len(lines)) if lines[h - 2] == "" and lines[h - 1] == DIV and lines[h] != DIV]
+    rows = []
+    for n, h in enumerate(heads):
+        start, end = h - 1, (heads[n + 1] - 2 if n + 1 < len(heads) else len(lines))  # 1-based, from the blank line
+        rows.append(f"  lines {start}-{end}  {lines[h]}")
+    warnings = sum(1 for h in heads if "⚠" in lines[h])
+    return "\n".join(receipt_header(path, text, len(rows), warnings) + rows) + "\n"
 
 
 def snapshot_lookup(world, position):

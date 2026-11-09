@@ -6,7 +6,9 @@ Usage:
 
 Reports the Python version, the framework directory and its shared files, how
 the project root was found, the marker/layout, and every layout-v1 problem
-(errors) or oddity (warnings, including a possibly stale SUMMARY.md).
+(errors) or oddity (warnings, including a possibly stale SUMMARY.md, and project templates or
+craft files that are unedited copies hiding the framework's current ones), and whether AGENTS.md
+names an existing framework folder (the Writing Room paths block, see wr_paths.py).
 Read-only. Exit code 0 if there are no errors, 1 if there are, 2 if no project was found.
 """
 
@@ -18,6 +20,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from common import FRAMEWORK_DIR, MARKER, SUPPORTED_LAYOUT, ProjectNotFound, check_layout, find_root, make_parser, read_marker  # noqa: E402
 from wr_layout import check  # noqa: E402
+from wr_templates import classify, summary  # noqa: E402
+from wr_paths import check as check_paths, read as read_paths  # noqa: E402
 
 MIN_PYTHON = (3, 9)
 SHARED_REQUIRED = ("templates/world/character.md", "templates/story/concept.md",
@@ -77,6 +81,13 @@ def main():
         if old:
             warnings.append("old framework files are still in the project (" + ", ".join(old) + "); once the new "
                             "skills are installed, `wr_migrate.py --retire-legacy` moves them aside (reversible)")
+        warnings += summary(classify(root))
+        e, w = check_paths(root)
+        errors += e
+        warnings += w
+        written, has_guide = read_paths(root)
+        info["wr_paths"] = (written if written else "no Writing Room paths block in AGENTS.md") if has_guide else \
+            "no AGENTS.md (skills look for writing-room beside their own folder)"
 
     if a.json:
         print(json.dumps({"info": info, "errors": errors, "warnings": warnings}, indent=2))

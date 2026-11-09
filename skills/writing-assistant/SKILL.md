@@ -13,21 +13,22 @@ You do not write story prose. You do not draft chapters. You are the keeper of f
 
 ## Files
 
-Shared rules, the meaning of `<WR>`, template lookup and the project layout: `../writing-room/references/conventions.md` and `../writing-room/references/layout.md`. Paths below are relative to the project root.
+`<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project. Shared rules, template lookup and the project layout: `<WR>/references/conventions.md` and `<WR>/references/layout.md`. Templates (`templates/…`) and craft files (`writing_concepts/story_structure/…`, `archetypes/…`, `tropes/…`) are the project's own copy if it has that file, otherwise the framework's under `<WR>/shared/` ("Writing Room paths" gives the exact folders). Every other path below is relative to the project root.
 
 - Reads and writes: `worlds/<World>/` (`DESCRIPTION.md`, `HOOKS.md`, `SUMMARY.md`, and the `characters/`, `factions/`, `mythology/`, `points_of_interest/` folders, one `.md` file per element). Templates are in `templates/world/`.
 - Reads only: `writing_concepts/archetypes/` and `writing_concepts/tropes/` (user-managed reference; never modify). You do not use `story_structure/` or `styles/`.
 - Does not touch `stories/`. Story-specific copies of the bible live in `stories/<Story>/state/bible/` and are maintained by the `story-analyzer` skill.
 
-**Naming conventions:**
-- World directories live directly inside `worlds/`. Example: `worlds/Aethermoor/`.
-- Character files are named after the character in Title Case: `characters/Mara Quill.md`.
-- Location files are named after the location in Title Case: `points_of_interest/The Shattered Spire.md`.
-- Mythology files are named after the myth title in Title Case: `mythology/The First Breaking.md`.
-- File names must match the `# Heading` at the top of the file.
+**Naming conventions** (these are patterns for naming new files, not files to read; the names in examples throughout this skill are invented):
+- World directories live directly inside `worlds/`: `worlds/<World Name>/`.
+- Character files are named after the character in Title Case: `characters/<Character Name>.md`.
+- Faction files are named after the faction in Title Case: `factions/<Faction Name>.md`.
+- Location files are named after the location in Title Case: `points_of_interest/<Location Name>.md`.
+- Mythology files are named after the myth title in Title Case: `mythology/<Myth Title>.md`.
+- File names must match the `# Heading` at the top of the file. For example, a character called Mara Quill (an invented name) is `characters/Mara Quill.md` and starts with `# Mara Quill`.
 
 **Obsidian wiki links:**
-- In any table column that references a named world element — characters, factions, locations, or institutions — always use Obsidian wiki link format: `[[Name]]`. Example: `[[Doran Pike]]`, `[[Harbor Guild]]`, `[[Harrowmere]]`.
+- In any table column that references a named world element — characters, factions, locations, or institutions — always use Obsidian wiki link format: `[[Name]]`, for example `[[Doran Pike]]` or `[[Harbor Guild]]` (invented names).
 - This applies to: the **Person** column in character Relationships tables; the **Name** column in faction Key Members and Relationships tables; the **Name** column in POI Key Inhabitants / Factions tables.
 - `[[Name]]` resolves to any file named `Name.md` anywhere in the vault. If the file does not yet exist, Obsidian will offer to create it — this is intentional and useful.
 - Do not include folder paths inside the brackets: write `[[Doran Pike]]`, never the folder name followed by a slash and the name.
@@ -215,7 +216,7 @@ After every create or update operation, provide this summary:
 
 ## SUMMARY.md Maintenance
 
-After every successful create or update operation, regenerate the world's `SUMMARY.md` by following `../writing-room/references/summary-regeneration.md`. Add the line it specifies (`**SUMMARY.md:** Regenerated — N characters, N factions, N locations, N myths`) to the structured output.
+After every successful create or update operation, regenerate the world's `SUMMARY.md` by following `<WR>/references/summary-regeneration.md`. Add the line it specifies (`**SUMMARY.md:** Regenerated — N characters, N factions, N locations, N myths`) to the structured output.
 
 On direct user request to regenerate or refresh SUMMARY.md without a create/update trigger, do the same. This is explicitly in scope. The user can also run the `world-archivist` skill to regenerate it; both produce the same result.
 

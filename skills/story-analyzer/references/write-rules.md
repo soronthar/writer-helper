@@ -1,23 +1,24 @@
-# Write rules (Step 9a–9g)
+# Write rules (Step 8a–8g)
 
-Used in Step 9 in both modes. Paths are relative to the project root.
+Used in Step 8 in both modes. Paths are relative to the project root.
 
-**9a — Character files:**
-- File exists in `state/bible/characters/`: update it in place — change the Current Status block and append to Notes, as one change covering the affected section.
-- File only in `worlds/<World>/characters/`: read the full content, make all changes, and write the full updated content to `state/bible/characters/<Name>.md` (a new file; never modify the world copy).
+**8a — Character files:** start from the file Step 4b loaded for this entity: the source tag the loader printed (`[story-local]`, `[snapshot pos N]` or `[world bible]`). Do not look the entity up again.
+- Loaded `[story-local]` (`state/bible/characters/<Name>.md`): update it in place — change the Current Status block and append to Notes, as one change covering the affected section.
+- Loaded `[snapshot pos N]` or `[world bible]`: take that file's full content, make all changes, and write the result to `state/bible/characters/<Name>.md` (a new file; never modify the snapshot or the world copy). A snapshot copy is the right base: it is the world as it stood before this story.
+- A loader notice that a file sits directly in `state/bible/` (outside its type folder): stop and ask the author which version is current. Do not merge, move or delete it yourself.
 
-**9b — Location files:** Same pattern, targeting `state/bible/points_of_interest/`.
+**8b — Location files:** Same pattern, targeting `state/bible/points_of_interest/`.
 
-**9c — Faction files:** Same pattern, targeting `state/bible/factions/`.
+**8c — Faction files:** Same pattern, targeting `state/bible/factions/`.
 
-**9d — Timeline:**
+**8d — Timeline:**
 Append the new entry to `state/Timeline.md` at the end of the Events section. Never overwrite existing entries. Format:
 
 ```
 - **[Chapter N — <Working Title>]** <in-world date or period if the story has established one; otherwise omit the date portion> — <2–3 sentences: what happened, what changed, how the story moved. Include the most significant plot event, the most significant character state change, and the chapter's final beat.>
 ```
 
-**9d-bis — ACTIVE_SCHEMES.md:**
+**8d-bis — ACTIVE_SCHEMES.md:**
 
 Apply all scheme changes identified in Step 5:
 
@@ -29,7 +30,7 @@ If no scheme changes were identified, skip this step — do not touch the file.
 
 For non-trivial restructurings (many status changes at once, reordering), rewrite the whole file rather than chaining many small changes.
 
-**9d-ter — STORY_FACTS.md:**
+**8d-ter — STORY_FACTS.md:**
 
 Apply all fact changes identified in Step 5 — Story Facts:
 
@@ -41,30 +42,35 @@ If no fact changes were identified, skip this step — do not touch the file.
 
 For non-trivial restructurings (many supersessions at once), rewrite the whole file rather than chaining many small changes.
 
-**9e — WORLD_ORDER.md:**
+**8e — WORLD_ORDER.md:**
+
+If you can run commands, run `world_order.py` as one line and do not edit the table yourself:
+
+```bash
+python "<WR>/scripts/world_order.py" chapter --world "worlds/<World Name>" --story "<Story Name>" --chapter <N>
+```
+
+Add `--book <B>` for a Book Series. The script reads the Format from `CONCEPT.md` and the `**Total chapters:**` from `OUTLINE.md`, applies the cases below, updates the `Last synchronized` line, and ends with `Story complete: yes` or `no`, which step 8f uses. Copy its `Changed …` line into the structured output. If it prints `Nothing was changed:`, report the reason it gives and skip to 8f. **Without a shell:** follow sub-steps 1–5.
 
 1. Read `worlds/<World>/WORLD_ORDER.md`. If absent: note in structured output ("WORLD_ORDER.md not found — skipped") and skip the remaining sub-steps.
 
-2. Check `CONCEPT.md` Format field to determine the unit type:
-   - Short Story / Novelette → `Full Story`
-   - Book → `Ch. N` (N = current chapter number)
-   - Book Series → `Bk. N Ch. M`
+2. Check `CONCEPT.md` Format field to determine the unit type, and the status this chapter gives it:
+   - Short Story / Novelette → `Full Story`. Status `Complete` only when this is the last chapter (N equals OUTLINE.md's `**Total chapters:**`); otherwise `In Progress`. A `Complete` row is never set back to `In Progress`.
+   - Book → `Ch. N` (N = current chapter number), Status `Complete`
+   - Book Series → `Bk. N Ch. M`, Status `Complete`
 
 3. Search the Story Order table for rows matching this story name:
 
    **Case A — No matching row:**
-   Append a new row (insert before the closing `---`):
-   `| <last_position + 1> | [[<Story>]] | <unit> | — | Complete | |`
+   Append a new row at the end of the table:
+   `| <last_position + 1> | [[<Story>]] | <unit> | — | <status> | |`
    Note in output: "New row at position N (default). Run the `world-archivist` skill to reposition if needed."
 
    **Case B — Matching row with Unit = `TBD`:**
-   Replace that row's Unit and Status values:
-   - Short Story / Novelette: Unit → `Full Story`, Status → `Complete`
-   - Book Ch. 1 / Book Series Bk. N Ch. 1: Unit → `Ch. 1` / `Bk. N Ch. 1`, Status → `In Progress`
-   - All other chapters: Unit → `Ch. N` / `Bk. N Ch. M`, Status → `Complete`
+   Replace that row's Unit and Status with the unit and status from sub-step 2, and clear a `Placeholder — expand after Outliner` note.
 
-   **Case C — Matching row for this exact chapter unit (e.g., `Ch. 3`):**
-   Update Status to `Complete`.
+   **Case C — Matching row for this exact chapter unit (e.g., `Ch. 3`, or `Full Story`):**
+   Update Status to the status from sub-step 2.
 
    **Case D — Processing Ch. N where Ch. N-1 row exists but Ch. N row does not:**
    Insert a new row immediately below the Ch. N-1 row at position = (Ch. N-1 position) + 1.
@@ -75,15 +81,17 @@ For non-trivial restructurings (many supersessions at once), rewrite the whole f
 
 4. Update the `Last synchronized` line.
 
-5. Add to structured output: `**WORLD_ORDER.md:** <action taken — e.g., "Ch. 3 → Complete" | "New row at position N (default)" | "TBD → Ch. 1 In Progress" | "File not found — skipped">`
+5. Add to structured output: `**WORLD_ORDER.md:** <action taken — e.g., "Ch. 3 → Complete" | "Full Story → In Progress (Ch. 2 of 6)" | "New row at position N (default)" | "TBD → Ch. 1, Complete" | "File not found — skipped">`
 
 ---
 
-**9f — Story Completion Check and Snapshot:**
+**8f — Story Completion Check and Snapshot:**
 
-After step 9e, determine whether the story (or book, for a series) is now fully complete:
+After step 8e, determine whether the story (or book, for a series) is now fully complete:
 
-- **Short Story / Novelette:** complete when the `Full Story` row in WORLD_ORDER.md has Status `Complete`. (Always true after 9e for a short story.)
+If `world_order.py` ran in 8e, its `Story complete:` line is the answer: `yes` means complete, `no` means not yet. Otherwise:
+
+- **Short Story / Novelette:** complete when the `Full Story` row in WORLD_ORDER.md has Status `Complete`, which 8e sets only after the last chapter.
 - **Book:** complete when all chapters listed in OUTLINE.md have Status `Complete` in WORLD_ORDER.md. Read OUTLINE.md's `**Total chapters:**` field and compare against `Complete` rows.
 - **Book Series:** complete when all books are marked `Complete`. Out of scope for automatic detection — skip for series.
 
@@ -98,7 +106,7 @@ After step 9e, determine whether the story (or book, for a series) is now fully 
      --format json
    ```
 
-   Extract `position` from the JSON output. **Without a shell:** read `worlds/<World>/WORLD_ORDER.md` and take the Position cell of this story's row.
+   Extract `position` from the JSON output. **Without a shell:** read `worlds/<World>/WORLD_ORDER.md` and take the Position cell of this story's first row (a Book has one row per chapter; its snapshot goes at the first, where the next story looks for it).
 
 2. Automatically create a world state snapshot. If you can run commands, run `create_snapshot.py`:
 
@@ -110,7 +118,7 @@ After step 9e, determine whether the story (or book, for a series) is now fully 
      --unit     "<Full Story|Ch. N|...>"
    ```
 
-   **Without a shell:** follow `../writing-room/references/snapshot-manual.md`.
+   **Without a shell:** follow `<WR>/references/snapshot-manual.md`.
 
    This runs without user prompting. Note: the snapshot captures the **current world state** (before consolidation). If the user consolidates the story's state/bible/ into worlds/ later, they should re-run `create_snapshot.py` to update the snapshot.
 
@@ -118,7 +126,7 @@ After step 9e, determine whether the story (or book, for a series) is now fully 
    `**Snapshot:** Created at worlds/<World>/snapshots/<position>/ — world state captured after [[<Story>]] completed.`
    `  ⚠ This snapshot reflects the pre-consolidation world. After running `world-archivist` → Consolidate, re-run create_snapshot.py to update.`
 
-**If the story is NOT yet complete** (mid-book): skip 9f entirely. No snapshot is created mid-story.
+**If the story is NOT yet complete** (mid-book): skip 8f entirely. No snapshot is created mid-story.
 
 After completing a story, add this completion hint to the structured output:
 ```
@@ -128,7 +136,7 @@ Then re-run `create_snapshot.py` to update the snapshot with the consolidated wo
 
 ---
 
-**9g — OUTLINE.md Payoff Annotations:**
+**8g — OUTLINE.md Payoff Annotations:**
 
 Apply all annotation changes identified in Step 5 — Outline Payoff Annotations. If no annotation changes were identified, skip this step — do not touch OUTLINE.md.
 

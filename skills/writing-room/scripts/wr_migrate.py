@@ -17,7 +17,9 @@ agents and commands:
 
 They are MOVED (never deleted) to .writing-room-legacy/ inside the project, keeping their relative
 paths, so undoing it is moving them back. Your worlds, stories, writing_concepts/ (styles, tropes,
-archetypes) and templates/ are never touched, and neither is .claude/settings*.json. After retiring,
+archetypes) and the templates you edited are never touched, and neither is .claude/settings*.json.
+Template and craft files that are unchanged copies of a shipped framework version (see
+wr_templates.py) are retired too, since they would hide the skills' current ones. After retiring,
 AGENTS.md and CLAUDE.md (which imports it) are added if absent. Install the new skills first
 (wr_install.py), because the old scripts folder is among what is retired.
 
@@ -36,6 +38,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import (FRAMEWORK_DIR, MARKER, SUPPORTED_LAYOUT, ProjectNotFound, find_root,  # noqa: E402
                     is_legacy_root, make_parser, read_marker)
 from wr_init import MARKER_TEXT  # noqa: E402
+from wr_templates import classify  # noqa: E402
+from wr_templates import retire as retire_files  # noqa: E402
 
 LEGACY_FRAMEWORK = (".claude", "CLAUDE.md", "README.md", "room_rules", "scripts", "templates")
 RETIRE = (".claude/agents", ".claude/commands", "CLAUDE.md", "README.md", "room_rules", "scripts")
@@ -101,6 +105,8 @@ def main():
         return 1
 
     to_move, blocked = plan_retire(root) if a.retire_legacy else ([], [])
+    groups = classify(root)
+    stale = groups["older"] + groups["same"] if a.retire_legacy else []
     word = "Would" if not a.apply else "Will"
     if need_marker:
         print(f"{word} write {MARKER} (layout = {SUPPORTED_LAYOUT}).")
@@ -108,6 +114,10 @@ def main():
         print(f"{word} move {rel} -> {ARCHIVE}/{rel}")
     for rel in blocked:
         print(f"Skipping {rel}: {ARCHIVE}/{rel} already exists.")
+    if stale:
+        print(f"{word} move {len(stale)} unedited template/craft file(s) -> {ARCHIVE}/ "
+              f"({len(groups['older'])} older than the framework's, {len(groups['same'])} the same); "
+              f"{len(groups['edited'])} edited or your own are kept")
     guidance = [n for n in ("AGENTS.md", "CLAUDE.md")
                 if a.retire_legacy and (not (root / n).exists() or n in to_move)]
     for n in guidance:
@@ -117,9 +127,13 @@ def main():
         if left:
             print("Left untouched (old framework files inside the project): " + ", ".join(left))
             print("  Use --retire-legacy once the new skills are installed to archive the agents, commands and scripts.")
-    print("No worlds, stories, styles or templates are modified.")
+        if groups["older"] or groups["same"]:
+            print(f"  --retire-legacy also moves {len(groups['older']) + len(groups['same'])} unedited template/craft "
+                  "file(s) that would hide the framework's current ones.")
+    print("No worlds, stories or styles are modified" + (", nor the templates you edited." if stale else
+                                                          ", nor templates."))
 
-    if not (need_marker or to_move):
+    if not (need_marker or to_move or stale):
         print("\nNothing to do.")
         return 0
     if not a.apply:
@@ -141,14 +155,18 @@ def main():
         dest = root / ARCHIVE / rel
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.move(str(root / rel), str(dest))
+    moved_templates, skipped_templates = retire_files(root, stale)
+    for rel in skipped_templates:
+        print(f"Skipped {rel}: {ARCHIVE}/{rel} already exists.")
     for n in guidance:
         src = FRAMEWORK_DIR / "shared" / "project" / n
         if src.is_file() and not (root / n).exists():
             shutil.copy2(src, root / n)
 
     print("\nDone." + (f" Added {marker.name}." if need_marker else ""))
-    if to_move:
-        print(f"Moved {len(to_move)} item(s) to {ARCHIVE}/. To undo, move them back to their original places.")
+    if to_move or moved_templates:
+        print(f"Moved {len(to_move) + len(moved_templates)} item(s) to {ARCHIVE}/. "
+              "To undo, move them back to their original places.")
     return 0
 
 

@@ -44,7 +44,7 @@ To detect this: for each entity in `state/bible/`, read both the state/bible ver
 
 #### Step 3.3 — Present Consolidation Plan
 
-Present the full plan to the user before touching any file:
+Present the full plan to the user before touching any file (the entity names below are invented; list the story's own):
 
 ```
 Consolidation Plan — [[<Story Name>]] → worlds/<World Name>/
@@ -86,7 +86,7 @@ Always write the full file rather than patching it, since the world version may 
 
 #### Step 3.5 — Resolve Conflicts Interactively
 
-For each conflicting entity, present both versions side by side (or a summary of their differences in the key fields: Current Status, Notes). Ask:
+For each conflicting entity, present both versions side by side (or a summary of their differences in the key fields: Current Status, Notes). Ask (the name is an example):
 
 > *"Conflict: characters/Doran Pike*
 > *  worlds/ version: [Current Status / key Notes summary]*
@@ -173,7 +173,7 @@ python "<WR>/scripts/create_snapshot.py" \
   --unit     "<Full Story|Ch. N|...>"
 ```
 
-**Without a shell:** follow `../writing-room/references/snapshot-manual.md`.
+**Without a shell:** follow `<WR>/references/snapshot-manual.md`.
 
 This creates (or overwrites) the snapshot at `worlds/<World>/snapshots/<position>/` with the now-consolidated world state. The snapshot now reflects the post-story, post-consolidation world — the correct baseline for any story at position N+1.
 
@@ -181,7 +181,7 @@ This creates (or overwrites) the snapshot at `worlds/<World>/snapshots/<position
 
 #### Step 3.9 — Regenerate SUMMARY.md
 
-Run Operation 1 (Regenerate SUMMARY.md, see `../writing-room/references/summary-regeneration.md`) automatically after consolidation completes. This ensures the entity index reflects all newly merged entities.
+Run Operation 1 (Regenerate SUMMARY.md, see `<WR>/references/summary-regeneration.md`) automatically after consolidation completes. This ensures the entity index reflects all newly merged entities.
 
 ---
 

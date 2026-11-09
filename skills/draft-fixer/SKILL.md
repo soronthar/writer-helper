@@ -31,11 +31,11 @@ CONTENT.md (corrected) → story-analyzer → promote-chapter
 
 ## Files
 
-Shared rules, the meaning of `<WR>`, template lookup and the project layout: `../writing-room/references/conventions.md` and `../writing-room/references/layout.md`. Paths below are relative to the project root.
+`<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project. Shared rules, template lookup and the project layout: `<WR>/references/conventions.md` and `<WR>/references/layout.md`. Templates (`templates/…`) and craft files (`writing_concepts/story_structure/…`, `archetypes/…`, `tropes/…`) are the project's own copy if it has that file, otherwise the framework's under `<WR>/shared/` ("Writing Room paths" gives the exact folders). Every other path below is relative to the project root.
 
 - Reads: `current_chapter/current_reviews/Reviewer-*.md` (Reviewer-Consistency.md and Reviewer-Character.md, plus any other reviewer report present), `current_chapter/CHAPTER_PLAN.md`, `current_chapter/CONTENT.md`, `CONCEPT.md` (for the style hint), the style file, `state/ACTIVE_SCHEMES.md` (a fix must not leak what a scheme conceals), `state/STORY_FACTS.md` (a fix must not silently contradict a Current entry), and the template `templates/story/draft_fixer_log.md`.
 - Modifies: `current_chapter/CONTENT.md`.
-- Writes: `current_chapter/current_reviews/Draft-Fixer-Log.md`.
+- Writes: `current_chapter/current_reviews/Draft-Fixer-Log.md` (from the first fix on, as a checkpoint; see Step 8), and a backup of the unfixed draft, `.writing-room-work/<unit>/current_chapter/Chapter_NN.before-fixes.md`. `<unit>` is the story folder (`stories/<Story>`), or the book folder for a Book Series; `NN` is the chapter number with two digits.
 - **Book Series** keep `current_chapter/` and `state/` in `stories/<Series>/Book NN - <Title>/`.
 
 ---
@@ -44,7 +44,7 @@ Shared rules, the meaning of `<WR>`, template lookup and the project layout: `..
 
 ### Step 1 — Mode Selection
 
-Ask the user to choose a mode:
+If the request already names a mode, use it. Otherwise ask the user to choose a mode:
 
 - **Autonomous** — all fixes applied without approval gates. "Verify with author" items always pause regardless of mode.
 - **Preview All** — all proposed fixes assembled as a numbered before/after list. User excludes items by number and approves the rest in one step. VERIFY items handled interactively after the batch.
@@ -66,7 +66,9 @@ Ask the user to choose a mode:
 
 - **CONTENT.md does not exist:** stop. Tell the user to run the `draft-writer` skill first.
 - **No review reports found:** list `current_chapter/current_reviews/`. If the directory is absent or contains no reviewer files, stop. Tell the user: *"No reviewer reports found in current_reviews/. Run the `reviewer` skill before the `draft-fixer`."*
-- **Fix log already exists** (`Draft-Fixer-Log.md`): warn the user. Ask: *"A fix log already exists for this chapter — the `draft-fixer` may have already run. Run again and overwrite the log?"* Continue on explicit confirmation.
+- **Review not finished:** a report whose `**Review status:**` line says `In progress`, or a `Reviewer-Consistency.md` with no `Reviewer-Character.md`, means the `reviewer` stopped partway. Stop and tell the user: *"The review for this chapter is not finished (<which report>). Run the `reviewer` skill again; it resumes where it stopped."* Continue with the partial review only if the user explicitly says so, and name the missing pass in the fix log. (A report without a status line is from an older version and counts as finished.)
+- **Fix log in progress** (`Draft-Fixer-Log.md` whose `**Fix status:**` says `In progress`): an earlier session stopped partway. Tell the user how far it got (*"The fixes for this chapter stopped partway: K of M entries done."*) and ask: resume, or start over? **To resume:** finish Step 4, read the log's Fix Plan, and skip Steps 5–7: the plan's order, decisions and answers stand, and the user is not asked again about anything already decided. Continue Step 8 with the first row whose State is `pending`. For a pending `Apply` row, first check the text: if the original passage is still there exactly once, apply the fix; if instead the corrected passage is there, the fix landed before the log was updated, so mark it `applied`; if neither, mark it `not placed`. **Start over:** restore `CONTENT.md` from the backup named on the log's `**Original draft:**` line (ask first, and say that this undoes the fixes already applied), then run from Step 5.
+- **Fix log already exists** (`Draft-Fixer-Log.md` with `**Fix status:** Complete`, or no status line, which is from an older version): warn the user. Ask: *"A fix log already exists for this chapter — the `draft-fixer` may have already run. Run again and overwrite the log?"* Continue on explicit confirmation.
 
 ---
 
@@ -75,20 +77,14 @@ Ask the user to choose a mode:
 **4a — Load the reviews, style and registries.** If you can run commands, run `load_bible.py` once:
 
 ```bash
-python "<WR>/scripts/load_bible.py" \
-  --story       "<story_path>"           \
-  --world       "worlds/<World Name>"    \
-  --reviews-dir "<story_path>/current_chapter/current_reviews" \
-  --no-last-chapter                      \
-  --no-timeline                          \
-  [--position   "<BASELINE_POS>"]        \
-  [--style      "<style hint>"]
+python "<WR>/scripts/load_bible.py" --for draft-fixer --story "<story_path>" --style "<hint>" --output
 ```
 
-- `--reviews-dir` — loads all `Reviewer-*.md` files present in `current_reviews/`. Absent reports (any reviewer that has not run) are skipped silently.
-- `--position` — pass `BASELINE_POS` if set (from CHAPTER_PLAN.md). Ensures that when the style file or reviewer notes reference world facts, those facts are checked against the correct historical world state.
-- `--style` — pass the style name from CHAPTER_PLAN.md's `Style defaults from:` line as a hint (already in context from Step 2). Ignored if only one style file exists.
-- `--no-last-chapter` and `--no-timeline` — the `draft-fixer` does not need these. Note: `ACTIVE_SCHEMES.md` and `STORY_FACTS.md` are both loaded by default (suppressed only by `--no-schemes` and `--no-facts` respectively, which you do not pass). Treat every `Active` and `Complicated` scheme entry as a hard constraint on any prose you compose below; treat every `Current` fact entry as a constraint the fix must not silently contradict.
+Write it as one line (see conventions, "Loading story context"). `--for draft-fixer` loads every `Reviewer-*.md` in `current_chapter/current_reviews/` (reports that do not exist are skipped), the style file and both registries, but not the Timeline or the last chapter. It works out the world and the baseline snapshot; the CONTEXT block at the top of the output says what it used.
+
+- `--style "<hint>"` — the style name from CHAPTER_PLAN.md's `Style defaults from:` line (already in context from Step 2). Leave it out if the plan names none.
+- **Baseline check:** if the CONTEXT block's baseline differs from `BASELINE_POS` (from CHAPTER_PLAN.md), run again with `--position "<BASELINE_POS>"` (or `--position none` when it is null).
+- Treat every `Active` and `Complicated` scheme entry in `ACTIVE_SCHEMES.md` as a hard constraint on any prose you compose below. Treat every `Current` fact entry in `STORY_FACTS.md` as a constraint the fix must not silently contradict.
 
 The script outputs: all available reviewer reports, `state/ACTIVE_SCHEMES.md`, then the style file. Extract every issue entry from the reports: severity, category, passage (quoted text), discrepancy, source, suggested correction, and whether it is marked "Verify with author." Internalize the style file's §9 (Forbidden Elements), §6 (Dialogue), §1 (Narrative Voice), and §10 (Style Excerpt).
 
@@ -115,7 +111,7 @@ For each issue in the list, record:
 - The quoted passage from the report's **Passage** field
 - The discrepancy description
 - The reviewer's suggested correction
-- Whether it is flagged "Verify with author"
+- Whether it needs the author: **Author decision required** is `Yes`, or the Suggested correction (or a note) says "Verify with author" or asks for confirmation. Treat any of these as a VERIFY item; fitting the story is not the author's approval.
 
 ---
 
@@ -152,6 +148,16 @@ If the user provides a fix, compose it following the same rules above, confirm t
 ---
 
 ### Step 8 — Apply Fixes (per mode)
+
+#### Checkpoints (all modes)
+
+Fixes change `CONTENT.md` in place, and the decisions the user makes exist only in this session, so record progress on disk as you go:
+
+1. **Before the first fix, back up the draft:** copy `CONTENT.md` byte for byte to `.writing-room-work/<unit>/current_chapter/Chapter_NN.before-fixes.md`, unless that file already exists (it then holds the original from an earlier run; keep it). Read the backup's last lines back to check the copy is complete.
+2. **Then write the fix log** from `templates/story/draft_fixer_log.md` with `**Fix status:** In progress — 0 of M entries done`, the `**Original draft:**` line, and the Fix Plan: one row per issue in sorted order, with its Decision as far as it is known (`Apply`, `Skip — <reason>` for conflicts, `Ask author` for VERIFY items; in Preview All, write it after the user approves the batch, with excluded items as `Skip — excluded by author`; in Interactive, rows start as `Ask author` and are decided one by one). Every State starts as `pending`.
+3. **After each fix or decision,** update the log and write it again: the row's Decision (the author's answer, word for word in substance) and State, the `K of M` count, and for an applied fix its entry under Applied Fixes. Do this before moving to the next fix. A fix you could not place is `not placed`.
+
+If the session stops, the log says what is done and what is left, and Step 3 resumes from it.
 
 #### Autonomous Mode
 
@@ -227,7 +233,7 @@ This pass is a safeguard, not a rewrite. If a fix integrates cleanly, nothing ch
 ### Step 10 — Write Outputs
 
 1. CONTENT.md has already been modified by the replacements in Step 8 — no additional write is needed.
-2. **Write the fix log:** read `templates/story/draft_fixer_log.md` fresh. Fill every section:
+2. **Finish the fix log** (written as a checkpoint since Step 8): check that no Fix Plan row is still `pending`, set `**Fix status:** Complete`, and fill every section:
    - **Applied Fixes:** one entry per applied fix (original passage, corrected passage, reason).
    - **Skipped Issues:** one table row per skipped issue (source, severity, label, reason).
    - **Verify-with-Author Items:** one row per VERIFY item (label, final resolution).
@@ -277,6 +283,7 @@ In these cases: log the issue as "Escalated to author" in the fix log and descri
 **Files modified:**
 - stories/<path>/current_chapter/CONTENT.md
 - stories/<path>/current_chapter/current_reviews/Draft-Fixer-Log.md
+- Original draft kept at: .writing-room-work/<path>/current_chapter/Chapter_NN.before-fixes.md (compare or restore it if a fix went wrong)
 
 **Next step:** run the `story-analyzer` skill to record character/location changes and update the Timeline. Then run `promote-chapter` to move `current_chapter/CONTENT.md` to `chapters/Chapter_N.md`.
 ```

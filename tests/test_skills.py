@@ -82,10 +82,12 @@ class LintCatchesProblems(unittest.TestCase):
         self.assertEqual(self.errors(), "")
 
     def test_missing_references_detected(self):
-        self.skill("refs", "name: refs\ndescription: \"x\"", "See `references/nope.md` and `../other/x.md`.\n")
+        self.skill("refs", "name: refs\ndescription: \"x\"", "See `references/nope.md`, `<WR>/references/nope.md` "
+                   "and `../other/x.md`.\n")
         out = self.errors()
-        self.assertIn("references/nope.md", out)
-        self.assertIn("../other/x.md", out)
+        self.assertIn("referenced file 'references/nope.md'", out)
+        self.assertIn("referenced path '<WR>/references/nope.md' does not exist", out)
+        self.assertIn("sibling-relative path '../other/'", out)
 
 
 def promote(*args, root):
@@ -189,6 +191,10 @@ PROTECTED = {
                      "Forbidden Elements", "Style Excerpt", "Specifics", "Resolution Log", "Superseded Log"],
 }
 
+# Phrases deliberately used less often than in the legacy agent; they must still appear.
+# planner: scheme/fact dispositions moved from "Notes for Draft Writer" to their own scene field.
+RELOCATED = {("planner", "Notes for Draft Writer")}
+
 
 class ConversionFidelity(unittest.TestCase):
     def test_protected_phrases_survive_conversion(self):
@@ -199,7 +205,8 @@ class ConversionFidelity(unittest.TestCase):
             parts = [folder / "SKILL.md", *sorted((folder / "references").glob("*.md")), *shared]
             new = "\n".join(f.read_text(encoding="utf-8") for f in parts)
             for ph in phrases:
-                self.assertGreaterEqual(new.count(ph), old.count(ph), f"{name}: '{ph}' lost or altered")
+                floor = 1 if (name, ph) in RELOCATED else old.count(ph)
+                self.assertGreaterEqual(new.count(ph), floor, f"{name}: '{ph}' lost or altered")
 
     def test_script_using_skills_have_a_no_shell_fallback(self):
         for name in ("planner", "draft-writer", "reviewer", "draft-fixer", "story-analyzer", "promote-chapter"):
@@ -214,7 +221,7 @@ class ConversionFidelity(unittest.TestCase):
         self.assertGreaterEqual(ref_text.count("Without a shell"), 3)
         for name in ("outliner", "story-ideator"):
             text = (REPO / "skills" / name / "SKILL.md").read_text(encoding="utf-8")
-            self.assertIn("../writing-room/references/world-loading.md", text, name)
+            self.assertIn("<WR>/references/world-loading.md", text, name)
 
     def test_every_script_call_outside_the_runtime_has_a_no_shell_path(self):
         for md in sorted((REPO / "skills").glob("*/**/*.md")):
@@ -235,6 +242,154 @@ class ConversionFidelity(unittest.TestCase):
             path = REPO / "skills" / cur / "SKILL.md"
             if path.exists():
                 self.assertRegex(path.read_text(encoding="utf-8"), rf"\*\*Next step:\*\*[^\n]*`{nxt}`", cur)
+
+
+
+class WorkflowContracts(unittest.TestCase):
+    """Spec conflicts found in a recorded run; each must stay resolved."""
+
+    def read(self, *parts):
+        return (REPO / "skills").joinpath(*parts).read_text(encoding="utf-8")
+
+    def test_loader_commands_are_one_line_presets(self):
+        # Multi-line commands (backslash continuations, [optional] brackets) were copied literally by local models,
+        # which then fell back to reading every file one by one.
+        presets = {"planner": "load_bible.py\" --for planner", "draft-writer": "load_bible.py\" --for draft-writer",
+                   "reviewer": "load_bible.py\" --for reviewer-character", "draft-fixer": "load_bible.py\" --for draft-fixer",
+                   "story-analyzer": "load_bible.py\" --for story-analyzer",
+                   "story-ideator": "load_world.py\" --for story-ideator", "outliner": "load_world.py\" --for outliner"}
+        for name, call in presets.items():
+            self.assertIn(call, self.read(name, "SKILL.md"), name)
+        self.assertIn("load_bible.py\" --for reviewer-consistency", self.read("reviewer", "SKILL.md"))
+        for md in sorted((REPO / "skills").glob("*/**/*.md")):
+            for line in md.read_text(encoding="utf-8").splitlines():
+                if "load_bible.py" in line or "load_world.py" in line:
+                    self.assertFalse(line.rstrip().endswith("\\"), f"{md}: {line}")
+
+    def test_ideator_saves_the_approved_concept_and_scripts_its_bookkeeping(self):
+        # A local-model run lost its context after approval, then saved a concept nobody approved and
+        # failed again and again to hand-edit the WORLD_ORDER.md and HOOKS.md tables.
+        t = self.read("story-ideator", "SKILL.md")
+        self.assertIn(".writing-room-work/worlds/<World Name>/CONCEPT.md", t)
+        self.assertIn("never rebuild the concept from memory", t)
+        self.assertIn('new_story.py" --world "<World Name>" --story "<Story Name>"', t)
+        self.assertIn("<!-- draft: not yet approved -->", t)
+        self.assertIn("**Resume check.**", t)
+        self.assertIn("This is the only question round", t)
+        self.assertIn("If the request names a world that is in the list, that is the confirmation", t)
+        self.assertNotIn("follow the `writing-assistant` skill yourself", t)
+        self.assertIn('--structure "<Structure Name>"', t)
+
+    def test_chapter_plan_has_per_scene_dispositions_and_a_length_directive(self):
+        t = self.read("writing-room", "shared", "templates", "story", "chapter_plan.md")
+        scene = t.split("### Scene 1 of N", 1)[1].split("### Scene 2 of N", 1)[0]
+        self.assertIn("**Scheme / fact dispositions:**", scene)
+        self.assertIn("**Notes for Draft Writer:**", scene)
+        self.assertIn("- **Length:**", t.split("## Style Directives", 1)[1].split("---", 1)[0])
+
+    def test_planner_accepts_a_length_override_and_checks_continuity_without_prose(self):
+        text = self.read("planner", "SKILL.md")
+        qc7 = text.split("7. **Word count plausibility**", 1)[1].splitlines()[0]
+        self.assertIn("Length: Override", qc7)
+        qc8 = text.split("8. **Continuity**", 1)[1].splitlines()[0]
+        self.assertIn("state/Timeline.md", qc8)
+        self.assertNotIn("most recent completed chapter", qc8)
+
+    def test_analyzer_loads_the_same_baseline_and_gates_hooks_after_state_writes(self):
+        text = self.read("story-analyzer", "SKILL.md")
+        load = text.split("### Step 4", 1)[1].split("### Step 5", 1)[0]
+        self.assertIn('--position "<BASELINE_POS>"', load)
+        self.assertIn("snapshots/<BASELINE_POS>/", load)
+        self.assertLess(text.index("### Step 8 — Apply Story-State Changes"), text.index("### Step 9 — Hooks"))
+        hooks = text.split("### Step 9 — Hooks", 1)[1].split("### Step 10", 1)[0]
+        self.assertLess(hooks.index("#### 9c — The gate"), hooks.index("#### 9d — Write approved items only"))
+        self.assertIn("Do not edit `worlds/<World>/HOOKS.md` before the gate", hooks)
+        rules = self.read("story-analyzer", "references", "write-rules.md")
+        self.assertIn("[snapshot pos N]", rules)
+
+    def test_review_issues_carry_an_explicit_author_decision_field(self):
+        for name in ("review_consistency.md", "review_character.md"):
+            t = self.read("writing-room", "shared", "templates", "story", name)
+            self.assertIn("**Author decision required:**", t, name)
+            self.assertIn("**Sources loaded:**", t, name)
+        self.assertIn("**Author decision required** is `Yes`", self.read("draft-fixer", "SKILL.md"))
+
+    def test_reviewer_writes_each_report_when_its_pass_ends_and_resumes(self):
+        text = self.read("reviewer", "SKILL.md")
+
+        def step(n):
+            return text.split(f"### Step {n} ", 1)[1].split("### Step ", 1)[0]
+
+        self.assertIn("**Write `Reviewer-Consistency.md` now.**", step(5))
+        self.assertIn("**Write `Reviewer-Character.md` now, as a checkpoint.**", step(7))
+        self.assertIn("In progress — plan check done; character pass not yet run", step(7))
+        self.assertIn("**Rewrite `Reviewer-Character.md` in full now**", step(8))
+        self.assertNotIn("Hold all", text)  # nothing is kept only in memory until the end
+        resume = step(2)
+        self.assertIn("Resume: Step 3, then Steps 6–8 (skip 4–5)", resume)
+        self.assertIn("In progress — being redone", resume)
+        for name in ("review_consistency.md", "review_character.md"):
+            self.assertIn("**Review status:**", self.read("writing-room", "shared", "templates", "story", name))
+        self.assertIn("**Review not finished:**", self.read("draft-fixer", "SKILL.md"))
+
+
+class DraftWriterCheckpoints(unittest.TestCase):
+    """The draft-writer saves every scene to a working draft and can resume from it."""
+
+    def test_scenes_are_saved_checked_from_the_file_and_resumable(self):
+        text = (REPO / "skills" / "draft-writer" / "SKILL.md").read_text(encoding="utf-8")
+
+        def step(n):
+            return text.split(f"### Step {n} ", 1)[1].split("### Step ", 1)[0]
+
+        self.assertIn("### The working draft", text)
+        self.assertIn("`<!-- draft: Chapter <N>, <K> of <M> scenes saved; self-check: <not started | in progress | done> -->`", text)
+        self.assertIn("Never write a partial chapter to `current_chapter/CONTENT.md`", text)
+        self.assertIn("read the end of the file back", text)
+        self.assertIn("**Only a working draft exists:**", step(3))
+        self.assertIn("**To resume:**", step(3))
+        self.assertIn("**Save the scene** to the working draft", step(6))
+        self.assertNotIn("Keep all approved scene text in the conversation", text)
+        self.assertIn("set its first line to `self-check: in progress`", step(7))
+        self.assertIn("Assemble the final prose from it, not from the conversation", step(9))
+        self.assertIn("Only then delete the working draft", step(9))
+
+
+class DraftFixerCheckpoints(unittest.TestCase):
+    """The draft-fixer backs up the draft, keeps its log current fix by fix, and resumes from it."""
+
+    def test_backup_checkpoint_log_and_resume(self):
+        text = (REPO / "skills" / "draft-fixer" / "SKILL.md").read_text(encoding="utf-8")
+
+        def step(n):
+            return text.split(f"### Step {n} ", 1)[1].split("### Step ", 1)[0]
+
+        self.assertIn("**Fix log in progress**", step(3))
+        self.assertIn("**To resume:**", step(3))
+        self.assertIn("the corrected passage is there, the fix landed before the log was updated", step(3))
+        self.assertIn("restore `CONTENT.md` from the backup", step(3))
+        self.assertIn("#### Checkpoints (all modes)", step(8))
+        self.assertIn("Chapter_NN.before-fixes.md", step(8))
+        self.assertIn("**After each fix or decision,** update the log and write it again", step(8))
+        self.assertIn("set `**Fix status:** Complete`", step(10))
+        t = (REPO / "skills" / "writing-room" / "shared" / "templates" / "story" / "draft_fixer_log.md").read_text(encoding="utf-8")
+        for needle in ("**Fix status:**", "**Original draft:**", "## Fix Plan", "| Decision | State |"):
+            self.assertIn(needle, t)
+        self.assertIn("**Fix status:**", (REPO / "skills" / "writing-room" / "SKILL.md").read_text(encoding="utf-8"))
+
+
+class WorldOrderWriters(unittest.TestCase):
+    """The skills that change WORLD_ORDER.md call world_order.py, keeping their manual steps for no shell."""
+
+    def test_analyzer_and_archivist_run_world_order(self):
+        rules = (REPO / "skills" / "story-analyzer" / "references" / "write-rules.md").read_text(encoding="utf-8")
+        self.assertIn('world_order.py" chapter --world "worlds/<World Name>" --story "<Story Name>" --chapter <N>', rules)
+        self.assertIn("Story complete:", rules)
+        archivist = (REPO / "skills" / "world-archivist" / "SKILL.md").read_text(encoding="utf-8")
+        for cmd in ("add --world", "status --world", "move --world", "renumber --world"):
+            self.assertIn(f"`{cmd}", archivist)
+        for text in (rules, archivist):
+            self.assertIn("Without a shell", text)
 
 
 if __name__ == "__main__":

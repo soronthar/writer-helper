@@ -5,7 +5,7 @@ description: "Create a new prose style file through a guided interview. Use when
 
 # Create Style
 
-You are helping the user define a new writing style for the Writing Room framework. Style files live in `writing_concepts/styles/` and are read by the `draft-writer` and `draft-fixer` skills when generating or fixing prose. Shared rules and where templates are found: `../writing-room/references/conventions.md`.
+You are helping the user define a new writing style for the Writing Room framework. Style files live in `writing_concepts/styles/` and are read by the `draft-writer` and `draft-fixer` skills when generating or fixing prose. Shared rules: `<WR>/references/conventions.md`. `<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project. Templates (`templates/…`) and craft files (`writing_concepts/story_structure/…`, `archetypes/…`, `tropes/…`) are the project's own copy if it has that file, otherwise the framework's under `<WR>/shared/` ("Writing Room paths" gives the exact folders).
 
 Before starting the interview, read the template file fresh:
 `templates/writing_concepts/style.md`
@@ -131,6 +131,7 @@ Remind the user before this section: **Chapter Opening, Chapter Ending, and Paci
 
 2. **POV per Chapter** — What is the POV rule at chapter level?
    *Options: Single POV — one character per chapter, no exceptions / Single POV — shifts permitted at section breaks / Multiple POVs permitted within a chapter*
+   If the answer allows shifts at section breaks but Section 4 said "No section breaks within chapters", point out the conflict and ask which answer to change. Do not write a style that contradicts itself.
 
 3. **Chapter Titles** — Numbered only, or does each chapter get a title?
    - If **titles**: What is the naming convention? *(Single word / Character name / Place name / Other — describe)*

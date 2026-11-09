@@ -30,6 +30,7 @@ The portable scripts (Phase 1) find the root in this order: `--root DIR` → `WR
 │           ├── manifest.md
 │           ├── DESCRIPTION.md
 │           └── characters/ factions/ mythology/ points_of_interest/   (HOOKS.md is never snapshotted)
+├── .writing-room-work/            optional   temporary working files (saved loader output, drafts); never read as state, safe to delete, git-ignored
 ├── stories/<Story Name>/           single story (Short Story | Novelette | Book)
 │   ├── CONCEPT.md                  required   has "**World:**" and "**Status:**" fields
 │   ├── OUTLINE.md                  after Outliner
@@ -63,9 +64,9 @@ The portable scripts (Phase 1) find the root in this order: `--root DIR` → `WR
 
 - **Story → world link:** the `**World:**` field in CONCEPT.md. Never default a world from memory.
 - **Story status lifecycle:** `Concept` → `In Development` → `Active` → `Complete` | `Archived`.
-- **WORLD_ORDER.md:** a Markdown table `| Position | Story | Unit | In-World Date | Status | Notes |`. Story cells are wiki-links (`[[Story]]`). Units are `Full Story`, `Ch. N`, `Bk. N Ch. M`, `TBD`. `query_position` parses it.
+- **WORLD_ORDER.md:** a Markdown table `| Position | Story | Unit | In-World Date | Status | Notes |`. Story cells are wiki-links (`[[Story]]`). Units are `Full Story`, `Ch. N`, `Bk. N Ch. M`, `TBD`. `query_position` parses it; `world_order` changes it.
 - **Snapshot N** = world state *after* the story at position N completed; the story at N+1 loads from it.
-- **State resolution order for an entity:** story `state/bible/` → `snapshots/<prev-position>/` → `worlds/<World>/`.
+- **State resolution order for an entity:** story `state/bible/` → `snapshots/<prev-position>/` → `worlds/<World>/`. Entity files sit in their type folder (`state/bible/characters/…`); one placed directly in `state/bible/` is never read, and `wr_doctor` reports it as an error. Only `state/bible/DESCRIPTION.md` lives there directly.
 - **Names with spaces and apostrophes** are normal (`Freytag's Pyramid.md`, `The Tallow Ledger`); tools must not assume slugs.
 - **Identity vs. operational state:** the world bible holds identity; `ACTIVE_SCHEMES.md` and `STORY_FACTS.md` hold in-flight operational facts and stay story-local.
 - **Wiki-links** (`[[...]]`) appear in project files; they are data to preserve, not something to rewrite.
@@ -77,9 +78,13 @@ Scripts can be invoked from any directory; they locate the project root themselv
 
 | Script | Flags |
 |---|---|
-| `load_bible` | `--story --world [--style --structure --reviews-dir --position --no-style --no-last-chapter --no-timeline --no-schemes --no-facts --description --hooks --char --loc --faction --myth]` (`--char`, `--loc`, `--faction`, `--myth` are repeatable) |
-| `load_world` | `--world [--structure --position --entity --all-entities]` |
+| `load_bible` | `--story [--for --recipes --world --style --structure --reviews-dir --position --no-style --no-last-chapter --no-timeline --no-schemes --no-facts --description --hooks --char --loc --faction --myth --output]` (`--char`, `--loc`, `--faction`, `--myth` are repeatable; with `--for` or without `--world`, the world, baseline `--position` and the planner's `--structure` are worked out from CONCEPT.md and WORLD_ORDER.md; `--position none` turns the baseline off) |
+| `load_world` | `--world [--for --story --structure --position --entity --all-entities --trope --archetype --output]` (`--entity`, `--trope`, `--archetype` are repeatable; `--for story-ideator` needs `--world` and prints only the Overview of each structure file, `--for outliner` needs `--story` and works out the world and structure from CONCEPT.md; presets add a SUMMARY.md check and load every entity file when it is stale; `--structure` alongside `--entity`, `--trope` or `--archetype` adds that full structure file) |
 | `query_position` | `--world --story [--format json\|text]` |
+| `new_story` | `--world --story [--concept --position --hook --dry-run]` (`--hook` is repeatable; creates the story folder, its CONCEPT.md from the approved draft and its state skeletons, adds the WORLD_ORDER.md row and marks hooks In Use, or changes nothing) |
+| `world_order` | `add --world --story --unit [--position --shift --status --date --notes]`, `status --world --story [--unit] --to`, `move --world --story [--unit] --to [--shift]`, `chapter --world --story --chapter [--book]`, `renumber --world`; each also takes `--dry-run --reason` (changes WORLD_ORDER.md rows and its Last synchronized line, or changes nothing) |
+| `wr_templates` | `[--retire]` (lists the project's template and craft files as older than the framework's, the same, or edited; `--retire` moves the first two to `.writing-room-legacy/`) |
+| `wr_paths` | `[--wr DIR] [--check] [--dry-run]` (writes the "Writing Room paths" block naming `<WR>` into the project's `AGENTS.md`; install, update and init do this for you) |
 | `create_snapshot` | `--world --position --story --unit` |
 
 Behaviour is pinned by `fixtures/golden/` (`python tools/golden.py check`).

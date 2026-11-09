@@ -9,7 +9,7 @@ each saying what to run to fix it. The cross-file checks cover what the skills a
   - a world without SUMMARY.md (skills then read every entity file) or with one that no longer matches the
     entity files (by name, not just by count)
   - a world without WORLD_ORDER.md, a story missing from it, a row naming a story that does not exist,
-    a completed row with no snapshot
+    a finished story with no snapshot (a Book only once every chapter row is Complete)
   - promoted chapters with no Timeline entry (the story-analyzer did not run for them)
 """
 
@@ -48,6 +48,32 @@ def _summary_names(text):
     return out
 
 
+def summary_mismatches(world_dir):
+    """(number of entity files, mismatches) for a world. mismatches is None when there is no SUMMARY.md, else
+    one line per entity folder whose files and SUMMARY.md rows differ by name ([] when it matches)."""
+    w = Path(world_dir)
+    files = {d: sorted(p.stem for p in (w / d).glob("*.md")) if (w / d).is_dir() else [] for d in ENTITY_DIRS}
+    n_entities = sum(len(v) for v in files.values())
+    summary = w / "SUMMARY.md"
+    if not summary.is_file():
+        return n_entities, None
+    listed = _summary_names(summary.read_text(encoding="utf-8"))
+    lines = []
+    for d in ENTITY_DIRS:
+        have = {_norm(n): n for n in files[d]}
+        said = {_norm(n): n for n in listed.get(d, [])}
+        missing = sorted(have[k] for k in have.keys() - said.keys())
+        extra = sorted(said[k] for k in said.keys() - have.keys())
+        if missing or extra:
+            parts = []
+            if missing:
+                parts.append("not listed: " + ", ".join(missing))
+            if extra:
+                parts.append("listed but no file: " + ", ".join(extra))
+            lines.append(f"{d}/ {'; '.join(parts)}")
+    return n_entities, lines
+
+
 def _order_rows(text):
     """[(position, story, unit, status)] from the WORLD_ORDER.md Story Order table."""
     rows = []
@@ -56,6 +82,21 @@ def _order_rows(text):
         if m:
             rows.append((int(m.group(1)), m.group(2).strip(), m.group(3).strip(), m.group(5).strip()))
     return rows
+
+
+def _story_complete(story_dir, entries):
+    """Whether a story's WORLD_ORDER rows [(position, unit, status)] mean the whole story is finished, by the
+    story-analyzer's rule: a Book is finished when its Complete chapter rows reach OUTLINE.md's Total chapters;
+    anything else (a Full Story row) when its rows are Complete. Book Series are never judged (as in the analyzer)."""
+    units = [unit for _, unit, _ in entries]
+    if any(re.match(r"Bk\.", u) for u in units):
+        return False
+    if any(re.match(r"Ch\.\s*\d", u) for u in units):
+        outline = story_dir / "OUTLINE.md"
+        m = re.search(r"\*\*Total chapters:\*\*\s*(\d+)", outline.read_text(encoding="utf-8")) if outline.is_file() else None
+        done = sum(1 for _, _, status in entries if status == "Complete")
+        return bool(m) and done >= int(m.group(1))
+    return all(status == "Complete" for _, _, status in entries)
 
 
 def _story_world(concept_text):
@@ -111,29 +152,16 @@ def check(root, coverage=False):
             if not (snaps / "manifest.md").is_file():
                 err(f"world '{w.name}': snapshots/ missing manifest.md")
 
-        files = {d: sorted(p.stem for p in (w / d).glob("*.md")) if (w / d).is_dir() else [] for d in ENTITY_DIRS}
-        n_entities = sum(len(v) for v in files.values())
+        n_entities, stale = summary_mismatches(w)
 
         # --- SUMMARY.md: present, and matching the entity files by name
-        summary = w / "SUMMARY.md"
-        if not summary.is_file():
+        if stale is None:
             if n_entities:
                 warn(f"world '{w.name}': no SUMMARY.md, so skills read every entity file ({n_entities}) instead of "
                      f"a one-page index; {FIX_SUMMARY}")
         else:
-            listed = _summary_names(summary.read_text(encoding="utf-8"))
-            for d in ENTITY_DIRS:
-                have = {_norm(n): n for n in files[d]}
-                said = {_norm(n): n for n in listed.get(d, [])}
-                missing = sorted(have[k] for k in have.keys() - said.keys())
-                extra = sorted(said[k] for k in said.keys() - have.keys())
-                if missing or extra:
-                    parts = []
-                    if missing:
-                        parts.append("not listed: " + ", ".join(missing))
-                    if extra:
-                        parts.append("listed but no file: " + ", ".join(extra))
-                    warn(f"world '{w.name}': SUMMARY.md may be stale — {d}/ {'; '.join(parts)} ({FIX_SUMMARY})")
+            for line in stale:
+                warn(f"world '{w.name}': SUMMARY.md may be stale — {line} ({FIX_SUMMARY})")
 
         # --- WORLD_ORDER.md: present, and consistent with the stories
         using = sorted(s for s, world in story_world.items() if world == w.name)
@@ -158,8 +186,12 @@ def check(root, coverage=False):
                     if name not in story_world and not (stories / name).is_dir():
                         warn(f"world '{w.name}': WORLD_ORDER.md lists '{name}', which is not in stories/")
                 made = {int(s.name) for s in snaps.iterdir() if s.is_dir() and s.name.isdigit()} if snaps.is_dir() else set()
-                for pos, name, _, status in rows:
-                    if status == "Complete" and pos not in made and (stories / name).is_dir():
+                by_story = {}
+                for pos, name, unit, status in rows:
+                    by_story.setdefault(name, []).append((pos, unit, status))
+                for name, entries in by_story.items():
+                    pos = entries[0][0]  # a finished story's snapshot sits at its first row (query_position)
+                    if pos not in made and (stories / name).is_dir() and _story_complete(stories / name, entries):
                         warn(f"world '{w.name}': '{name}' is Complete at position {pos} but there is no snapshot "
                              f"{pos}; consolidate it ({FIX_CONSOLIDATE})")
 
@@ -187,6 +219,10 @@ def check(root, coverage=False):
             for sub in bible.iterdir():
                 if sub.is_dir() and sub.name not in ENTITY_DIRS:
                     err(f"{label}: state/bible/{sub.name}/ is not a known entity folder")
+                elif sub.is_file() and sub.suffix == ".md" and sub.name != "DESCRIPTION.md":
+                    err(f"{label}: state/bible/{sub.name} is outside the entity folders, so skills never "
+                        f"read it; move it into state/bible/<{'|'.join(ENTITY_DIRS)}>/ (compare it with any "
+                        "copy already there first)")
 
     for s in story_dirs:
         concept = s / "CONCEPT.md"

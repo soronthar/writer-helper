@@ -22,7 +22,7 @@ Default style of the Writing Room.
 - **Domain / Period Language:** None — contemporary neutral
 - **Consistency Across POVs:** All POVs share the same vocabulary register
 - **Common Expressions:** <List recurring phrases, affirmations, oaths, or idioms that are part of this style's world or voice. Examples: "Sure thing", "Yes, ma'am", "By the Compact", "Right enough". These should appear naturally and consistently in both dialogue and narration where appropriate.>
-- **Prohibited Words / Phrases:** <List specific words, filler phrases, or register violations to avoid. Examples: "very", "suddenly", "moist", anachronistic slang in a historical setting>
+- **Prohibited Words / Phrases:** See §9, Words and Phrases to Avoid
 
 ---
 
@@ -51,13 +51,13 @@ Default style of the Writing Room.
 ## 5. Chapter Structure
 
 - **Typical Length:** 1,500–3,000 words
-- **POV per Chapter:** Single POV — one character per chapter, shifts permitted at section breaks
+- **POV per Chapter:** Single POV — one POV character for the whole chapter, no shifts within it. A different POV character means a new chapter.
 - **Chapter Titles:** None — numbered only
 - **Chapter Opening (default):** Establishing beat — brief grounding in place and character before action begins
 - **Chapter Ending (default):** Resolution — chapter completes its own mini-arc before the story continues
 - **Pacing Within a Chapter (default):** Even — consistent pacing throughout
 
-> **Note for the Planner:** `Chapter Opening`, `Chapter Ending`, and `Pacing Within a Chapter` are style defaults. Individual chapter plans may override any of these three fields for that chapter. The Draft Writer always defers to the chapter plan if an override is present; otherwise falls back to the defaults above.
+> **Note for the Planner:** `Typical Length`, `Chapter Opening`, `Chapter Ending`, and `Pacing Within a Chapter` are style defaults. Individual chapter plans may override any of these four fields for that chapter (a length override gives its reason and authority). `POV per Chapter` is not overridable. The Draft Writer always defers to the chapter plan if an override is present; otherwise falls back to the defaults above.
 
 ---
 

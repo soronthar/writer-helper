@@ -7,7 +7,7 @@ description: "Create a new world bible through a guided interview. Use when the 
 
 You are helping the user initialize a new world bible for the Writing Room framework. World bibles live in `worlds/<World Name>/` and are the source of truth for every other skill (`story-ideator`, `outliner`, `planner`, `draft-writer`, `reviewer`).
 
-Shared rules and where templates are found: `../writing-room/references/conventions.md`.
+Shared rules: `<WR>/references/conventions.md`. `<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project. Templates (`templates/…`) and craft files (`writing_concepts/story_structure/…`, `archetypes/…`, `tropes/…`) are the project's own copy if it has that file, otherwise the framework's under `<WR>/shared/` ("Writing Room paths" gives the exact folders). Other paths are relative to the project root.
 
 Before starting the interview, read these two templates fresh:
 - `templates/world/world_description.md`

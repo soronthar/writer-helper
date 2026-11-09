@@ -7,7 +7,9 @@ Usage:
 
 Returns the story's position, unit, status and in-world date, the previous
 (position N-1) and next (position N+1) entries, and all concurrent stories
-(same position).
+(same position). A story with several rows (a Book, one per chapter) is found
+at its first row; when the previous entry belongs to such a story, "before"
+is that story's first row, where its snapshot is made.
 
 Formats:
   text (default)  Human-readable summary
@@ -71,6 +73,40 @@ def neighbour(rows, pos):
     return {"position": pos_value(pos), "story": row["story"], "unit": row["unit"], "status": row["status"]}
 
 
+def first_row_pos(rows, pos):
+    """The first position of the story at `pos`. A Book has one row per chapter, and its snapshot is made
+    at its first row, so the story before a Book's successor is looked up there, not at its last chapter."""
+    if pos is None:
+        return None
+    story = next(r for r in rows if r["pos"] == pos)["story"]
+    return min((r["pos"] for r in rows if r["story"] == story), key=pos_key)
+
+
+def locate(rows, story):
+    """(target row, before, after) for a story, or None if it has no row."""
+    target = next((r for r in rows if r["story"] == story), None)
+    if target is None:
+        return None
+    unique = sorted({r["pos"] for r in rows}, key=pos_key)
+    idx = unique.index(target["pos"])
+    before = neighbour(rows, first_row_pos(rows, unique[idx - 1] if idx > 0 else None))
+    after = neighbour(rows, unique[idx + 1] if idx < len(unique) - 1 else None)
+    return target, before, after
+
+
+def baseline(world, story):
+    """(position, error) for a story's world baseline: the position of the story before it (its first row),
+    or None for the first story. error is a one-line reason when the lookup is impossible, else ''."""
+    order_file = f"{world}/WORLD_ORDER.md"
+    if not Path(order_file).is_file():
+        return None, f"WORLD_ORDER.md not found at {order_file}"
+    found = locate(parse_rows(order_file), strip_wikilink(story))
+    if found is None:
+        return None, f"Story '{strip_wikilink(story)}' not found in {order_file}"
+    before = found[1]
+    return (str(before["position"]) if before else None), ""
+
+
 def main():
     setup()
     p = make_parser("Query WORLD_ORDER.md for story positioning information")
@@ -89,14 +125,10 @@ def main():
         fail(fmt, "No story entries found in WORLD_ORDER.md")
 
     story = strip_wikilink(a.story)
-    target = next((r for r in rows if r["story"] == story), None)
-    if target is None:
+    found = locate(rows, story)
+    if found is None:
         fail(fmt, f"Story '{story}' not found in WORLD_ORDER.md")
-
-    unique = sorted({r["pos"] for r in rows}, key=pos_key)
-    idx = unique.index(target["pos"])
-    before = neighbour(rows, unique[idx - 1] if idx > 0 else None)
-    after = neighbour(rows, unique[idx + 1] if idx < len(unique) - 1 else None)
+    target, before, after = found
     concurrent = [
         {"story": r["story"], "unit": r["unit"]}
         for r in rows

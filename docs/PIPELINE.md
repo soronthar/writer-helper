@@ -45,10 +45,14 @@ Skills use these when the agent can run commands (all in `skills/writing-room/sc
 |---|---|
 | `wr_init.py` | Create a project |
 | `wr_migrate.py` | Add the project marker to an older project; `--retire-legacy` also moves the old agents, commands and scripts aside (dry run by default; see [MIGRATING.md](MIGRATING.md)) |
-| `wr_doctor.py` | Diagnose the project and the installation: layout, a missing or stale `SUMMARY.md`, a missing `WORLD_ORDER.md` or story missing from it, completed stories without a snapshot, promoted chapters without a Timeline entry, leftover old framework files |
+| `wr_doctor.py` | Diagnose the project and the installation: layout, a missing or stale `SUMMARY.md`, a missing `WORLD_ORDER.md` or story missing from it, completed stories without a snapshot, promoted chapters without a Timeline entry, leftover old framework files, unedited template copies that hide the framework's, an `AGENTS.md` whose Writing Room paths block is missing or names a folder that is gone |
 | `wr_next.py` | Say which skill comes next, per story |
 | `wr_install.py` | Install the skills for an agent |
 | `wr_update.py` | Update installed skills from a new build: replace, add, remove, save your edits, show the changelog ([INSTALL.md](INSTALL.md#updating)) |
 | `wr_resolve.py` | Find a template or craft file (your copy first, then the framework's) |
+| `wr_paths.py` | Write the Writing Room paths block (where `<WR>` is) into the project's `AGENTS.md`; install, update and init do it for you |
+| `wr_templates.py` | List the project's template and craft files that are unedited copies of the framework's, and move them aside with `--retire` |
 | `load_bible.py`, `load_world.py`, `query_position.py` | Load only the context a skill needs |
+| `new_story.py` | Create a story from an approved concept: its folder, CONCEPT.md, state skeletons, WORLD_ORDER.md row and hook statuses |
+| `world_order.py` | Change WORLD_ORDER.md rows: add, status, move, renumber, and the story-analyzer's per-chapter update |
 | `create_snapshot.py`, `promote_chapter.py` | Snapshot the world; promote a chapter (copy, verify, then delete) |

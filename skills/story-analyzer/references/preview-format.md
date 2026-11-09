@@ -1,6 +1,6 @@
 # Preview All: format of the change list
 
-Present every proposed update as a numbered list like this before touching any file. Entities with no material change are skipped automatically and not listed.
+Present every proposed update as a numbered list like this before touching any file. The names in the sample are invented; use the chapter's own. Entities with no material change are skipped automatically and not listed.
 
 ```
 Proposed updates — Chapter N — <Title>:

@@ -272,6 +272,8 @@ class Migrate(Tmp):
 
     def test_retire_legacy_moves_framework_files_and_nothing_else(self):
         proj = self.copy(LEGACY)
+        edited = proj / "templates" / "story" / "outline.md"
+        edited.write_bytes(edited.read_bytes() + b"\nMy own addition.\n")
         before_content = self.retire_tree(proj)
         old_agent = (proj / ".claude" / "agents" / "planner.md").read_bytes()
         old_claude_md = (proj / "CLAUDE.md").read_bytes()
@@ -283,10 +285,19 @@ class Migrate(Tmp):
             self.assertTrue((arch / rel).exists(), rel)
         self.assertEqual((arch / ".claude" / "agents" / "planner.md").read_bytes(), old_agent)  # moved intact
         self.assertEqual((arch / "CLAUDE.md").read_bytes(), old_claude_md)
-        # user content, templates and the style folder are exactly as before
-        self.assertEqual(self.retire_tree(proj), before_content)
-        self.assertTrue((proj / "templates").is_dir())
-        self.assertTrue((proj / "writing_concepts").is_dir())
+        # user content, edited templates and the style folder are exactly as before; unedited shipped
+        # templates and craft files moved intact to the archive, where they no longer hide the framework's
+        after = self.retire_tree(proj)
+        gone = set(before_content) - set(after)
+        self.assertEqual({k: before_content[k] for k in after}, after)
+        self.assertTrue(gone)
+        crafts = ("templates/", "writing_concepts/story_structure/", "writing_concepts/archetypes/", "writing_concepts/tropes/")
+        for rel in gone:
+            self.assertTrue(rel.startswith(crafts), rel)
+            self.assertEqual((arch / rel).read_bytes(), before_content[rel], rel)
+        self.assertIn("templates/story/chapter_plan.md", gone)
+        self.assertEqual(edited.read_text(encoding="utf-8").splitlines()[-1], "My own addition.")
+        self.assertTrue((proj / "writing_concepts" / "styles").is_dir())
         # the new guidance replaced the old CLAUDE.md
         self.assertEqual((proj / "CLAUDE.md").read_text(encoding="utf-8").strip(), "@AGENTS.md")
         self.assertTrue((proj / "AGENTS.md").is_file())
@@ -470,6 +481,22 @@ class Doctor(Tmp):
         self.assertIn("'Salt and Signal' is Complete at position 2 but there is no snapshot 2", out)
         self.assertIn("(run the world-archivist skill (Consolidate))", out)
 
+    def test_book_in_progress_with_complete_chapter_rows_needs_no_snapshot(self):
+        proj = self.copy(EXAMPLE)
+        shutil.rmtree(proj / "worlds" / "Harrowmere" / "snapshots" / "2")
+        order = proj / "worlds" / "Harrowmere" / "WORLD_ORDER.md"
+        row = "| 2 | [[Salt and Signal]] | Full Story | Early winter, the same year | Complete | The sealed room |"
+        text = order.read_text(encoding="utf-8")
+        self.assertIn(row, text)
+
+        def chapters(done):
+            return "\n".join(f"| {1 + n} | [[Salt and Signal]] | Ch. {n} | Early winter | "
+                             f"{'Complete' if n <= done else 'In Progress'} | |" for n in range(1, 5))
+        order.write_text(text.replace(row, chapters(2)), encoding="utf-8")  # 2 of the outline's 4 chapters
+        self.assertNotIn("'Salt and Signal' is Complete", self.doctor_text(proj))
+        order.write_text(text.replace(row, chapters(4)), encoding="utf-8")
+        self.assertIn("'Salt and Signal' is Complete at position 2 but there is no snapshot 2", self.doctor_text(proj))
+
     def test_summary_staleness_is_judged_by_name_not_count(self):
         proj = self.copy(EXAMPLE)
         chars = proj / "worlds" / "Harrowmere" / "characters"
@@ -551,6 +578,548 @@ class ScriptsInsideProject(Tmp):
         self.assertEqual(json.loads(r.stdout)["position"], 1)
 
 
+
+class FrictionRegressions(Tmp):
+    """Failure cases from a recorded local-model run (story-local files, style hints, long output)."""
+
+    STORY = "stories/Salt and Signal"
+
+    def bible(self, proj, *args):
+        return run("load_bible", "--root", proj, "--story", self.STORY, "--world", WORLD,
+                   "--no-last-chapter", "--no-timeline", "--no-schemes", "--no-facts", *args)
+
+    def test_flat_story_local_file_is_named_not_silently_skipped(self):
+        proj = self.copy(EXAMPLE)
+        (proj / self.STORY / "state" / "bible" / "Doran Pike.md").write_text("# Doran Pike (flat)\n", encoding="utf-8")
+        r = self.bible(proj, "--no-style", "--position", "1", "--char", "Doran Pike")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("state/bible/Doran Pike.md is outside state/bible/characters/ and was NOT loaded", r.stdout)
+        self.assertIn("[snapshot pos 1]", r.stdout)
+        self.assertNotIn("(flat)", r.stdout)
+
+    def test_flat_and_typed_copies_both_exist(self):
+        proj = self.copy(EXAMPLE)
+        (proj / self.STORY / "state" / "bible" / "Mara Quill.md").write_text("# Mara Quill (flat)\n", encoding="utf-8")
+        r = self.bible(proj, "--no-style", "--char", "Mara Quill")
+        self.assertIn("Mara Quill.md is outside state/bible/characters/", r.stdout)
+        self.assertIn("[story-local]", r.stdout)
+
+    def test_doctor_reports_flat_story_local_files_but_not_description(self):
+        proj = self.copy(EXAMPLE)
+        bible = proj / self.STORY / "state" / "bible"
+        (bible / "Doran Pike.md").write_text("x", encoding="utf-8")
+        (bible / "DESCRIPTION.md").write_text("# Description\n", encoding="utf-8")
+        r = run("wr_doctor", "--root", proj)
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("state/bible/Doran Pike.md is outside the entity folders", r.stdout)
+        self.assertNotIn("state/bible/DESCRIPTION.md is outside", r.stdout)
+
+    def test_unknown_style_is_refused_even_with_one_style_file(self):
+        r = self.bible(EXAMPLE, "--style", "Ashen Ledger")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn('No style file matches "Ashen Ledger"; nothing was loaded', r.stdout)
+        self.assertNotIn("FILE: Style:", r.stdout)
+
+    def test_matching_style_with_one_file_still_loads(self):
+        r = self.bible(EXAMPLE, "--style", "Default")
+        self.assertIn("FILE: Style: writing_concepts/styles/Default Style.md", r.stdout)
+
+    def test_output_file_and_receipt(self):
+        proj = self.copy(EXAMPLE)
+        args = ["--story", self.STORY, "--world", WORLD, "--position", "1",
+                "--char", "Mara Quill", "--char", "Doran Pike", "--char", "Nobody"]
+        full = run("load_bible", "--root", proj, *args).stdout
+        r = run("load_bible", "--root", proj, *args, "--output", "current_chapter/.context.md")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        saved = (proj / "current_chapter" / ".context.md").read_bytes().decode("utf-8")
+        self.assertEqual(saved, full)
+        self.assertNotIn("═", r.stdout)  # only the receipt is printed
+        self.assertIn(f"{saved.count(chr(10))} lines", r.stdout)
+        self.assertIn("entity: characters/Mara Quill [story-local]", r.stdout)
+        self.assertIn("entity: characters/Doran Pike [snapshot] — worlds/Harrowmere/snapshots/1/characters/Doran Pike.md", r.stdout)
+        self.assertIn("⚠ entity: characters/Nobody — NOT FOUND", r.stdout)
+        lines = saved.split("\n")
+        for row in r.stdout.splitlines():
+            if "Mara Quill [story-local]" in row:
+                start, end = map(int, row.split()[1].split("-"))
+                self.assertIn("FILE: characters/Mara Quill", "\n".join(lines[start - 1:end]))
+
+    def test_bare_output_goes_to_the_work_folder_with_an_absolute_path(self):
+        proj = self.copy(EXAMPLE)
+        sub = proj / self.STORY / "chapters"  # run from inside the story: the result must not depend on the cwd
+        r = run("load_bible", "--story", self.STORY, "--world", WORLD, "--no-style", "--char", "Mara Quill",
+                "--output", cwd=sub)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        saved = proj / ".writing-room-work" / "stories" / "Salt and Signal" / "load_bible.md"
+        self.assertTrue(saved.is_file())
+        self.assertIn(f"Wrote {saved.resolve()} —", r.stdout)
+        self.assertEqual((proj / ".writing-room-work" / ".gitignore").read_text(encoding="utf-8").splitlines()[-1], "*")
+        self.assertIn("0 error(s)", run("wr_doctor", "--root", proj).stdout)
+
+    def test_load_world_output_receipt_has_block_ranges(self):
+        proj = self.copy(EXAMPLE)
+        args = ["--world", WORLD, "--position", "1", "--entity", "characters/Mara Quill", "--entity", "characters/Nobody"]
+        full = run("load_world", "--root", proj, *args).stdout
+        r = run("load_world", "--root", proj, *args, "--output")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        saved = (proj / ".writing-room-work" / "worlds" / "Harrowmere" / "load_world.md").read_bytes().decode("utf-8")
+        self.assertEqual(saved, full)
+        self.assertIn("2 items, 1 warning(s)", r.stdout)
+        lines = saved.split("\n")
+        ranges = [tuple(map(int, row.split()[1].split("-"))) for row in r.stdout.splitlines() if row.startswith("  lines ")]
+        self.assertEqual(ranges[0][0], 1)
+        self.assertEqual(ranges[0][1] + 1, ranges[1][0])
+        self.assertIn("FILE: characters/Mara Quill", "\n".join(lines[ranges[0][0] - 1:ranges[0][1]]))
+        self.assertIn("Nobody", "\n".join(lines[ranges[1][0] - 1:ranges[1][1]]))
+
+    def test_story_after_a_book_takes_the_books_first_row_as_baseline(self):
+        proj = self.copy(EXAMPLE)
+        order = proj / "worlds" / "Harrowmere" / "WORLD_ORDER.md"
+        row = "| 2 | [[Salt and Signal]] | Full Story | Early winter, the same year | Complete | The sealed room |"
+        text = order.read_text(encoding="utf-8")
+        self.assertIn(row, text)
+        book = "\n".join(f"| {1 + n} | [[Salt and Signal]] | Ch. {n} | Early winter | Complete | |" for n in range(1, 5))
+        order.write_text(text.replace(row, book + "\n| 6 | [[Next Tale]] | TBD | Spring | Planned | |"), encoding="utf-8")
+
+        def query(story):
+            r = run("query_position", "--root", proj, "--world", WORLD, "--story", story, "--format", "json")
+            self.assertEqual(r.returncode, 0, r.stderr)
+            return json.loads(r.stdout)
+
+        nxt = query("Next Tale")
+        self.assertEqual((nxt["before"]["position"], nxt["before"]["story"]), (2, "Salt and Signal"))
+        book_q = query("Salt and Signal")  # the book itself: found at its first row, baseline is the story before
+        self.assertEqual((book_q["position"], book_q["before"]["position"]), (2, 1))
+
+
+class LoadBiblePresets(Tmp):
+    """load_bible --for: the short form skills use, which works out the world, baseline and structure."""
+
+    LONG = {  # each preset's long-form flags, as the skills passed them before presets existed
+        "planner": ["--no-last-chapter", "--structure", "Freytag's Pyramid"],
+        "draft-writer": [],
+        "reviewer-consistency": ["--no-style", "--no-last-chapter", "--description"],
+        "reviewer-character": ["--no-style", "--no-last-chapter", "--no-timeline"],
+        "draft-fixer": ["--no-last-chapter", "--no-timeline",
+                        "--reviews-dir", "stories/Salt and Signal/current_chapter/current_reviews"],
+        "story-analyzer": ["--no-style", "--no-last-chapter", "--hooks"],
+    }
+
+    @staticmethod
+    def without_context(text):
+        """The output minus the leading CONTEXT block."""
+        head = "\n" + "═" * 60 + "\nCONTEXT for "
+        assert text.startswith(head), text[:200]
+        end = text.index("═" * 60 + "\n", len(head)) + 61
+        return text[end:]
+
+    def test_every_preset_prints_what_its_long_form_prints(self):
+        entities = ["--char", "Mara Quill", "--loc", "The Ashwood"]
+        for preset, flags in self.LONG.items():
+            with self.subTest(preset=preset):
+                short = run("load_bible", "--root", EXAMPLE, "--for", preset, "--story", "Salt and Signal", *entities)
+                self.assertEqual(short.returncode, 0, short.stderr)
+                long = run("load_bible", "--root", EXAMPLE, "--story", "stories/Salt and Signal", "--world", WORLD,
+                           "--position", "1", *flags, *entities)
+                self.assertEqual(self.without_context(short.stdout), long.stdout)
+
+    def test_context_block_says_what_was_worked_out(self):
+        r = run("load_bible", "--root", EXAMPLE, "--for", "planner", "--story", "stories/Salt and Signal")
+        self.assertIn("CONTEXT for planner — story: stories/Salt and Signal", r.stdout)
+        self.assertIn("World: worlds/Harrowmere  (from stories/Salt and Signal/CONCEPT.md)", r.stdout)
+        self.assertIn("Baseline: snapshot position 1  (from worlds/Harrowmere/WORLD_ORDER.md", r.stdout)
+        self.assertIn("Structure: Freytag's Pyramid  (from stories/Salt and Signal/CONCEPT.md)", r.stdout)
+
+    def test_first_story_has_no_baseline(self):
+        r = run("load_bible", "--root", EXAMPLE, "--for", "reviewer-character", "--story", "stories/The Tallow Ledger",
+                "--char", "Hesk Varrow")
+        self.assertIn("Baseline: none  (first story in worlds/Harrowmere/WORLD_ORDER.md)", r.stdout)
+        self.assertIn("[world bible]", r.stdout)
+
+    def test_given_values_win_and_none_turns_the_baseline_off(self):
+        r = run("load_bible", "--root", EXAMPLE, "--for", "reviewer-character", "--story", "stories/Salt and Signal",
+                "--position", "none", "--char", "Doran Pike")
+        self.assertIn("Baseline: none  (--position none)", r.stdout)
+        self.assertIn("[world bible]", r.stdout)
+        r = run("load_bible", "--root", EXAMPLE, "--for", "reviewer-character", "--story", "stories/Salt and Signal",
+                "--position", "2", "--char", "Doran Pike")
+        self.assertIn("Baseline: snapshot position 2  (given)", r.stdout)
+        self.assertIn("[snapshot pos 2]", r.stdout)
+
+    def test_story_missing_from_world_order_warns_and_loads_the_current_world(self):
+        proj = self.copy(EXAMPLE)
+        shutil.copytree(proj / "stories" / "Salt and Signal", proj / "stories" / "Unlisted")
+        r = run("load_bible", "--root", proj, "--for", "reviewer-character", "--story", "stories/Unlisted",
+                "--char", "Mara Quill", "--output")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("BASELINE: ⚠ Story 'Unlisted' not found in worlds/Harrowmere/WORLD_ORDER.md", r.stdout)
+
+    def test_no_world_line_is_a_clear_error(self):
+        proj = self.copy(EXAMPLE)
+        concept = proj / "stories" / "Salt and Signal" / "CONCEPT.md"
+        concept.write_text(concept.read_text(encoding="utf-8").replace("**World:**", "**Setting:**"), encoding="utf-8")
+        r = run("load_bible", "--root", proj, "--for", "draft-writer", "--story", "stories/Salt and Signal")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("has no **World:** line", r.stderr)
+        self.assertIn('--world "worlds/<World>"', r.stderr)
+
+    def test_unknown_story_is_a_clear_error(self):
+        r = run("load_bible", "--root", EXAMPLE, "--for", "draft-writer", "--story", "Nope")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn('no story folder at "Nope"', r.stderr)
+
+    def test_book_of_a_series_takes_the_world_from_the_series_concept(self):
+        r = run("load_bible", "--root", SYNTHETIC, "--for", "draft-writer",
+                "--story", "stories/Test Series/Book 01 - Opening")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("World: worlds/Test World  (from stories/Test Series/CONCEPT.md)", r.stdout)
+        self.assertIn("Baseline: snapshot position 1", r.stdout)
+        self.assertIn("The first day.", r.stdout)
+
+    def test_long_form_has_no_context_block(self):
+        r = run("load_bible", "--root", EXAMPLE, "--story", "stories/Salt and Signal", "--world", WORLD, "--no-style")
+        self.assertNotIn("CONTEXT for", r.stdout)
+
+    def test_recipes_list_every_preset_without_a_project(self):
+        empty = self.tmp / "empty"
+        empty.mkdir()
+        r = run("load_bible", "--recipes", cwd=empty)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        for preset in self.LONG:
+            self.assertIn(f"--for {preset} --story", r.stdout)
+        self.assertIn("stands for: --world <from CONCEPT.md> --position <baseline> --no-style --no-last-chapter --hooks",
+                      r.stdout)
+
+
+class LoadWorldPresets(Tmp):
+    """load_world --for: one call per step for the story-ideator and outliner, with the SUMMARY.md check done."""
+
+    @staticmethod
+    def after_context(text):
+        """The output from the first FILE block on (drops the CONTEXT block)."""
+        return text[text.index("\n" + "═" * 60 + "\nFILE:"):]
+
+    def test_ideator_preset_is_the_world_overview_short_structures_and_a_summary_check(self):
+        short = run("load_world", "--root", EXAMPLE, "--for", "story-ideator", "--world", "Harrowmere")
+        self.assertEqual(short.returncode, 0, short.stderr)
+        plain = run("load_world", "--root", EXAMPLE, "--world", WORLD).stdout
+        body = self.after_context(short.stdout)
+        world_part = plain[:plain.index("FILE: story_structure/")]
+        self.assertTrue(body.startswith(world_part), "the world files come first, unchanged")
+        for name in ("GUIDE.md", "Format Reference.md"):  # in full
+            start = plain.index(f"FILE: story_structure/{name}")
+            end = plain.index("\n" + "═" * 60 + "\nFILE:", start)
+            self.assertIn(plain[start:end], body)
+        self.assertIn('FILE: story_structure/Three-Act Structure.md  (Overview only; the full file loads with '
+                      '--structure "Three-Act Structure")', body)
+        self.assertIn("**Best suited for:**", body)
+        self.assertNotIn("## Act One — The Setup", body)
+        self.assertLess(len(body), len(plain) * 0.6)
+        self.assertIn("SUMMARY CHECK: SUMMARY.md matches the 16 entity files", body)
+        self.assertNotIn("FILE: characters/", short.stdout)
+
+    def test_structure_is_added_to_a_follow_up_load(self):
+        r = run("load_world", "--root", EXAMPLE, "--world", "Harrowmere", "--entity", "characters/Mara Quill",
+                "--structure", "Fichtean Curve")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("FILE: characters/Mara Quill", r.stdout)
+        self.assertIn("FILE: story_structure/Fichtean Curve\n", r.stdout)
+        self.assertIn("## Quick Reference", r.stdout)
+        self.assertNotIn("FILE: DESCRIPTION.md", r.stdout)
+
+    def test_stale_summary_loads_every_entity_in_the_same_call(self):
+        proj = self.copy(EXAMPLE)
+        (proj / "worlds" / "Harrowmere" / "characters" / "New Face.md").write_text("# New Face\n", encoding="utf-8")
+        r = run("load_world", "--root", proj, "--for", "story-ideator", "--world", "Harrowmere",
+                "--entity", "characters/Mara Quill")
+        self.assertIn("SUMMARY CHECK: ⚠ SUMMARY.md is stale", r.stdout)
+        self.assertIn("characters/ not listed: New Face", r.stdout)
+        self.assertIn("FILE: characters/New Face  [world bible]", r.stdout)
+        self.assertIn("FILE: factions/Harbor Guild  [world bible]", r.stdout)
+        self.assertEqual(r.stdout.count("# Mara Quill\n"), 1)  # not loaded twice
+
+    def test_missing_summary_loads_every_entity(self):
+        proj = self.copy(EXAMPLE)
+        (proj / "worlds" / "Harrowmere" / "SUMMARY.md").unlink()
+        r = run("load_world", "--root", proj, "--for", "story-ideator", "--world", WORLD)
+        self.assertIn("SUMMARY CHECK: ⚠ no SUMMARY.md — all 16 entity files are loaded below.", r.stdout)
+        self.assertIn("FILE: characters/Mara Quill  [world bible]", r.stdout)
+
+    def test_outliner_preset_takes_world_and_structure_from_the_concept(self):
+        r = run("load_world", "--root", EXAMPLE, "--for", "outliner", "--story", "Salt and Signal",
+                "--entity", "characters/Mara Quill", "--trope", "Redeemed Villain")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("World: worlds/Harrowmere  (from stories/Salt and Signal/CONCEPT.md)", r.stdout)
+        self.assertIn("Structure: Freytag's Pyramid  (from stories/Salt and Signal/CONCEPT.md)", r.stdout)
+        structure = run("load_world", "--root", EXAMPLE, "--world", WORLD, "--structure", "Freytag's Pyramid").stdout
+        self.assertTrue(self.after_context(r.stdout).startswith(structure))
+        for label in ("FILE: WORLD_ORDER.md", "SUMMARY CHECK: SUMMARY.md matches", "FILE: characters/Mara Quill",
+                      "FILE: tropes/Redeemed Villain"):
+            self.assertIn(label, r.stdout)
+        self.assertNotIn("FILE: HOOKS.md", r.stdout)
+
+    def test_entity_form_takes_craft_files_and_a_bare_world_name(self):
+        r = run("load_world", "--root", EXAMPLE, "--world", "Harrowmere", "--entity", "characters/Mara Quill",
+                "--trope", "Redeemed Villain", "--archetype", "The Mentor")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("FILE: characters/Mara Quill", r.stdout)
+        self.assertIn("FILE: tropes/Redeemed Villain", r.stdout)
+        self.assertIn("FILE: archetypes/The Mentor", r.stdout)
+        self.assertNotIn("FILE: DESCRIPTION.md", r.stdout)
+
+    def test_craft_files_alone_are_not_the_overview(self):
+        r = run("load_world", "--root", EXAMPLE, "--world", WORLD, "--trope", "Redeemed Villain")
+        self.assertIn("FILE: tropes/Redeemed Villain", r.stdout)
+        self.assertNotIn("FILE: DESCRIPTION.md", r.stdout)
+
+    def test_presets_explain_what_is_missing(self):
+        r = run("load_world", "--root", EXAMPLE, "--for", "story-ideator")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn('needs --world "<World>"', r.stderr)
+        r = run("load_world", "--root", EXAMPLE, "--for", "outliner", "--story", "Nope")
+        self.assertIn('no CONCEPT.md for "Nope"', r.stderr)
+
+
+class NewStory(Tmp):
+    """new_story.py: the story-ideator's bookkeeping in one call, all checks before any write."""
+
+    def project(self, fmt="Novelette", world="Harrowmere"):
+        import re
+        proj = self.copy(EXAMPLE)
+        concept = (WR / "shared" / "templates" / "story" / "concept.md").read_text(encoding="utf-8")
+        concept = concept.replace("<World name>", world).replace("<Short Story / Novelette / Book / Book Series>", fmt)
+        concept = re.sub(r"<[A-Z][^<>\n]*>", "Filled", concept)
+        draft = proj / ".writing-room-work" / "worlds" / "Harrowmere" / "CONCEPT.md"
+        draft.parent.mkdir(parents=True)
+        draft.write_text(concept, encoding="utf-8")
+        return proj, draft
+
+    def test_creates_the_story_row_and_hook_status(self):
+        proj, draft = self.project()
+        r = run("new_story", "--root", proj, "--world", "Harrowmere", "--story", "Tide Debt", "--hook", "the third seal")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        story = proj / "stories" / "Tide Debt"
+        concept = (story / "CONCEPT.md").read_text(encoding="utf-8")
+        self.assertIn("\n# Tide Debt\n", concept)
+        self.assertNotIn("# Filled", concept)
+        for d in ("chapters", "current_chapter"):
+            self.assertTrue((story / d).is_dir())
+        self.assertIn("# Timeline — Tide Debt", (story / "state" / "Timeline.md").read_text(encoding="utf-8"))
+        for f in ("ACTIVE_SCHEMES.md", "STORY_FACTS.md"):
+            self.assertNotIn("<Story Name>", (story / "state" / f).read_text(encoding="utf-8"))
+        order = (proj / "worlds" / "Harrowmere" / "WORLD_ORDER.md").read_text(encoding="utf-8")
+        self.assertIn("| 2 | [[Salt and Signal]] |", order)
+        self.assertIn("| 3 | [[Tide Debt]] | Full Story | — | Not Started | |", order)
+        self.assertIn("added at position 3", order)
+        hooks = (proj / "worlds" / "Harrowmere" / "HOOKS.md").read_text(encoding="utf-8")
+        self.assertIn("- **Status:** `In Use (Tide Debt)`", hooks)
+        self.assertFalse(draft.exists(), "the draft is removed once copied")
+        self.assertEqual(run("query_position", "--root", proj, "--world", WORLD, "--story", "Tide Debt",
+                             "--format", "json").returncode, 0)
+
+    def test_book_row_and_position_order(self):
+        proj, _ = self.project(fmt="Book")
+        r = run("new_story", "--root", proj, "--world", WORLD, "--story", "stories/Long Tide", "--position", "1")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("concurrent with [[The Tallow Ledger]]", r.stdout)
+        order = (proj / "worlds" / "Harrowmere" / "WORLD_ORDER.md").read_text(encoding="utf-8")
+        rows = [line for line in order.splitlines() if line.startswith("| ") and "[[" in line]
+        self.assertEqual(rows[1], "| 1 | [[Long Tide]] | TBD | — | Not Started | Placeholder — expand after Outliner |")
+        self.assertIn("[[Salt and Signal]]", rows[2])
+
+    def test_replaces_the_placeholder_row_of_an_empty_world_keeping_crlf(self):
+        proj, _ = self.project()
+        order = proj / "worlds" / "Harrowmere" / "WORLD_ORDER.md"
+        text = order.read_text(encoding="utf-8")
+        sep = text.index("|----------|")
+        sep_end = text.index("\n", sep)
+        table_end = text.index("\n\n---", sep)
+        text = text[:sep_end + 1] + "| — | — | — | — | — | — |" + text[table_end:]
+        order.write_bytes(text.replace("\n", "\r\n").encode("utf-8"))
+        r = run("new_story", "--root", proj, "--world", WORLD, "--story", "Tide Debt")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        text = order.read_bytes().decode("utf-8")
+        self.assertIn("|-------|\r\n| 1 | [[Tide Debt]] | Full Story | — | Not Started | |\r\n", text)
+        self.assertNotIn("| — | — |", text)
+        self.assertNotIn("\r\r", text)
+
+    def test_refuses_and_changes_nothing(self):
+        proj, draft = self.project()
+        before = {p: p.read_bytes() for p in (proj / "worlds").rglob("*.md")}
+        draft.write_text("<!-- draft: not yet approved -->\n" + draft.read_text(encoding="utf-8") + "\n<Left Over>\n",
+                         encoding="utf-8")
+        r = run("new_story", "--root", proj, "--world", WORLD, "--story", "Salt and Signal", "--hook", "No Such Hook")
+        self.assertEqual(r.returncode, 1)
+        for problem in ("stories/Salt and Signal already exists", "<Left Over>", "still marked as a draft",
+                        "not found in HOOKS.md: No Such Hook", "[[Salt and Signal]] is already in WORLD_ORDER.md"):
+            self.assertIn(problem, r.stderr)
+        self.assertEqual(before, {p: p.read_bytes() for p in (proj / "worlds").rglob("*.md")})
+        self.assertTrue(draft.exists())
+
+    def test_wrong_world_in_concept_and_missing_draft(self):
+        proj, draft = self.project(world="Elsewhere")
+        r = run("new_story", "--root", proj, "--world", WORLD, "--story", "Tide Debt")
+        self.assertIn("**World:** is 'Elsewhere', not 'Harrowmere'", r.stderr)
+        draft.write_text(draft.read_text(encoding="utf-8").replace("Novelette", "Novella"), encoding="utf-8")
+        r = run("new_story", "--root", proj, "--world", WORLD, "--story", "Tide Debt")
+        self.assertIn("**Format:** is 'Novella'", r.stderr)
+        draft.unlink()
+        r = run("new_story", "--root", proj, "--world", WORLD, "--story", "Tide Debt")
+        self.assertIn("no concept at .writing-room-work/worlds/Harrowmere/CONCEPT.md", r.stderr)
+        self.assertFalse((proj / "stories" / "Tide Debt").exists())
+
+    def test_dry_run_writes_nothing(self):
+        proj, draft = self.project()
+        r = run("new_story", "--root", proj, "--world", WORLD, "--story", "Tide Debt", "--dry-run")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("Dry run — would write:", r.stdout)
+        self.assertFalse((proj / "stories" / "Tide Debt").exists())
+        self.assertTrue(draft.exists())
+
+
+class WorldOrder(Tmp):
+    """world_order.py: every WORLD_ORDER.md row change in one call, unchanged rows kept byte for byte."""
+
+    def story(self, name, fmt, total=None):
+        proj = self.proj
+        d = proj / "stories" / name
+        d.mkdir(parents=True)
+        (d / "CONCEPT.md").write_text(f"# {name}\n\n- **World:** Harrowmere\n- **Format:** {fmt}\n", encoding="utf-8")
+        if total:
+            (d / "OUTLINE.md").write_text(f"# {name}\n\n- **Total chapters:** {total}\n", encoding="utf-8")
+
+    def order(self):
+        return (self.proj / "worlds" / "Harrowmere" / "WORLD_ORDER.md").read_text(encoding="utf-8")
+
+    def rows(self):
+        return [line for line in self.order().splitlines() if line.startswith("| ") and "[[" in line]
+
+    def wo(self, *args):
+        return run("world_order", *args[:1], "--root", self.proj, "--world", "Harrowmere", *args[1:])
+
+    def setUp(self):
+        super().setUp()
+        self.proj = self.copy(EXAMPLE)
+
+    def test_full_story_is_complete_only_after_its_last_chapter(self):
+        self.story("Tide Debt", "Novelette", total=3)
+        self.assertEqual(self.wo("add", "--story", "Tide Debt", "--unit", "Full Story").returncode, 0)
+        r = self.wo("chapter", "--story", "Tide Debt", "--chapter", "1")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("Story complete: no", r.stdout)
+        self.assertEqual(self.rows()[2], "| 3 | [[Tide Debt]] | Full Story | — | In Progress | |")
+        r = self.wo("chapter", "--story", "Tide Debt", "--chapter", "3")
+        self.assertIn("Story complete: yes", r.stdout)
+        self.assertEqual(self.rows()[2], "| 3 | [[Tide Debt]] | Full Story | — | Complete | |")
+        self.assertIn("after [[Tide Debt]] Chapter 3 analyzed (story complete)", self.order())
+
+    def test_book_chapters_fill_the_tbd_row_then_shift_later_rows(self):
+        self.story("Long Tide", "Book", total=2)
+        before = self.rows()
+        r = self.wo("add", "--story", "Long Tide", "--unit", "TBD", "--position", "1", "--notes", "Placeholder — expand after Outliner")
+        self.assertIn("concurrent with [[The Tallow Ledger]]", r.stdout)
+        r = self.wo("chapter", "--story", "Long Tide", "--chapter", "1")
+        self.assertIn("TBD → Ch. 1, Complete", r.stdout)
+        self.assertIn("Story complete: no", r.stdout)
+        r = self.wo("chapter", "--story", "Long Tide", "--chapter", "2")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("Story complete: yes", r.stdout)
+        self.assertEqual(self.rows(), [
+            before[0],
+            "| 1 | [[Long Tide]] | Ch. 1 | — | Complete | |",
+            "| 2 | [[Long Tide]] | Ch. 2 | — | Complete | |",
+            before[1].replace("| 2 |", "| 3 |", 1),
+        ])
+        r = self.wo("status", "--story", "Long Tide", "--to", "In Progress")
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("has 2 rows (Ch. 1, Ch. 2); name one with --unit", r.stderr)
+
+    def test_move_shift_renumber_and_status(self):
+        r = self.wo("move", "--story", "The Tallow Ledger", "--to", "5")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertEqual([row.split("|")[1].strip() for row in self.rows()], ["2", "5"])
+        self.assertEqual(self.wo("renumber").returncode, 0)
+        self.assertEqual([row.split("|")[2].strip() for row in self.rows()], ["[[Salt and Signal]]", "[[The Tallow Ledger]]"])
+        self.assertEqual([row.split("|")[1].strip() for row in self.rows()], ["1", "2"])
+        r = self.wo("add", "--story", "Prelude", "--unit", "Full Story", "--position", "1", "--shift")
+        self.assertIn("rows from position 1 on moved down by one", r.stdout)
+        self.assertEqual([row.split("|")[1].strip() for row in self.rows()], ["1", "2", "3"])
+        self.wo("status", "--story", "Prelude", "--to", "In Progress")
+        self.assertEqual(self.rows()[0], "| 1 | [[Prelude]] | Full Story | — | In Progress | |")
+
+    def test_refusals_and_dry_run_change_nothing(self):
+        before = self.order()
+        for args, problem in ((("status", "--story", "Nobody", "--to", "Complete"), "no row for [[Nobody]]"),
+                              (("add", "--story", "Salt and Signal", "--unit", "Full Story"), "already has a Full Story row"),
+                              (("chapter", "--story", "Nobody", "--chapter", "1"), "no CONCEPT.md at stories/Nobody")):
+            r = self.wo(*args)
+            self.assertEqual(r.returncode, 1, args)
+            self.assertIn(problem, r.stderr)
+        r = self.wo("move", "--story", "Salt and Signal", "--to", "1", "--dry-run")
+        self.assertIn("Dry run — would change", r.stdout)
+        self.assertIn("concurrent with [[The Tallow Ledger]]", r.stdout)
+        self.assertEqual(before, self.order())
+
+
+
+class WrPaths(Tmp):
+    """wr_paths.py: AGENTS.md names the framework folder; the doctor checks it; the rest of the file is kept."""
+
+    def setUp(self):
+        super().setUp()
+        sys.path.insert(0, str(SCRIPTS))
+        import wr_paths
+        self.wp = wr_paths
+        self.proj = self.copy(EXAMPLE)
+        self.wr = self.proj / ".agents" / "skills" / "writing-room"
+        shutil.copytree(WR, self.wr, ignore=shutil.ignore_patterns("__pycache__"))
+        self.agents = self.proj / "AGENTS.md"
+        self.agents.write_bytes(b"# Project\r\n\r\nIntro.\r\n\r\n## Rules\r\n\r\nKeep.\r\n")
+
+    def test_write_is_relative_idempotent_keeps_crlf_and_strips_back(self):
+        before = self.agents.read_bytes()
+        self.assertEqual(self.wp.write(self.proj), ("added", ".agents/skills/writing-room"))
+        data = self.agents.read_bytes()
+        self.assertNotIn(b"\n", data.replace(b"\r\n", b""))  # CRLF kept throughout
+        text = data.decode("utf-8")
+        self.assertLess(text.index("## Writing Room paths"), text.index("## Rules"))
+        self.assertIn("relative to the project root", text)
+        self.assertEqual(self.wp.write(self.proj)[0], "unchanged")
+        self.assertEqual(self.wp.strip(text.replace("\r\n", "\n")), before.decode("utf-8").replace("\r\n", "\n"))
+        self.assertEqual(self.wp.read(self.proj), (".agents/skills/writing-room", True))
+
+    def test_outside_install_is_absolute(self):
+        status, shown = self.wp.write(self.proj, WR)
+        self.assertEqual(status, "added")
+        self.assertEqual(shown, WR.resolve().as_posix())
+        self.assertIn("These are absolute paths.", self.agents.read_text(encoding="utf-8"))
+
+    def test_doctor_reports_a_missing_or_broken_block_and_wr_paths_repairs_it(self):
+        out = run("wr_doctor", "--root", self.proj).stdout
+        self.assertIn("AGENTS.md has no Writing Room paths block", out)
+        self.wp.write(self.proj)
+        text = self.agents.read_text(encoding="utf-8").replace("`<WR>` = `.agents/skills/writing-room`",
+                                                              "`<WR>` = `gone/writing-room`")
+        self.agents.write_text(text, encoding="utf-8")
+        r = run("wr_doctor", "--root", self.proj)
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("AGENTS.md says the framework (<WR>) is `gone/writing-room`", r.stdout)
+        self.assertEqual(run("wr_paths", "--root", self.proj, "--check").returncode, 1)
+        r = run("wr_paths", "--root", self.proj)
+        self.assertIn("Updated the Writing Room paths block in AGENTS.md: <WR> = .agents/skills/writing-room", r.stdout)
+        self.assertEqual(run("wr_paths", "--root", self.proj, "--check").returncode, 0)
+        out = run("wr_doctor", "--root", self.proj).stdout
+        self.assertIn("wr_paths  : .agents/skills/writing-room", out)
+        self.assertNotIn("AGENTS.md says", out)
+        self.assertNotIn("has no Writing Room paths block", out)
+
+    def test_no_agents_md_is_not_a_warning(self):
+        self.agents.unlink()
+        out = run("wr_doctor", "--root", self.proj).stdout
+        self.assertIn("no AGENTS.md (skills look for writing-room beside their own folder)", out)
+        self.assertEqual(run("wr_paths", "--root", self.proj).returncode, 1)
+        self.assertFalse(self.agents.exists())
+
 if __name__ == "__main__":
     unittest.main()
 
@@ -588,3 +1157,49 @@ class ConceptFrontmatter(Tmp):
     def test_template_has_frontmatter(self):
         t = (WR / "shared" / "templates" / "story" / "concept.md").read_text(encoding="utf-8")
         self.assertTrue(t.startswith("---\nworld: <World name>\nstatus: Concept\n---\n"))
+
+
+class StaleTemplates(Tmp):
+    """wr_templates.py: unedited copies of shipped templates are found and moved aside; edited ones are kept."""
+
+    def project(self):
+        proj = self.copy(EXAMPLE)
+        shared = WR / "shared" / "templates" / "story"
+        legacy = LEGACY / "templates" / "story"
+        (proj / "templates" / "story").mkdir(parents=True, exist_ok=True)
+        shutil.copy(legacy / "chapter_plan.md", proj / "templates" / "story" / "chapter_plan.md")  # older
+        shutil.copy(shared / "outline.md", proj / "templates" / "story" / "outline.md")  # same
+        (proj / "templates" / "story" / "concept.md").write_text("# Mine\n", encoding="utf-8")  # edited
+        return proj
+
+    def test_lists_retires_and_the_doctor_warns(self):
+        proj = self.project()
+        r = run("wr_templates", "--root", proj)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("Older framework version (hides the current one): 1\n  templates/story/chapter_plan.md", r.stdout)
+        self.assertIn("Same as the framework's current copy: 1\n  templates/story/outline.md", r.stdout)
+        self.assertIn("Edited or your own (kept): 1\n  templates/story/concept.md", r.stdout)
+        doctor = run("wr_doctor", "--root", proj).stdout
+        self.assertIn("1 project template/craft file(s) are unchanged copies of an older framework version", doctor)
+        self.assertIn("templates/story/chapter_plan.md", doctor)
+        self.assertTrue((proj / "templates" / "story" / "chapter_plan.md").exists(), "listing changes nothing")
+
+        r = run("wr_templates", "--root", proj, "--retire")
+        self.assertIn("Moved 2 file(s) to .writing-room-legacy/", r.stdout)
+        self.assertEqual(sorted(p.name for p in (proj / "templates" / "story").iterdir()), ["concept.md"])
+        arch = proj / ".writing-room-legacy" / "templates" / "story"
+        self.assertEqual((arch / "chapter_plan.md").read_bytes(), (LEGACY / "templates" / "story" / "chapter_plan.md").read_bytes())
+        resolved = run("wr_resolve", "--root", proj, "templates/story/chapter_plan.md").stdout.strip()
+        self.assertTrue(Path(resolved).is_relative_to(WR), resolved)
+        self.assertNotIn("template/craft", run("wr_doctor", "--root", proj).stdout)
+
+    def test_crlf_copy_still_counts_as_unedited(self):
+        proj = self.project()
+        f = proj / "templates" / "story" / "chapter_plan.md"
+        f.write_bytes(f.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
+        self.assertIn("Older framework version", run("wr_templates", "--root", proj).stdout)
+
+    def test_every_shipped_template_is_recorded(self):
+        r = subprocess.run([sys.executable, str(REPO / "tools" / "record_templates.py"), "--check"],
+                           capture_output=True, text=True, encoding="utf-8")
+        self.assertEqual(r.returncode, 0, r.stdout + "\nRun: python tools/record_templates.py")

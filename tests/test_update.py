@@ -18,6 +18,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 WR = REPO / "skills" / "writing-room"
 CURRENT = (WR / "VERSION").read_text(encoding="utf-8").strip()   # the build these tests install as "old"
+# "New" builds use 99.0.0 so they stay newer than CURRENT whatever version this repository is at.
 EXAMPLE = REPO / "examples" / "sample-project"
 sys.path.insert(0, str(WR / "scripts"))
 
@@ -26,7 +27,7 @@ from wr_install import folder_hash  # noqa: E402
 
 CHANGELOG = """# Changelog
 
-## 0.2.0 (unreleased)
+## 99.0.0 (unreleased)
 
 - planner now asks one more question.
 - new-skill added; story-status folded into the router.
@@ -53,7 +54,7 @@ class Base(unittest.TestCase):
         self.skills = self.proj / ".claude" / "skills"
 
     # --- builds and commands
-    def make_build(self, name="new", version="0.2.0", edit=True, add=True, remove=True):
+    def make_build(self, name="new", version="99.0.0", edit=True, add=True, remove=True):
         root = self.tmp / name
         shutil.copytree(REPO / "skills", root / "skills", ignore=shutil.ignore_patterns("__pycache__"))
         (root / "CHANGELOG.md").write_text(CHANGELOG, encoding="utf-8")
@@ -92,7 +93,7 @@ class Base(unittest.TestCase):
 class Versions(unittest.TestCase):
     def test_parse_and_order(self):
         p = wr_update.parse_version
-        self.assertLess(p("0.1.0"), p("0.2.0"))
+        self.assertLess(p("0.1.0"), p("99.0.0"))
         self.assertLess(p("0.9.9"), p("0.10.0"))
         self.assertLess(p("1.0.0-rc1"), p("1.0.0"))
         self.assertEqual(p("v1.2.3"), p("1.2.3"))
@@ -126,15 +127,15 @@ class UpdateProject(Base):
         new = self.make_build()
         r = self.update(new)
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
-        self.assertIn(f"version {CURRENT} -> 0.2.0", r.stdout)
+        self.assertIn(f"version {CURRENT} -> 99.0.0", r.stdout)
         self.assertIn("planner", r.stdout)
         # content of the new build is installed
-        self.assertIn("New in 0.2.0", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
+        self.assertIn("New in 99.0.0", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
         self.assertTrue((self.skills / "new-skill" / "SKILL.md").is_file())
         self.assertFalse((self.skills / "story-status").exists())
         self.assertEqual((other / "SKILL.md").read_text(encoding="utf-8"), "mine")  # not ours: untouched
         m = self.manifest()
-        self.assertEqual(m["version"], "0.2.0")
+        self.assertEqual(m["version"], "99.0.0")
         self.assertIn("new-skill", m["skills"])
         self.assertNotIn("story-status", m["skills"])
         self.assertEqual(m["hashes"]["planner"], folder_hash(self.skills / "planner"))
@@ -237,7 +238,7 @@ class Safety(Base):
         self.assertEqual(r.returncode, 1)
         self.assertIn("SKIP new-skill", r.stdout)
         self.assertEqual((foreign / "SKILL.md").read_text(encoding="utf-8"), "someone else's")
-        self.assertIn("New in 0.2.0", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))  # the rest updated
+        self.assertIn("New in 99.0.0", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))  # the rest updated
         r = self.update(new, "--force")
         self.assertEqual(r.returncode, 0, r.stdout)
         self.assertIn("A new skill", (foreign / "SKILL.md").read_text(encoding="utf-8"))
@@ -258,7 +259,7 @@ class Safety(Base):
         r = self.update(self.make_build())
         self.assertEqual(r.returncode, 1)
         self.assertIn("layout is 2", r.stdout)
-        self.assertNotIn("New in 0.2.0", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
+        self.assertNotIn("New in 99.0.0", (self.skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
 
     def test_a_skill_folder_deleted_by_hand_is_restored(self):
         self.install_old()
@@ -289,7 +290,8 @@ class Guidance(Base):
         agents = self.proj / "AGENTS.md"
         original = agents.read_text(encoding="utf-8")
         new = self.make_build()
-        self.assertNotIn("differs", self.update(new, "--dry-run").stdout)  # identical to the shipped copy
+        self.assertIn("## Writing Room paths", original)
+        self.assertNotIn("differs", self.update(new, "--dry-run").stdout)  # the shipped copy plus the paths block
         agents.write_text(original + "\nMy own rules.\n", encoding="utf-8")
         r = self.update(new)
         self.assertIn("AGENTS.md differs", r.stdout)
@@ -309,15 +311,15 @@ class OtherScopes(Base):
         r = self.run_script(WR / "scripts" / "wr_update.py", "--source", new, "--user")
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
         self.assertIn("[user]", r.stdout)
-        self.assertIn("New in 0.2.0", (user_skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
+        self.assertIn("New in 99.0.0", (user_skills / "planner" / "SKILL.md").read_text(encoding="utf-8"))
 
     def test_project_and_user_installs_can_be_updated_together(self):
         self.install_old()
         self.run_script(WR / "scripts" / "wr_install.py", "--harness", "claude", "--user")
         r = self.update(self.make_build(), "--user")
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
-        self.assertEqual(self.manifest()["version"], "0.2.0")
-        self.assertEqual(self.manifest(self.home / ".claude" / "skills")["version"], "0.2.0")
+        self.assertEqual(self.manifest()["version"], "99.0.0")
+        self.assertEqual(self.manifest(self.home / ".claude" / "skills")["version"], "99.0.0")
 
     def test_target_folder(self):
         dest = self.tmp / "anywhere"
@@ -325,14 +327,14 @@ class OtherScopes(Base):
         self.assertEqual(r.returncode, 0, r.stderr)
         r = self.run_script(WR / "scripts" / "wr_update.py", "--source", self.make_build(), "--target", dest)
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
-        self.assertEqual(self.manifest(dest)["version"], "0.2.0")
+        self.assertEqual(self.manifest(dest)["version"], "99.0.0")
 
     def test_two_harness_folders_in_one_project_are_both_updated(self):
         self.install_old(harness="all")  # .claude/skills and .hermes/skills
         r = self.update(self.make_build())
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
         for d in (".claude", ".hermes"):
-            self.assertEqual(self.manifest(self.proj / d / "skills")["version"], "0.2.0")
+            self.assertEqual(self.manifest(self.proj / d / "skills")["version"], "99.0.0")
 
 
 class FromAnInstalledCopy(Base):
@@ -342,7 +344,7 @@ class FromAnInstalledCopy(Base):
         new = self.make_build()
         r = self.update(new, script=installed_script)
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
-        self.assertEqual(self.manifest()["version"], "0.2.0")
+        self.assertEqual(self.manifest()["version"], "99.0.0")
         # and the updated copy still works
         d = self.run_script(self.skills / "writing-room" / "scripts" / "wr_doctor.py", "--root", self.proj)
         self.assertNotIn("skills missing", d.stdout)

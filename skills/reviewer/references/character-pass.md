@@ -77,7 +77,7 @@ Check all eight categories for each character:
 - **Moderate** — a soft inconsistency or a deviation that might be intentional but is not clearly motivated.
 - **Minor** — a subtle drift, a missed opportunity to show character, or an ambiguity.
 
-**Deliberate deviations:** if a character behaves unusually in a way that could signal arc development, stress, or deliberate subversion, flag it **Minor** with: *"Possible intentional deviation — verify with author."* Do not suppress the flag; do not escalate it to Critical.
+**Deliberate deviations:** if a character behaves unusually in a way that could signal arc development, stress, or deliberate subversion, flag it **Minor** with: *"Possible intentional deviation — verify with author."* Set **Author decision required** to `Yes` with the question, and **Suggested correction** to "Verify with author". Do not suppress the flag; do not escalate it to Critical.
 
 **POV filter:** the POV character's perception of other characters may be unreliable, biased, or limited. Do not flag a supporting character's behaviour as inconsistent if it is only seen through a POV character with reason to misread them. Note the unreliable-POV possibility in Reviewer Notes instead.
 

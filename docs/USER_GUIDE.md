@@ -29,7 +29,7 @@ You do not need a finished world. Add characters, factions, places and myths whe
 
 > "Come up with a story for this world."
 
-`story-ideator` offers two modes. In **autonomous** mode you give a few constraints (format, characters, hooks, tropes) and it proposes a full concept. In **collaborative** mode you build it together in conversation. Either way you approve before anything is saved. It also gives the story a working title and places it in the world's chronology.
+`story-ideator` offers two modes. In **autonomous** mode you give a few constraints (format, characters, hooks, tropes) and it proposes a full concept. In **collaborative** mode you build it together in conversation. Either way you approve before the story is created. While you work on it, the concept is kept as a draft in `.writing-room-work/`, so if the session stops, running `story-ideator` again for that world offers to continue it. It also gives the story a working title and places it in the world's chronology. If the concept needs a character, faction, place or myth the world does not have yet, it lists it for you to create with `writing-assistant` afterwards.
 
 ## 4. An outline
 
@@ -42,13 +42,13 @@ You do not need a finished world. Add characters, factions, places and myths whe
 Repeat for each chapter. You can say "next" or "continue my story" between steps.
 
 1. **Plan.** *"Plan chapter 1."* The planner breaks the chapter into scenes and checks the plan against the outline, the structure, the style, the schemes and facts. Add `preview: true` to read the plan before it is saved.
-2. **Draft.** *"Write it."* The draft-writer follows the plan scene by scene. Choose scene-by-scene mode if you want to approve each scene.
+2. **Draft.** *"Write it."* The draft-writer follows the plan scene by scene. Choose scene-by-scene mode if you want to approve each scene. Each scene is saved as soon as it is written, so if the session stops, run the draft-writer again and it offers to continue from the next scene.
 3. **Review.** *"Review the chapter."* Two reports appear in `current_chapter/current_reviews/`: continuity (places, time, props, who knows what) and character (voice, behaviour, arc). Nothing is changed.
 4. **Fix.** *"Fix the problems."* The draft-fixer makes the smallest change that resolves each reported issue. Anything marked "verify with author" stops and asks you. Fixes it cannot place exactly are listed for you to apply by hand.
 5. **Record.** *"Record the chapter."* The story-analyzer updates the story's own copy of the world bible (above all what each character now knows), the timeline, the ledgers of schemes and facts, and suggests new hooks for you to approve.
 6. **Promote.** *"Promote the chapter."* After showing exactly what will happen, `promote-chapter` moves the draft into `chapters/` and clears the working folder.
 
-At any time, *"where am I?"* gives a dashboard (`story-status`).
+At any time, *"where am I?"* or *"what's next?"* gives each story's next step in a line, and nothing starts until you say so. For the full dashboard (progress, timeline, schemes, facts, hooks), ask for *"the story status"* (`story-status`). With a shell, `python <skills folder>/writing-room/scripts/wr_next.py` gives the same next-step answer without using the model at all.
 
 ## 6. Finishing a story
 

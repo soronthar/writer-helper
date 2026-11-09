@@ -64,8 +64,11 @@ Every file is Markdown you can edit by hand. A complete example, generated and i
 | Devin | `.agents/skills` | `~/.config/devin/skills` | Not yet |
 | OpenCode | `.opencode/skills` | `~/.config/opencode/skills` | Not yet |
 | Hermes Agent | `.hermes/skills` (then `hermes skills trust`) | `~/.hermes/skills` | Not yet |
+| pi (install with `--target`) | `.pi/skills` or `.agents/skills` | `~/.pi/agent/skills` | Not yet |
 
 Locations come from each tool's own documentation. The installer puts one copy where several tools read the same folder, so nothing is installed twice.
+
+**Running on a local model?** We recommend pi: its prompt is small and stays cacheable, which matters when prefill is slow. Setup is in [docs/INSTALL.md](docs/INSTALL.md#running-on-a-local-llm-with-pi).
 
 ## Working with the skills
 

@@ -13,7 +13,7 @@ You do not write story prose. You do not write detailed chapter plans. You produ
 
 ## Files
 
-Shared rules, the meaning of `<WR>`, template lookup and the project layout: `../writing-room/references/conventions.md` and `../writing-room/references/layout.md`. Paths below are relative to the project root.
+`<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project. Shared rules, template lookup and the project layout: `<WR>/references/conventions.md` and `<WR>/references/layout.md`. Templates (`templates/…`) and craft files (`writing_concepts/story_structure/…`, `archetypes/…`, `tropes/…`) are the project's own copy if it has that file, otherwise the framework's under `<WR>/shared/` ("Writing Room paths" gives the exact folders). Every other path below is relative to the project root.
 
 - Reads: `stories/<Story>/CONCEPT.md` (your primary input), the world bible (`worlds/<World>/DESCRIPTION.md`, `SUMMARY.md`, and the entity files the concept names), `worlds/<World>/WORLD_ORDER.md` (for the position fields), `writing_concepts/story_structure/` (`GUIDE.md`, `Format Reference.md`, the named structure), trope files named under "Avoiding", and the templates `templates/story/outline.md`, `series_outline.md` and `timeline.md`.
 - Writes: `stories/<Story>/OUTLINE.md`; for a Book Series also `SERIES_OUTLINE.md` and `Book 01 - <Title>/` with `OUTLINE.md`, empty `chapters/` and `current_chapter/`, and `state/Timeline.md`. Also updates the Status line of `CONCEPT.md`.
@@ -24,7 +24,7 @@ Shared rules, the meaning of `<WR>`, template lookup and the project layout: `..
 
 ### Step 1 — Mode Selection
 
-Ask the user to choose a mode:
+If the request already names a mode, use it. Otherwise ask the user to choose a mode:
 
 - **Autonomous** — You read all inputs, generate a complete outline internally, then present it for approval.
 - **Collaborative** — You show the stage-to-chapter mapping first, get approval, then generate chapter entries in batches (act by act or phase by phase) with the user able to steer after each batch.
@@ -54,25 +54,30 @@ If the CONCEPT.md Format is `Book Series`:
 CONCEPT.md is already in context from Step 2. From it, extract:
 - **World name** — the `**World:**` field. Derive the world path: `worlds/<World Name>`.
 - **Suggested Story Structure** — the exact name as it appears (e.g., `Three-Act Structure`).
-- **Entity names to deep-read** — collect all names from Key Characters, Central Conflict, Themes, and named locations and myths.
+- **Entity names to deep-read:**
+  - **Characters:** every character named in Key Characters, Central Conflict or Themes
+  - **Factions:** every faction named in CONCEPT.md
+  - **Locations:** every location named in CONCEPT.md
+  - **Mythology:** every myth named in CONCEPT.md
+- **Trope files:** any tropes CONCEPT.md lists under "Avoiding".
 
-The loading procedures (with and without scripts) are in `../writing-room/references/world-loading.md`. Read it now.
+**4a — Load everything in one call.** If you can run commands, run this as one line, with one `--entity "<type>/<Name>"` per entity (types: `characters`, `factions`, `points_of_interest`, `mythology`) and one `--trope "<Name>"` per trope:
 
-**4a — Structure pass.** Load `DESCRIPTION.md`, `SUMMARY.md`, `GUIDE.md`, `Format Reference.md` and the named structure file.
+```bash
+python "<WR>/scripts/load_world.py" --for outliner --story "<story_path>" --entity "characters/<Name>" --entity "points_of_interest/<Name>" --trope "<Name>" --output
+```
 
-**4b — Staleness check** of SUMMARY.md, as described there.
+It works out the world and the structure from CONCEPT.md. It loads `DESCRIPTION.md`, `SUMMARY.md`, `GUIDE.md`, `Format Reference.md`, the structure file, `WORLD_ORDER.md`, a **SUMMARY CHECK**, your entities and tropes. If the check says SUMMARY.md is missing or stale, it loads every entity file instead of your list; pass its warning on to the user. A CONTEXT block at the top says which world and structure it used. Do not read these files again one by one.
 
-**4c — Entity reads.** If SUMMARY.md is fresh, read selectively:
-- **Characters:** every character named in Key Characters, Central Conflict, or Themes
-- **Factions:** every faction named in CONCEPT.md, plus any whose SUMMARY.md Current Standing entry shows a direct relationship with an identified character (faction full files carry hidden agendas needed for subplot arcs)
-- **Locations:** every location named in CONCEPT.md
-- **Mythology:** every myth named in CONCEPT.md
+**4b — Factions found through SUMMARY.md.** Read the SUMMARY.md Factions table. Any faction whose Current Standing shows a direct relationship with one of your characters also needs its full file: it carries the hidden agendas that subplot arcs need. Load all of them in one more call, unless the SUMMARY CHECK already loaded every entity file:
 
-If SUMMARY.md is stale or absent, read all entity files.
+```bash
+python "<WR>/scripts/load_world.py" --world "<World Name>" --entity "factions/<Name>" --output
+```
 
-**4d — Trope files** — if CONCEPT.md lists any tropes under "Avoiding", read those individual files from `writing_concepts/tropes/`. These are conditional and rare enough that individual reads are appropriate.
+**Without a shell:** follow `<WR>/references/world-loading.md`: the structure pass, the staleness check, then the entity reads. Then read each trope file from `writing_concepts/tropes/` and `worlds/<World>/WORLD_ORDER.md`.
 
-**4e — World order.** Read `worlds/<World>/WORLD_ORDER.md`. If it has this story's row (the `story-ideator` adds one), note its Position, the story at the previous position (the world baseline) and the story at the next position, for the outline's position fields (see Step 7). If the file or the row is absent, use `—` and mention it in the Flags.
+**4c — World order.** `WORLD_ORDER.md` is in context. If it has this story's row (the `story-ideator` adds one), note its Position, the story at the previous position (the world baseline) and the story at the next position, for the outline's position fields (see Step 7). If the file or the row is absent, use `—` and mention it in the Flags.
 
 ---
 
@@ -148,7 +153,7 @@ Read CONCEPT.md Open Questions. For each item:
 
 1. Check that `stories/<Story Name>/OUTLINE.md` does not already exist
 2. Read `templates/story/outline.md` fresh
-3. Fill every `<placeholder>` with real content, including the Overview's `**World Order Position:**`, `**Story before:**` and `**Story after:**` fields from Step 4e (write `—` where unknown). Write `stories/<Story Name>/OUTLINE.md`
+3. Fill every `<placeholder>` with real content, including the Overview's `**World Order Position:**`, `**Story before:**` and `**Story after:**` fields from Step 4c (write `—` where unknown). Write `stories/<Story Name>/OUTLINE.md`
    ⚠ **Payoff Annotations:** the `outliner` never creates `#### Payoff Annotations` subsections — only the `story-analyzer` appends them. If revising an existing OUTLINE.md that already contains these subsections (or a `## Unscheduled Payoff Setups` section at the top), preserve them and re-attach each to the corresponding chapter in the new outline. If a previously-annotated chapter no longer exists in the revised structure, flag it in the structured output — do not silently discard.
 4. In `stories/<Story Name>/CONCEPT.md`, change Status from `` `Concept` `` to `` `In Development` `` — the Status line and, if the file has frontmatter, its `status:` line (set to `In Development`); do not alter anything else
 

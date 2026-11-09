@@ -78,6 +78,62 @@ If the project is not in a git repository at all, run `git init` (Hermes and Dev
 
 This repository is also a Claude Code plugin (`.claude-plugin/plugin.json`, with `skills/` beside it). The manifest passes `claude plugin validate`. No marketplace listing exists yet (see `docs/development/DECISIONS.md`, D5), so for now install by the folder route above.
 
+## Running on a local LLM with pi
+
+To run the Writing Room on a model on your own machine (LM Studio, Ollama, llama.cpp, vLLM), we recommend [pi](https://pi.dev) (`pi-coding-agent`). The installer has no `--harness pi` yet; `--target` installs it.
+
+**Why pi.** On local hardware, reading the prompt (prefill) is usually the slow part: on a 64 GB unified-memory box running a 27B model it was about 220 tokens per second. That is roughly 4.5 seconds for every thousand tokens before the model writes a word. pi's own system prompt is well under a thousand tokens, it has only four tools (read, write, edit, bash), and it loads a skill only when it is used. Its prompt also stays the same from call to call, so the local server's prompt cache keeps working. OpenCode works too, but its system prompt and tool definitions add roughly ten thousand tokens to every session. Hermes Agent rewrites its memory and skills between sessions, which defeats the cache. If you have fast prefill (a large GPU, or a hosted endpoint), OpenCode is a fine alternative.
+
+**1. Install pi** (see its site for the current command):
+
+```bash
+npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+```
+
+**2. Install the skills where pi looks.** pi reads `.pi/skills/` in the project and `~/.pi/agent/skills/` for the user. It also reads `.agents/skills/` (walking up to the repository root) and `~/.agents/skills/`. With `--target`, the `--harness` value only changes the notes printed; the copy is the same.
+
+```bash
+# project level
+python skills/writing-room/scripts/wr_install.py --harness claude --target path/to/my-novel/.pi/skills
+
+# user level
+python skills/writing-room/scripts/wr_install.py --harness claude --target ~/.pi/agent/skills
+```
+
+The shell expands `~`, not the installer. In PowerShell write `$HOME/.pi/agent/skills`; in cmd write `%USERPROFILE%\.pi\agent\skills`.
+
+If you already installed for Devin or Hermes into `.agents/skills`, pi finds that copy and you can skip this step. Do not install into both: when a skill name appears twice, pi keeps the first one it finds and warns, and you may be editing the copy it ignores. `wr_update.py --target <that folder>` and `--uninstall --target <that folder>` work as for any other install.
+
+**3. Point pi at your local server.** Add the server to `~/.pi/agent/models.json` (`PI_CODING_AGENT_DIR` moves that folder). For LM Studio:
+
+```json
+{
+  "$schema": "https://pi.dev/schemas/models.schema.json",
+  "providers": {
+    "lmstudio": {
+      "baseUrl": "http://localhost:1234/v1",
+      "api": "openai-completions",
+      "apiKey": "lmstudio",
+      "models": [
+        { "id": "your-model-id" }
+      ]
+    }
+  }
+}
+```
+
+For Ollama, use `http://localhost:11434/v1`. The model `id` must match what the server lists, and the API key can be any value when the server does not check it. In pi, `/model` picks the model and `/thinking` sets the thinking level; `Ctrl+S` in either saves the choice as the default. See pi's models documentation for llama.cpp and for the full list of fields.
+
+**4. Run a skill.** Start `pi` in the project and type `/skill:writing-room` (or `/skill:planner`, and so on). Smaller models often fail to load a skill from its description alone, so typing the command is more reliable than asking in plain words. Anything you type after the command is passed to the skill as your request.
+
+**Settings that matter on a local model:**
+
+- **Context length.** A chapter stage sends about 17–20 thousand tokens. Load the model with at least 32k context. A smaller window may be cut off silently, and the output gets worse without an error.
+- **Thinking.** Reasoning models spend a long time thinking before drafting prose, and it rarely helps the prose. Set pi's thinking level to off for drafting stages. On LM Studio, reasoning is only turned off when the request sends `reasoning_effort: "none"`; check in the server log that your model honours it.
+- **One stage per session.** Starting a fresh pi session for each stage keeps the prompt small, which matters more locally than with a hosted model.
+
+Not verified yet: the steps above follow pi's documentation (checked 2026-11-03). Running the whole pipeline in pi against a local model is part of the smoke tests described below.
+
 ## Updating
 
 When a new version is built (a new checkout or release), run **its** `wr_update.py`. It finds the installs that `wr_install.py` made, compares them with the new build, and brings them up to date:
@@ -117,7 +173,9 @@ The installer records what it installed, with a content hash of each skill folde
 python <skills-folder>/writing-room/scripts/wr_doctor.py --root path/to/my-novel
 ```
 
-It checks the project layout and that every skill sits next to `writing-room`. The skills refer to each other and to `writing-room`'s scripts and templates by relative path (`../writing-room/…`), so a tool that installs only some of them breaks those references.
+It checks the project layout, that every skill sits next to `writing-room`, and that the project's `AGENTS.md` names an existing framework folder.
+
+Skills write `<WR>` for the framework folder (the installed `writing-room` skill, with its scripts, templates and shared references). Models could not reliably work that folder out from the skill they were running: some read a path relative to the running skill, others relative to the project root. So `wr_install.py`, `wr_update.py` and `wr_init.py` write a "Writing Room paths" block into the project's `AGENTS.md` (which `CLAUDE.md` imports) naming `<WR>`, the conventions, the scripts and where templates come from. The path is relative to the project root when the skills are installed inside the project, absolute for a user-level install. Only that block is ever changed; the rest of your `AGENTS.md` is kept. If the install moves, or the project is opened on another machine, the doctor reports it and `python "<WR>/scripts/wr_paths.py"` rewrites the block. A project without `AGENTS.md` still works: skills then look for `writing-room` beside their own folder.
 
 ## What has and has not been verified
 

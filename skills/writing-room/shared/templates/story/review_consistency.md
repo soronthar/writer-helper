@@ -3,7 +3,8 @@
 **Story:** <Story Name>
 **Chapter:** N — <Working Title>
 **Reviewed:** current_chapter/CONTENT.md
-**World bible source:** state/bible/  *(or `worlds/<World>/` if no story-local copy)*
+**Review status:** Complete
+**Sources loaded:** <One line per file actually read for this pass, with the loader's source tag — e.g. `stories/<Story>/state/bible/characters/<Name>.md [story-local]`. Anything not listed here was not checked.>
 
 ---
 
@@ -25,6 +26,7 @@
 - **Discrepancy:** <What the text asserts vs. what is established>
 - **Source:** `<file path>` — <section or field that establishes the correct fact>
 - **Suggested correction:** <Specific edit for the Draft Fixer — or "Verify with author" if ambiguous>
+- **Author decision required:** <No / Yes — [the question the author must answer]>
 
 ### Issue 2 — <Short label>
 

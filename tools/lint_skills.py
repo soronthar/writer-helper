@@ -34,6 +34,9 @@ BANNED = [
     (re.compile(r"claude-(opus|sonnet|haiku)-[\w.-]+"), "pinned model id '{0}'"),
     (re.compile(r"Writing_Room/"), "legacy root path 'Writing_Room/'"),
     (re.compile(r"\[\[[^\]]*/[^\]]*\]\]"), "wiki-link to a path '{0}'"),
+    # Models read a sibling path as relative to the running skill or to the project root; <WR> is named in
+    # the project's AGENTS.md instead.
+    (re.compile(r"\.\./[\w-]+/"), "sibling-relative path '{0}' (write <WR>/... for the framework)"),
 ]
 
 
@@ -114,9 +117,10 @@ def lint(skills_dir):
         for ref in sorted(set(re.findall(r"`(references/[^`\s]+)`", body))):
             if not (d / ref).is_file():
                 err(f"referenced file '{ref}' does not exist")
-        for rel in sorted(set(re.findall(r"`(\.\./[\w-]+/[^`\s]+)`", body))):
-            if not (d / rel).exists():
-                err(f"referenced path '{rel}' does not exist")
+        for label, src in sources:
+            for rel in sorted(set(re.findall(r"`<WR>/([^`\s<…]+)`", src))):
+                if not (Path(skills_dir) / "writing-room" / rel).exists():
+                    err(f"referenced path '<WR>/{rel}' does not exist ({label})")
         if text.count("\n") > 500:
             warn(f"SKILL.md has {text.count(chr(10))} lines; move detail into references/")
     return errors, warnings

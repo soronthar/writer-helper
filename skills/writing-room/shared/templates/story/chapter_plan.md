@@ -19,6 +19,7 @@
 - **Chapter Opening:** <"Default — [value from style]" / "Override — [value]: [reason]">
 - **Chapter Ending:** <"Default — [value from style]" / "Override — [value]: [reason]">
 - **Pacing Within Chapter:** <"Default — [value from style]" / "Override — [value]: [reason]">
+- **Length:** <"Default — [range from style §5]" / "Override — [target range]: [reason] (authority: [OUTLINE.md Chapter N Notes / author instruction])">
 
 > Style defaults from: [[<Style Name>]] §5. Overrides apply to this chapter only.
 > *(If no style file: "No style file — Draft Writer uses own judgment.")*
@@ -61,14 +62,18 @@
 - **Closes with:** <Final beat of this scene>
 - **Structure questions addressed:** <Q1, Q2 — or "None">
 - **Subplot threads touched:** <Thread name(s) — or "None">
+- **Scheme / fact dispositions:** <One per implicated entry: "S2 — hold: [what the owner must keep consistent]", "F4 — supersede: [the beat that changes it]" — or "None implicated">
+- **Notes for Draft Writer:** <Scene-specific directions: payoff annotations to honour, a new lie or promise to write exactly — or "None">
 
 ### Scene 2 of N
 
-*(Same fields as Scene 1)*
+*(Same fields as Scene 1. Use exactly these fields; anything else for the scene goes in its Notes for Draft Writer.)*
 
 ---
 
 ## Notes for the Draft Writer
+
+*(Chapter-wide notes. Scene-specific directions belong in each scene's fields above.)*
 
 ### Foreshadowing and Callbacks
 - <What to plant or pay off, and where in this chapter — or "None">

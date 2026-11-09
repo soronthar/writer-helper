@@ -5,7 +5,7 @@ description: "Promote the finished chapter draft to the story's chapters folder 
 
 # Promote Chapter
 
-Shared rules and the meaning of `<WR>`: `../writing-room/references/conventions.md`.
+Shared rules: `<WR>/references/conventions.md`. `<WR>` is the Writing Room framework folder. The project's `AGENTS.md` names it under "Writing Room paths"; use that path exactly as written. If `AGENTS.md` has no such block, `<WR>` is the `writing-room` folder beside this skill's own folder; it is never a folder you make up in the project.
 
 Your job is to promote the current chapter draft to the completed chapters archive and reset `current_chapter/` for the next chapter.
 

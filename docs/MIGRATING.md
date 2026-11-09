@@ -43,9 +43,9 @@ cp -r Writing_Room Writing_Room_try        # or commit first
 
 | Moved to `.writing-room-legacy/` (same relative paths) | Never touched |
 |---|---|
-| `.claude/agents/`, `.claude/commands/`, `CLAUDE.md`, `README.md`, `room_rules/`, `scripts/` | `worlds/`, `stories/`, `writing_concepts/` (your styles, tropes, archetypes), `templates/`, `.claude/settings*.json` |
+| `.claude/agents/`, `.claude/commands/`, `CLAUDE.md`, `README.md`, `room_rules/`, `scripts/`, and the files in `templates/` and `writing_concepts/` (story structures, archetypes, tropes) that are unchanged copies of a version the framework shipped | `worlds/`, `stories/`, your styles, templates and craft files you edited or wrote yourself, `.claude/settings*.json` |
 
-Your own `templates/` keep overriding the framework's; your own styles are used as before. If you customised an old agent or command, your version is in `.writing-room-legacy/.claude/`; the skills are organised differently, so port such changes by hand into the skill's `SKILL.md`.
+A project's own `templates/` and craft files override the framework's. The old framework kept its templates inside the project, so an unchanged copy would keep overriding the framework's improved version, and the skills would fill in a template that lacks fields they now require. `--retire-legacy` therefore moves every template or craft file that matches a shipped version byte for byte (line endings aside), and keeps the ones you changed, which go on overriding the framework's. If you migrated before this, `wr_doctor` warns about such files and `python "<WR>/scripts/wr_templates.py" --retire` moves them (it lists them without `--retire`). Your own styles are used as before. If you customised an old agent or command, your version is in `.writing-room-legacy/.claude/`; the skills are organised differently, so port such changes by hand into the skill's `SKILL.md`.
 
 **To undo**, move the folders back from `.writing-room-legacy/` and delete `AGENTS.md`, `writing-room.toml`, and the installed skills folder (`wr_install.py ... --uninstall`).
 

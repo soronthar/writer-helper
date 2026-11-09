@@ -1,0 +1,121 @@
+{
+ "templates/story/active_schemes.md": [
+  "92b57cf5031630db",
+  "f3c70871019f2bd5"
+ ],
+ "templates/story/chapter_plan.md": [
+  "55cc284b8335c629",
+  "6801725d2a533883",
+  "f9e3c13c3e923f22"
+ ],
+ "templates/story/concept.md": [
+  "18f1b5d7f9e1ae11",
+  "30e05075d1191dcd",
+  "7687d581722c0eff",
+  "84a4d9b7c36092e9",
+  "bc7ca56f79fa7de6"
+ ],
+ "templates/story/content.md": [
+  "37eefcaef3d4b20c"
+ ],
+ "templates/story/draft_fixer_log.md": [
+  "2191959adb918d00",
+  "dc108014912235f5"
+ ],
+ "templates/story/outline.md": [
+  "36b478d1166c8a67",
+  "53ec5c164eaf13ae"
+ ],
+ "templates/story/review_character.md": [
+  "2a6e73e4030e5e1c",
+  "b7fc29475c456b0e",
+  "c3ab4a9a180b8960"
+ ],
+ "templates/story/review_consistency.md": [
+  "439325250da607bf",
+  "6ff296be43e6b68c",
+  "e95d6434032f2061"
+ ],
+ "templates/story/series_outline.md": [
+  "bb39cd419a570496"
+ ],
+ "templates/story/story_facts.md": [
+  "281c51832e3388a3"
+ ],
+ "templates/story/timeline.md": [
+  "b60ffeaa0977a624"
+ ],
+ "templates/world/character.md": [
+  "c7cc1bde8999a54f",
+  "e28cfccff9b46c29"
+ ],
+ "templates/world/faction.md": [
+  "8d938173c208a5d1"
+ ],
+ "templates/world/hooks.md": [
+  "71a903e7d52386eb"
+ ],
+ "templates/world/mythology.md": [
+  "8c3cc5404253483b"
+ ],
+ "templates/world/point_of_interest.md": [
+  "0babc9efe817454e",
+  "346d417d04014b1c"
+ ],
+ "templates/world/summary.md": [
+  "06e59b5a8cf23af5"
+ ],
+ "templates/world/timeline.md": [
+  "aedc26038f60cdab"
+ ],
+ "templates/world/world_description.md": [
+  "4d6488cef026326a"
+ ],
+ "templates/world/world_order.md": [
+  "2a24e493ed7ae464",
+  "76daa99c79f20537"
+ ],
+ "templates/writing_concepts/archetype.md": [
+  "5200849a027da21f"
+ ],
+ "templates/writing_concepts/style.md": [
+  "6f8834a493098ff2",
+  "875a1a55822f3adb"
+ ],
+ "templates/writing_concepts/trope.md": [
+  "70726596cb58b25b"
+ ],
+ "writing_concepts/archetypes/The Mentor.md": [
+  "6d223ebf32710496"
+ ],
+ "writing_concepts/story_structure/Dan Harmon's Story Circle.md": [
+  "b9e0145a465cee73"
+ ],
+ "writing_concepts/story_structure/Fichtean Curve.md": [
+  "e36dd39f34d17898"
+ ],
+ "writing_concepts/story_structure/Format Reference.md": [
+  "55168d96d17f43ee"
+ ],
+ "writing_concepts/story_structure/Freytag's Pyramid.md": [
+  "31c32067b428ed8f"
+ ],
+ "writing_concepts/story_structure/GUIDE.md": [
+  "7a6e3649bde3e535",
+  "7ceb2436341172c5"
+ ],
+ "writing_concepts/story_structure/Seven-Point Story Structure.md": [
+  "ffe33e9b4d3b8562"
+ ],
+ "writing_concepts/story_structure/The Hero's Journey.md": [
+  "688f406286f8834c",
+  "ddde34a3cfa740d0"
+ ],
+ "writing_concepts/story_structure/Three-Act Structure.md": [
+  "65b0f87862d157ba",
+  "da751eb36dfbe296"
+ ],
+ "writing_concepts/tropes/Redeemed Villain.md": [
+  "d5a5005a6b4c1f81"
+ ]
+}

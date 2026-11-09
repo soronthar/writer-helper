@@ -12,8 +12,11 @@ a Book Series), its state and the next skill in the pipeline:
   concept, no outline           -> outliner
   next chapter not planned      -> planner
   planned, not drafted          -> draft-writer
+  draft saved partway           -> draft-writer (resumes from the working draft under .writing-room-work/)
   drafted, no reviews           -> reviewer
+  review stopped partway        -> reviewer (resumes)
   reviewed, no fix log          -> draft-fixer
+  fixes stopped partway         -> draft-fixer (resumes; the log says **Fix status:** In progress)
   fixed, no Timeline entry      -> story-analyzer
   analyzed                      -> promote-chapter
   all chapters promoted         -> world-archivist (consolidate); the story's Status is
@@ -30,10 +33,13 @@ import re
 import sys
 from pathlib import Path
 
-from common import make_parser, setup
+from common import WORK_DIR, make_parser, setup
 
 CHAPTER_FILE = re.compile(r"Chapter_(\d{2,})\.md")
 FINISHED = {"Complete", "Archived"}
+REVIEW_IN_PROGRESS = re.compile(r"\*\*Review status:\*\*\s*In progress")
+FIX_IN_PROGRESS = re.compile(r"\*\*Fix status:\*\*\s*In progress([^\n]*)")
+DRAFT_MARK = re.compile(r"<!-- draft: Chapter (\d+), (\d+) of (\d+) scenes saved; self-check: ([\w ]+?) -->")
 
 
 def read(path):
@@ -71,20 +77,51 @@ def unit_state(path, concept_text, series=None):
     plan, content = read(cur / "CHAPTER_PLAN.md"), (cur / "CONTENT.md").is_file()
     reviews = sorted(f.name for f in (cur / "current_reviews").glob("Reviewer-*.md")) \
         if (cur / "current_reviews").is_dir() else []
-    fixed = (cur / "current_reviews" / "Draft-Fixer-Log.md").is_file()
+    log = read(cur / "current_reviews" / "Draft-Fixer-Log.md")
+    m_fix = FIX_IN_PROGRESS.search(log)
+    fixing = m_fix.group(1).strip(" —-") if m_fix else None  # progress text, "" if none given
+    fixed = bool(log) and m_fix is None
+    unfinished = unfinished_reviews(cur / "current_reviews", reviews)
     m = re.search(r"\*\*Chapter:\*\*\s*(\d+)", plan)
     number = int(m.group(1)) if m else len(chapters) + 1
     timeline = read(path / "state" / "Timeline.md")
     analyzed = bool(re.search(rf"\[(?:Book \d+\W+)?Chapter {number}\b", timeline))
+    saved = working_draft(path, number)
     st["current"] = {"chapter": number, "planned": bool(plan), "drafted": content,
-                     "reviews": reviews, "fixed": fixed, "analyzed": analyzed}
+                     "reviews": reviews, "unfinished_reviews": unfinished, "fixed": fixed, "analyzed": analyzed,
+                     "working_draft": saved, "fixes_in_progress": fixing}
 
-    skill, reason = decide(st, plan, content, reviews, fixed, analyzed, number, series)
+    skill, reason = decide(st, plan, content, reviews, fixed, analyzed, number, series, unfinished, saved, fixing)
     st["next_skill"], st["reason"] = skill, reason
     return st
 
 
-def decide(st, plan, content, reviews, fixed, analyzed, number, series):
+def working_draft(path, number):
+    """The draft-writer's saved progress for this chapter, or None: {"path", "saved", "scenes", "self_check"}.
+    A working draft for another chapter number is stale and reported as {"path", "stale_chapter"}."""
+    f = Path(WORK_DIR) / path / "current_chapter" / "CONTENT.md"
+    text = read(f)
+    if not text:
+        return None
+    m = DRAFT_MARK.search(text.split("\n", 1)[0])
+    if not m:
+        return {"path": f.as_posix(), "saved": None, "scenes": None, "self_check": None}
+    if int(m.group(1)) != number:
+        return {"path": f.as_posix(), "stale_chapter": int(m.group(1))}
+    return {"path": f.as_posix(), "saved": int(m.group(2)), "scenes": int(m.group(3)), "self_check": m.group(4)}
+
+
+def unfinished_reviews(folder, reviews):
+    """Review reports the reviewer has not finished: marked '**Review status:** In progress', or the
+    character report missing while the consistency report (written first) exists. Reports written before
+    the status line existed count as finished."""
+    out = [name for name in reviews if REVIEW_IN_PROGRESS.search(read(folder / name))]
+    if "Reviewer-Consistency.md" in reviews and "Reviewer-Character.md" not in reviews:
+        out.append("Reviewer-Character.md (not written yet)")
+    return out
+
+
+def decide(st, plan, content, reviews, fixed, analyzed, number, series, unfinished=(), saved=None, fixing=None):
     if st["status"] == "Archived":
         return None, "Story is archived."
     if not st["has_outline"]:
@@ -93,10 +130,26 @@ def decide(st, plan, content, reviews, fixed, analyzed, number, series):
     if content and not plan:
         return "story-status", "A draft exists without CHAPTER_PLAN.md; inspect it before continuing."
     if plan and not content:
+        if saved and "stale_chapter" not in saved:
+            if saved["saved"] is None:
+                what = "a working draft"
+            else:
+                what = f"a working draft with {saved['saved']} of {saved['scenes']} scenes saved"
+                if saved["saved"] >= saved["scenes"]:
+                    what += f" (self-check: {saved['self_check']})"
+            return "draft-writer", (f"Chapter {number} has {what} at {saved['path']}; run the draft-writer "
+                                    "again to resume it.")
         return "draft-writer", f"Chapter {number} is planned but not drafted."
     if content:
         if not reviews:
             return "reviewer", f"Chapter {number} is drafted and has no review reports."
+        if fixing is not None:  # before the review check: the author may have chosen to fix a partial review
+            return "draft-fixer", (f"Chapter {number}'s fixes stopped partway"
+                                   + (f" ({fixing})" if fixing else "")
+                                   + "; run the draft-fixer again to resume them.")
+        if unfinished and not fixed:
+            return "reviewer", (f"Chapter {number}'s review stopped partway ({', '.join(unfinished)}); "
+                                "run the reviewer again to resume it.")
         if not fixed:
             return "draft-fixer", f"Chapter {number} has review reports but no Draft-Fixer-Log.md."
         if not analyzed:
@@ -185,7 +238,7 @@ def main():
         if u.get("kind") != "series" and "chapters_done" in u:
             total = u["total_chapters"] if u["total_chapters"] is not None else "?"
             print(f"  chapters promoted: {u['chapters_done']} of {total}")
-        print(f"  next skill: {u['next_skill'] or '—'} — {u['reason']}")
+        print(f"  next skill: {u['next_skill'] or 'none'} — {u['reason']}")
     if recommended:
         print(f"\nRecommended: {recommended}")
     elif len(active) > 1:

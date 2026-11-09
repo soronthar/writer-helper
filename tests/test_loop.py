@@ -99,6 +99,85 @@ class WrNext(unittest.TestCase):
             (proj / "worlds" / "W" / "DESCRIPTION.md").write_text("# W\n", encoding="utf-8")
             self.assertEqual(nxt(proj)["project"]["next_skill"], "story-ideator")
 
+    def test_a_review_that_stopped_partway_goes_back_to_the_reviewer(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj = Path(tmp) / "p"
+            shutil.copytree(SYNTHETIC, proj)
+            reviews = proj / "stories" / "Short Piece" / "current_chapter" / "current_reviews"
+            character = reviews / "Reviewer-Character.md"
+            old = character.read_text(encoding="utf-8")
+            self.assertNotIn("**Review status:**", old)  # older reports have no status line: finished
+
+            def short():
+                return unit(nxt(proj), "Short Piece")
+
+            self.assertEqual(short()["next_skill"], "draft-fixer")
+            character.unlink()  # stopped after the consistency pass
+            u = short()
+            self.assertEqual(u["next_skill"], "reviewer")
+            self.assertIn("Reviewer-Character.md (not written yet)", u["reason"])
+            character.write_text("# Reviewer — Character\n\n**Review status:** In progress — plan check done; "
+                                 "character pass not yet run\n", encoding="utf-8")  # stopped during the character pass
+            u = short()
+            self.assertEqual(u["next_skill"], "reviewer")
+            self.assertEqual(u["current"]["unfinished_reviews"], ["Reviewer-Character.md"])
+            character.write_text("# Reviewer — Character\n\n**Review status:** Complete\n", encoding="utf-8")
+            self.assertEqual(short()["next_skill"], "draft-fixer")
+
+    def test_a_saved_working_draft_is_reported_for_resume(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj = Path(tmp) / "p"
+            shutil.copytree(SYNTHETIC, proj)
+            cur = proj / "stories" / "Short Piece" / "current_chapter"
+            (cur / "CONTENT.md").unlink()
+            shutil.rmtree(cur / "current_reviews")
+
+            def short():
+                return unit(nxt(proj), "Short Piece")
+
+            self.assertEqual(short()["reason"], "Chapter 2 is planned but not drafted.")
+            self.assertIsNone(short()["current"]["working_draft"])
+            work = proj / ".writing-room-work" / "stories" / "Short Piece" / "current_chapter"
+            work.mkdir(parents=True)
+            draft = work / "CONTENT.md"
+            draft.write_text("<!-- draft: Chapter 2, 2 of 4 scenes saved; self-check: not started -->\n"
+                             "<!-- scene 1 -->\nText.\n", encoding="utf-8")
+            u = short()
+            self.assertEqual(u["next_skill"], "draft-writer")
+            self.assertIn("a working draft with 2 of 4 scenes saved", u["reason"])
+            self.assertIn(".writing-room-work/stories/Short Piece/current_chapter/CONTENT.md", u["reason"])
+            self.assertIn("resume", u["reason"])
+            self.assertEqual(u["current"]["working_draft"]["saved"], 2)
+            draft.write_text("<!-- draft: Chapter 2, 4 of 4 scenes saved; self-check: in progress -->\n", encoding="utf-8")
+            self.assertIn("4 of 4 scenes saved (self-check: in progress)", short()["reason"])
+            draft.write_text("<!-- draft: Chapter 1, 4 of 4 scenes saved; self-check: done -->\n", encoding="utf-8")
+            u = short()  # left over from another chapter: not offered as this chapter's draft
+            self.assertEqual(u["reason"], "Chapter 2 is planned but not drafted.")
+            self.assertEqual(u["current"]["working_draft"]["stale_chapter"], 1)
+
+    def test_fixes_that_stopped_partway_go_back_to_the_draft_fixer(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj = Path(tmp) / "p"
+            shutil.copytree(SYNTHETIC, proj)
+            log = proj / "stories" / "Short Piece" / "current_chapter" / "current_reviews" / "Draft-Fixer-Log.md"
+
+            def short():
+                return unit(nxt(proj), "Short Piece")
+
+            self.assertEqual(short()["next_skill"], "draft-fixer")  # no log yet
+            log.write_text("# Draft Fixer — Fix Log\n\n**Fix status:** In progress — 2 of 5 entries done\n", encoding="utf-8")
+            u = short()
+            self.assertEqual(u["next_skill"], "draft-fixer")
+            self.assertIn("fixes stopped partway (2 of 5 entries done)", u["reason"])
+            self.assertEqual(u["current"]["fixes_in_progress"], "2 of 5 entries done")
+            self.assertFalse(u["current"]["fixed"])
+            (log.parent / "Reviewer-Character.md").unlink()  # the author chose to fix a partial review
+            self.assertEqual(short()["next_skill"], "draft-fixer")
+            log.write_text("# Draft Fixer — Fix Log\n\n**Fix status:** Complete\n", encoding="utf-8")
+            self.assertEqual(short()["next_skill"], "story-analyzer")
+            log.write_text("# Draft Fixer — Fix Log\n\nOlder log without a status line.\n", encoding="utf-8")
+            self.assertEqual(short()["next_skill"], "story-analyzer")
+
     def test_series_without_outline_needs_the_outliner(self):
         with tempfile.TemporaryDirectory() as tmp:
             proj = Path(tmp) / "p"
@@ -218,7 +297,8 @@ class RouterAndGuidance(unittest.TestCase):
             proj.mkdir()
             (proj / "AGENTS.md").write_text("MINE", encoding="utf-8")
             self.assertEqual(run("wr_init", proj).returncode, 0)
-            self.assertEqual((proj / "AGENTS.md").read_text(encoding="utf-8"), "MINE")
+            self.assertTrue((proj / "AGENTS.md").read_text(encoding="utf-8").startswith("MINE\n"))
+            self.assertIn("## Writing Room paths", (proj / "AGENTS.md").read_text(encoding="utf-8"))
             self.assertEqual((proj / "CLAUDE.md").read_text(encoding="utf-8").strip(), "@AGENTS.md")
 
     def test_init_no_guidance(self):

@@ -1,6 +1,6 @@
 # Writing Room project
 
-This folder is a Writing Room project: fiction written with a world bible, story concepts, outlines, chapter plans, drafts, reviews and continuity tracking. The work is done by skills; you stay in the author's seat and make the creative decisions.
+This folder is a Writing Room project: fiction written with a world bible, story concepts, outlines, chapter plans, drafts, reviews and continuity tracking. The user is the author and makes the creative decisions. You run the skills, which do the structural and bookkeeping work.
 
 ## Start here
 
@@ -21,6 +21,7 @@ If the skills are not available in your tool, they are the folders named `writin
 
 ## Rules every skill follows
 
+- Creative decisions are the user's: what happens in the story, who the characters are, facts about the world, titles, story order, and whether a concept, outline, plan or draft is accepted. Follow the skill: where it says to ask, ask and wait for the answer. Where it lets you choose (an Autonomous mode, or a proposal), choose, then present the choice for approval. Your own choice is never approved until the user approves it. If a skill does not say and the choice would change the story, ask.
 - A story's world is the `**World:**` field of its `CONCEPT.md`. Never assume one.
 - The world bible holds what things are. In-flight facts (lies, promises, concealments, quantities) live in the story's `state/ACTIVE_SCHEMES.md` and `state/STORY_FACTS.md` and are never merged into the world.
 - During a story only `stories/<Story>/state/` changes; `worlds/` changes when a finished story is consolidated (plus hooks and edits made through `writing-assistant`).
