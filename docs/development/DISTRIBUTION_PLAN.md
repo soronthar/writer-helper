@@ -151,7 +151,7 @@ Per-harness limitations are documented in the README, not hidden. Claude Code is
 
 ## 8. Scripts
 
-- Python 3, stdlib only. Target 3.9+ (checked by `wr_doctor`), developed and tested on 3.11; 3.9 is untested.
+- Python 3, stdlib only. Target 3.10+ (checked by `wr_doctor`; 3.9 until 2026-11-09), developed and tested on 3.11; 3.9 is untested.
 - Root discovery as in §5. Add `--format json` wherever a skill parses the output.
 - Add `wr_doctor.py`: checks project layout, marker, missing files, stale `SUMMARY.md`, and reports what each harness install can see.
 - Remove duplicated `.sh` scripts after the shim release.

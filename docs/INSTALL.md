@@ -2,7 +2,7 @@
 
 The Writing Room is a set of skills (14 folders, each with a `SKILL.md`). Installing means putting those folders where your coding agent looks for skills. `wr_install.py` does that for Claude Code, Devin, OpenCode and Hermes Agent. It copies (never symlinks), never touches your worlds and stories, and only ever replaces folders it installed itself.
 
-You need Python 3.9 or newer (developed on 3.11; the test suite also passes on 3.12 under Linux).
+You need Python 3.10 or newer (developed on 3.11; the test suite also passes on 3.12 under Linux).
 
 ## Quick start
 

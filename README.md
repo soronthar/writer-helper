@@ -25,7 +25,7 @@ A router skill, `writing-room`, finds your project, works out where each story s
 
 ## Quick start
 
-You need Python 3.9 or newer and one of the supported agents.
+You need Python 3.10 or newer and one of the supported agents.
 
 ```bash
 git clone https://github.com/soronthar/writer-helper.git
@@ -101,7 +101,7 @@ Projects from the original (single-folder) Writing Room keep working unchanged: 
 
 | Verified by automated tests (Windows and Linux; Python 3.11, 3.12, 3.14) | Not verified yet |
 |---|---|
-| Scripts reproduce the original framework's recorded output; project discovery; init, migrate, doctor, next-skill, promote; installer locations, updates, uninstall and refusal to overwrite; an installed copy runs on its own; skill files pass a portability lint; the whole chapter loop's state transitions | That each real agent finds and triggers the installed skills; Devin cloud sessions running the bundled scripts; Hermes's handling of `AGENTS.md`; macOS; Python 3.9 (syntax-checked only) |
+| Scripts reproduce the original framework's recorded output; project discovery; init, migrate, doctor, next-skill, promote; installer locations, updates, uninstall and refusal to overwrite; an installed copy runs on its own; skill files pass a portability lint; the whole chapter loop's state transitions | That each real agent finds and triggers the installed skills; Devin cloud sessions running the bundled scripts; Hermes's handling of `AGENTS.md`; macOS |
 
 ## More
 

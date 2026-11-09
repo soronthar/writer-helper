@@ -2,6 +2,10 @@
 
 All notable changes. Versions follow semantic versioning; the project layout has its own number (see docs/LAYOUT_V1.md).
 
+## 0.2.1 (2026-11-09)
+
+- Python 3.10 or newer is now required (it was 3.9). Python 3.9 is past end of life and the current Linux CI image has no build of it. `wr_doctor` reports an error on 3.9.
+
 ## 0.2.0 (2026-11-09)
 
 - "What's next?" / "where am I?" is answered by the `writing-room` router, which reports each story's next skill from `wr_next` and stops without starting it. `story-status` no longer claims those questions in its description; it is for the full dashboard only, which reads far more files. `wr_next` prints `next skill: none — …` instead of `— — …` for a finished story.

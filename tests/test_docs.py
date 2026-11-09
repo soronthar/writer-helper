@@ -74,7 +74,7 @@ class Release(unittest.TestCase):
         ci = (REPO / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
         for cmd in ("tools/lint_skills.py", "unittest discover -s tests"):
             self.assertIn(cmd, ci)
-        for py in ("3.9", "3.11", "3.13"):
+        for py in ("3.10", "3.11", "3.13"):
             self.assertIn(f'"{py}"', ci)
 
     def test_no_private_working_folder_or_machine_paths_in_shipped_docs(self):

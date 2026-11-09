@@ -56,4 +56,4 @@ Don't, without a plan. Layout v1 is frozen ([LAYOUT_V1.md](LAYOUT_V1.md)): exist
 
 ## Changing scripts
 
-The four original scripts (`load_bible`, `load_world`, `query_position`, `create_snapshot`) must keep producing the recorded output: `python tools/golden.py check --scripts skills/writing-room/scripts` must pass. New scripts use only the standard library and Python 3.9 syntax, find the project through `common.setup()`, accept `--root`, and have tests.
+The four original scripts (`load_bible`, `load_world`, `query_position`, `create_snapshot`) must keep producing the recorded output: `python tools/golden.py check --scripts skills/writing-room/scripts` must pass. New scripts use only the standard library and Python 3.10 syntax, find the project through `common.setup()`, accept `--root`, and have tests.

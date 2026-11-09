@@ -23,7 +23,7 @@ from wr_layout import check  # noqa: E402
 from wr_templates import classify, summary  # noqa: E402
 from wr_paths import check as check_paths, read as read_paths  # noqa: E402
 
-MIN_PYTHON = (3, 9)
+MIN_PYTHON = (3, 10)
 SHARED_REQUIRED = ("templates/world/character.md", "templates/story/concept.md",
                    "craft/story_structure/GUIDE.md")
 
